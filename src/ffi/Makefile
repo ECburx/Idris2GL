@@ -5,11 +5,14 @@ WFLAG    = -w
 SHARE    = -shared
 SDL_FLAG = -lSDL2
 
-OBJS     = display.c
-LIB_NAME = display.so
+SOURCE   = $(wildcard *.c)
+TARGETS  = $(patsubst %.c, %, $(SOURCE))
 
-all : $(OBJS)
-	$(CC) $(SHARE) $(OBJS) $(WFLAG) $(SDL_FLAG) $(OFLAG) $(LIB_NAME)
+all:$(TARGETS)
 
+$(TARGETS):%:%.c
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $@.so
+
+.PHONY:clean all
 clean:
-	$(RM) *.so
+	-rm -rf $(TARGETS)

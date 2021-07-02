@@ -1,11 +1,11 @@
 /**
- * Display.c
- * @author Tian Z
+ * video.c
+ * @author Tian Z ecburx@burx.vip
  */
 
 #include <stdio.h>
 
-#include "display.h"
+#include "video.h"
 
 SDL_Window *createWin(
         const char *title,
@@ -30,9 +30,5 @@ void closeWin(SDL_Window *win) {
     if (win == NULL) return;
     SDL_DestroyWindow(win);
     win = NULL;
-}
-
-void delayWin(int ms) {
-    SDL_Delay(ms);
 }
 
