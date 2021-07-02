@@ -1,7 +1,8 @@
 /**
- * Display.h
- * @author Tian Z
+ * video.h
+ * @author Tian Z ecburx@burx.vip
  */
+
 #define SDL2
 
 #ifdef SDL2
@@ -34,11 +35,5 @@ SDL_Window *createWin(const char *title, int x, int y, int w, int h, int flags);
  * @param win The window to destroy.
  */
 void closeWin(SDL_Window *win);
-
-/**
- * Wait a specified number of milliseconds before returning.
- * @param ms the number of milliseconds to delay.
- */
-void delayWin(int ms);
 
 #endif //CLIB_DISPLAY_H
