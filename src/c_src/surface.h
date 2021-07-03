@@ -19,16 +19,25 @@
 
 /**
  * Use this function to load a surface from a BMP file.
- * @param path
+ * @param path TODO
  * @return
  */
-SDL_Surface *loadBMP(const char *path);
+SDL_Surface *loadBMPSur(const char *path);
 
 /**
  * Use this function to perform a fast surface copy to a destination surface.
- * @param src
+ * @param src TODO
  * @param dst
  */
 void blitSur(SDL_Surface *src, SDL_Surface *dst);
+
+/**
+ * Use this function to perform a fast surface copy to a destination surface, with area specified.
+ * @param src TODO
+ * @param srcRect
+ * @param dst
+ * @param dstRect
+ */
+void blitSurRect(SDL_Surface *src, SDL_Rect *srcRect, SDL_Surface *dst, SDL_Rect *dstRect);
 
 #endif //CLIB_SURFACE_H
