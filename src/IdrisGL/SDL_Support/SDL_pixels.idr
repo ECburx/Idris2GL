@@ -1,4 +1,6 @@
-module SDL_Support.SDL_pixels
+{- Tian Z (ecburx@burx.vip) -}
+
+module IdrisGL.SDL_Support.SDL_pixels
 
 import System.FFI
 

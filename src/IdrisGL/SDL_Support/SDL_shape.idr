@@ -1,4 +1,6 @@
-module SDL_Support.SDL_shape
+{- Tian Z (ecburx@burx.vip) -}
+
+module IdrisGL.SDL_Support.SDL_shape
 
 import System.FFI
 

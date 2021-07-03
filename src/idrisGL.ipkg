@@ -1,0 +1,20 @@
+package idrisGL
+
+version     = 0.0
+
+modules     = IdrisGL
+
+            , IdrisGL.SDL_Support.SDL_pixels
+            , IdrisGL.SDL_Support.SDL_rect
+            , IdrisGL.SDL_Support.SDL_shape
+            , IdrisGL.SDL_Support.SDL_surface
+            , IdrisGL.SDL_Support.SDL_sysvideo
+            , IdrisGL.SDL_Support.SDL_video
+
+            , IdrisGL.SDLtypes
+            , IdrisGL.Surface
+            , IdrisGL.Timer
+            , IdrisGL.Video
+
+postbuild   = "make -C c_src"
+postinstall = "make -C c_src install"

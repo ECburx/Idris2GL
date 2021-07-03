@@ -12,7 +12,7 @@ SDL_Window *createWin(
         int x, int y,
         int w, int h,
         int flags) {
-    // ignore flags for now
+    // ignore flags for now. TODO: activate flags.
 
     /* SDL initialization */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -32,3 +32,10 @@ void closeWin(SDL_Window *win) {
     win = NULL;
 }
 
+SDL_Surface *getWinSur(SDL_Window *win) {
+    return SDL_GetWindowSurface(win);
+}
+
+void updateWinSur(SDL_Window *win) {
+    SDL_UpdateWindowSurface(win);
+}

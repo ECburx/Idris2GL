@@ -1,11 +1,13 @@
-module SDL_Support.SDL_sysvideo
+{- Tian Z (ecburx@burx.vip) -}
+
+module IdrisGL.SDL_Support.SDL_sysvideo
 
 import System.FFI
 
-import SDL_Support.SDL_surface
-import SDL_Support.SDL_rect
-import SDL_Support.SDL_video
-import SDL_Support.SDL_shape
+import IdrisGL.SDL_Support.SDL_surface
+import IdrisGL.SDL_Support.SDL_rect
+import IdrisGL.SDL_Support.SDL_video
+import IdrisGL.SDL_Support.SDL_shape
 
 mutual
     export
