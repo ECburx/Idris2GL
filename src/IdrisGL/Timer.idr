@@ -1,20 +1,17 @@
--- Timer.idr
--- Tian Z 2021/7/1
+{- Tian Z (ecburx@burx.vip) -}
 
-module Timer
+module IdrisGL.Timer
 
-import SDL_Support.SDL_sysvideo
-
-frgn : String -> String -> String
-frgn func sourceFile = "C:" ++ func ++ ",timer"
+frgn : String -> String
+frgn func = "C:" ++ func ++ ",timer"
 
 -- +---------------+
 -- | FFI functions |
 -- +---------------+
 
--- | FFI % display.delayWin()
+-----------------------------------------------------------
 -- | void delayWin(int ms);
-%foreign frgn "delayWin" "timer"
+%foreign frgn "delayWin"
 prim_delayWin : Int -> PrimIO ()
 
 -- | Wait a specified number of milliseconds before returning.

@@ -1,9 +1,11 @@
-module SDL_Support.SDL_surface
+{- Tian Z (ecburx@burx.vip) -}
+
+module IdrisGL.SDL_Support.SDL_surface
 
 import System.FFI
 
-import SDL_Support.SDL_pixels
-import SDL_Support.SDL_rect
+import IdrisGL.SDL_Support.SDL_pixels
+import IdrisGL.SDL_Support.SDL_rect
 
 export
 SDL_Surface : Type

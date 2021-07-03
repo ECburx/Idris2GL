@@ -1,4 +1,6 @@
-module SDL_Support.SDL_rect
+{- Tian Z (ecburx@burx.vip) -}
+
+module IdrisGL.SDL_Support.SDL_rect
 
 import System.FFI
 

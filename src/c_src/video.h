@@ -36,4 +36,17 @@ SDL_Window *createWin(const char *title, int x, int y, int w, int h, int flags);
  */
 void closeWin(SDL_Window *win);
 
+/**
+ * Get the SDL surface associated with the window.
+ * @param win The window to query.
+ * @return The surface associated with the window, or NULL on failure;
+ */
+SDL_Surface *getWinSur(SDL_Window *win);
+
+/**
+ * Copy the window surface to the screen.
+ * @param win The window to update.
+ */
+void updateWinSur(SDL_Window *win);
+
 #endif //CLIB_DISPLAY_H
