@@ -16,12 +16,12 @@
 #ifndef CLIB_EVENTS_H
 #define CLIB_EVENTS_H
 
-SDL_Event *nullEve();
+#define UNAVAILABLE_EVENT -1
 
-int evePending(SDL_Event *eve);
+typedef enum {
+    QUIT
+} EveCode;
 
-int eveType(SDL_Event *eve);
-
-int eveQuit(SDL_Event *eve);
+int pollEve();
 
 #endif //CLIB_EVENTS_H

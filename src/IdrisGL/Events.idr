@@ -8,38 +8,44 @@ frgn : String -> String
 frgn func = "C:" ++ func ++ ",events"
 
 -- +---------------+
+-- |    Events     |
+-- +---------------+
+
+public export
+data Eve 
+  = E_UNAVAILABLE
+  | E_QUIT
+  | E_KEYDOWN
+  | EK_DOWN
+  | EK_UP
+  | EK_LEFT
+  | EK_RIGHT
+
+EveList : List (Int, Eve)
+EveList 
+  = [(256        , E_QUIT)
+    ,(768        , E_KEYDOWN)
+    ,(1073741905 , EK_DOWN)
+    ,(1073741906 , EK_UP)
+    ,(1073741904 , EK_LEFT)
+    ,(1073741903 , EK_RIGHT)
+    ]
+
+-- +---------------+
 -- | FFI functions |
 -- +---------------+
 
 -----------------------------------------------------------
--- | SDL_Event *nullEve();
-%foreign frgn "nullEve"
-prim_nullEve : Ptr SDL_Event
+-- int pollEve();
+export
+%foreign frgn "pollEve"
+prim_pollEve : Int
 
 export
-nullEve : HasIO io => io Eve
-nullEve = pure $ MkEve $ prim_nullEve
-
------------------------------------------------------------
--- | int evePending(SDL_Event *eve);
-%foreign frgn "evePending"
-prim_evePending : Ptr SDL_Event -> Int
-
-export
-evePending : Eve -> Bool
-evePending (MkEve e) = 
-    case prim_evePending e of
-         0 => False
-         _ => True
-
------------------------------------------------------------
--- | int eveQuit(SDL_Event *eve);
-%foreign frgn "eveQuit"
-prim_eveQuit : Ptr SDL_Event -> Int
-
-export
-eveQuit : Eve -> Bool
-eveQuit (MkEve e) = 
-    case prim_eveQuit e of
-         1 => True
-         _ => False
+pollEve : Eve
+pollEve = 
+  lookup prim_pollEve EveList
+  where lookup : Int -> List (Int, Eve) -> Eve
+        lookup code Nil     = E_UNAVAILABLE
+        lookup code (x::xs) = 
+          if (fst x) == code then (snd x) else lookup code xs

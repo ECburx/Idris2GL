@@ -6,12 +6,6 @@ import IdrisGL.SDL_Support.SDL_sysvideo
 import IdrisGL.SDL_Support.SDL_surface
 import IdrisGL.SDL_Support.SDL_rect
 
-{- Pointers -}
-
--- | SDL_Event pointer.
-public export
-data SDL_Event = AnyPtr
-
 {- Pinter Types -}
 
 -- | SDL_Surface pointer Type.
@@ -23,11 +17,6 @@ data Sur : Type where
 public export
 data Win : Type where
     MkWin : Ptr SDL_Window -> Win
-
--- | SDL_Event Pointer Type.
-public export
-data Eve : Type where
-    MkEve : Ptr SDL_Event -> Eve
 
 -- | SDL_Rect Pointer Type.
 public export

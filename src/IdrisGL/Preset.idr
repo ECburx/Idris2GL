@@ -21,13 +21,3 @@ prim_qLoadBMP : String -> PrimIO ()
 export
 qLoadBMP : HasIO io => String -> io ()
 qLoadBMP path = primIO $ prim_qLoadBMP path
-
------------------------------------------------------------
--- void closable(SDL_Window *win, ioFn f);
--- %foreign frgn "closable"
--- prim_closable : Ptr SDL_Window -> AnyPtr -> PrimIO ()
-
--- -- | TODO
--- export
--- closable : Win -> IO () -> IO ()
--- closable (MkWin win) f = do primIO $ prim_closable win (Ptr !f)

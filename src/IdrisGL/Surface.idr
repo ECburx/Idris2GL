@@ -25,6 +25,15 @@ loadBMPSur : HasIO io => String -> io Sur
 loadBMPSur path = pure $ MkSur $ prim_loadBMPSur path
 
 -----------------------------------------------------------
+-- void loadBMP2Win(SDL_Window *win, const char *path);
+%foreign frgn "loadBMP2Win"
+prim_loadBMP2Win : Ptr SDL_Window -> String -> PrimIO ()
+
+export
+loadBMP2Win : HasIO io => Win -> String -> io ()
+loadBMP2Win (MkWin win) path = primIO $ prim_loadBMP2Win win path
+
+-----------------------------------------------------------
 -- void blitSur(SDL_Surface *src, SDL_Surface *dst);
 %foreign frgn "blitSur"
 prim_blitSur : Ptr SDL_Surface -> Ptr SDL_Surface -> PrimIO ()

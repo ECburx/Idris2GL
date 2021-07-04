@@ -24,7 +24,11 @@ void qLoadBMP(const char *path) {
     fclose(fp);
 
     /* Create a window which just suits the bmp size (width & height) */
-    SDL_Window *win = createWin(path, 0, 0, w, h, SDL_WINDOW_SHOWN);
+    SDL_Window *win = createWin(
+            path,
+            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+            w, h,
+            SDL_WINDOW_SHOWN);
     if (win == NULL) return;
     SDL_Surface *sur = SDL_GetWindowSurface(win);
 
@@ -49,6 +53,4 @@ void qLoadBMP(const char *path) {
     SDL_FreeSurface(bmp);
     SDL_DestroyWindow(win);
 }
-//void closable(SDL_Window *win, void *f) {
-//    if (win == NULL) return;
-//}
+
