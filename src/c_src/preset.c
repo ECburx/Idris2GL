@@ -6,13 +6,14 @@
 #include "preset.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 /* BMP INFO */
 #define BMP_LOAD_MODE "rb"
 #define OFFSET_RATIO  3
 #define ELEMENT_SIZE  1
 
-SDL_Window *qLoadBMP(const char *path) {
+void qLoadBMP(const char *path) {
     /* Get bmp size (width & height) */
     int32_t w, h;
     FILE    *fp    = fopen(path, BMP_LOAD_MODE);
@@ -24,19 +25,30 @@ SDL_Window *qLoadBMP(const char *path) {
 
     /* Create a window which just suits the bmp size (width & height) */
     SDL_Window *win = createWin(path, 0, 0, w, h, SDL_WINDOW_SHOWN);
-    if (win == NULL) return NULL;
+    if (win == NULL) return;
+    SDL_Surface *sur = SDL_GetWindowSurface(win);
 
     /* Load bmp file */
     SDL_Surface *bmp = SDL_LoadBMP(path);
     if (bmp == NULL) {
         printf("%s", SDL_GetError());
-        return NULL;
+        return;
     }
 
     /* Copy bmp surface to window screen surface */
-    SDL_Surface *sur = SDL_GetWindowSurface(win);
-    SDL_BlitSurface(bmp, NULL, sur, NULL);
-    SDL_UpdateWindowSurface(win);
+    bool    quit   = false;
+    SDL_Event   e;
+    while (!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) quit = true;
+        }
+        SDL_BlitSurface(bmp, NULL, sur, NULL);
+        SDL_UpdateWindowSurface(win);
+    }
 
-    return win;
+    SDL_FreeSurface(bmp);
+    SDL_DestroyWindow(win);
 }
+//void closable(SDL_Window *win, void *f) {
+//    if (win == NULL) return;
+//}

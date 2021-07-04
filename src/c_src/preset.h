@@ -21,9 +21,21 @@
 
 /**
  * TODO
+ */
+typedef void(*ioFn)();
+
+/**
+ * TODO
  * @param path
  * @return
  */
-SDL_Window *qLoadBMP(const char *path);
+void qLoadBMP(const char *path);
+
+///**
+// * TODO
+// * @param win
+// * @param f
+// */
+//void closable(SDL_Window *win, void *f);
 
 #endif //CLIB_PRESET_H

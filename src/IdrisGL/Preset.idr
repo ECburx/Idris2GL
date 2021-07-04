@@ -13,11 +13,21 @@ frgn func = "C:" ++ func ++ ",preset"
 -- +---------------+
 
 -----------------------------------------------------------
--- | void qLoadBMP(const char *path)
+-- void qLoadBMP(const char *path)
 %foreign frgn "qLoadBMP"
-prim_qLoadBMP : String -> Ptr SDL_Window
+prim_qLoadBMP : String -> PrimIO ()
 
 -- | TODO
 export
-qLoadBMP : HasIO io => String -> io Win
-qLoadBMP path = pure $ MkWin $ prim_qLoadBMP path
+qLoadBMP : HasIO io => String -> io ()
+qLoadBMP path = primIO $ prim_qLoadBMP path
+
+-----------------------------------------------------------
+-- void closable(SDL_Window *win, ioFn f);
+-- %foreign frgn "closable"
+-- prim_closable : Ptr SDL_Window -> AnyPtr -> PrimIO ()
+
+-- -- | TODO
+-- export
+-- closable : Win -> IO () -> IO ()
+-- closable (MkWin win) f = do primIO $ prim_closable win (Ptr !f)
