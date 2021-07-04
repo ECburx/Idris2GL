@@ -16,6 +16,6 @@ A Graphics Library for Idris2, based on SDL2.
 
 ## Samples
 
-- Showing a bmp file in 2 seconds.
+- Showing a bmp file.
   - `samples/ShowBMP.idr`
 
