@@ -8,9 +8,16 @@
 #include <stdio.h>
 
 SDL_Surface *loadBMPSur(const char *path) {
-    SDL_Surface *sur = SDL_LoadBMP(path);
-    if (sur == NULL) printf("%s", SDL_GetError());
-    return sur;
+    SDL_Surface *bmp = SDL_LoadBMP(path);
+    if (bmp == NULL) printf("%s", SDL_GetError());
+    return bmp;
+}
+
+void loadBMP2Win(SDL_Window *win, const char *path) {
+    SDL_Surface *bmp = SDL_LoadBMP(path);
+    if (bmp == NULL) printf("%s", SDL_GetError());
+    SDL_BlitSurface(bmp, NULL, SDL_GetWindowSurface(win), NULL);
+    SDL_UpdateWindowSurface(win);
 }
 
 void blitSur(SDL_Surface *src, SDL_Surface *dst) {

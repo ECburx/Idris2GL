@@ -25,6 +25,13 @@
 SDL_Surface *loadBMPSur(const char *path);
 
 /**
+ * TODO
+ * @param win
+ * @param path
+ */
+void loadBMP2Win(SDL_Window *win, const char *path);
+
+/**
  * Use this function to perform a fast surface copy to a destination surface.
  * @param src TODO
  * @param dst

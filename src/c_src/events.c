@@ -5,18 +5,15 @@
 
 #include "events.h"
 
-SDL_Event *nullEve() {
-    return NULL;
-}
-
-int evePending(SDL_Event *eve) {
-    return SDL_PollEvent(eve) != 0;
-}
-
-int eveType(SDL_Event *eve) {
-    return eve->type;
-}
-
-int eveQuit(SDL_Event *eve) {
-    return eve->type == SDL_QUIT;
+int pollEve() {
+    SDL_Event e;
+    if (SDL_PollEvent(&e) == 0) return UNAVAILABLE_EVENT;
+    switch (e.type) {
+        case SDL_QUIT:
+            return (int) SDL_QUIT;
+        case SDL_KEYDOWN:
+            return (int) e.key.keysym.sym;
+        default:
+            return UNAVAILABLE_EVENT;
+    }
 }
