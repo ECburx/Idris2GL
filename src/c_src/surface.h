@@ -40,4 +40,10 @@ void blitSur(SDL_Surface *src, SDL_Surface *dst);
  */
 void blitSurRect(SDL_Surface *src, SDL_Rect *srcRect, SDL_Surface *dst, SDL_Rect *dstRect);
 
+/**
+ * TODO
+ * @param sur
+ */
+void freeSur(SDL_Surface *sur);
+
 #endif //CLIB_SURFACE_H

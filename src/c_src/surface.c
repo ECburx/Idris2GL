@@ -21,3 +21,8 @@ void blitSurRect(SDL_Surface *src, SDL_Rect *srcRect, SDL_Surface *dst, SDL_Rect
     SDL_BlitSurface(src, srcRect, dst, dstRect);
 }
 
+void freeSur(SDL_Surface *sur) {
+    SDL_FreeSurface(sur);
+    sur = NULL;
+}
+
