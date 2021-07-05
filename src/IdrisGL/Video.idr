@@ -20,8 +20,8 @@ prim_createWin : String -> Int -> Int -> Int -> Int -> Int -> Ptr SDL_Window
 
 -- | Initializes the SDL library and creates a window with the specified position, dimensions, and flags.
 export
-createWin : HasIO io => String -> Int -> Int -> Int -> Int -> Int -> io Win
-createWin title x y w h flags = pure $ MkWin $ prim_createWin title x y w h flags
+createWin : HasIO io => String -> Rect -> Int -> io Win
+createWin title (MkRect x y w h) flags = pure $ MkWin $ prim_createWin title x y w h flags
 
 -----------------------------------------------------------
 -- | void closeWin(SDL_Window *win);

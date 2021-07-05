@@ -19,37 +19,43 @@
 
 /**
  * Use this function to load a surface from a BMP file.
- * @param path TODO
- * @return
+ * @param path The path of the BMP file.
+ * @return The pointer of the surface.
  */
 SDL_Surface *loadBMPSur(const char *path);
 
 /**
- * TODO
- * @param win
- * @param path
+ * Loads and shows a bmp file in a window.
+ * @param win The window to show BMP file.
+ * @param path The path of the BMP file.
+ * @param x The x location of the BMP's upper left corner.
+ * @param y The y location of the BMP's upper left corner.
+ * @param w The width of the bmp.
+ * @param h The height of the bmp.
  */
-void loadBMP2Win(SDL_Window *win, const char *path);
+void loadBMP2Win(SDL_Window *win, const char *path, int x, int y, int w, int h);
 
 /**
  * Use this function to perform a fast surface copy to a destination surface.
- * @param src TODO
- * @param dst
+ * @param src The pointer of the surface to scale.
+ * @param dst The pointer of the destination surface.
  */
 void blitSur(SDL_Surface *src, SDL_Surface *dst);
 
 /**
- * Use this function to perform a fast surface copy to a destination surface, with area specified.
- * @param src TODO
- * @param srcRect
- * @param dst
- * @param dstRect
+ * Performs a scaled surface copy to a destination surface.
+ * @param src The pointer of the surface to scale.
+ * @param dst The pointer of the destination surface.
+ * @param x The x location of the src's upper left corner.
+ * @param y The y location of the src's upper left corner.
+ * @param w The width of the src.
+ * @param h The height of the src.
  */
-void blitSurRect(SDL_Surface *src, SDL_Rect *srcRect, SDL_Surface *dst, SDL_Rect *dstRect);
+void scaledSur(SDL_Surface *src, SDL_Surface *dst, int x, int y, int w, int h);
 
 /**
- * TODO
- * @param sur
+ * Releases a surface resources.
+ * @param sur SDL_Surface.
  */
 void freeSur(SDL_Surface *sur);
 

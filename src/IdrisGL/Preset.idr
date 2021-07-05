@@ -13,11 +13,11 @@ frgn func = "C:" ++ func ++ ",preset"
 -- +---------------+
 
 -----------------------------------------------------------
--- void qLoadBMP(const char *path)
+-- void qLoadBMP(const char *path, int x, int y, int w, int h);
 %foreign frgn "qLoadBMP"
-prim_qLoadBMP : String -> PrimIO ()
+prim_qLoadBMP : String -> Int -> Int -> Int -> Int -> PrimIO ()
 
--- | TODO
+-- | Loads, scales and shows a BMP file in one window.
 export
-qLoadBMP : HasIO io => String -> io ()
-qLoadBMP path = primIO $ prim_qLoadBMP path
+qLoadBMP : HasIO io => String -> Rect -> io ()
+qLoadBMP path (MkRect x y w h) = primIO $ prim_qLoadBMP path x y w h
