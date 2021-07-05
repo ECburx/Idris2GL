@@ -5,7 +5,7 @@ module KeyPresses
 import IdrisGL
 
 {- Handle keyboard events.
-   Press [ Up | Down | LEFT | RIGHT ] buttons to switch pics.
+   Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.
   
    $ idris2 -p idrisGL IdrisGL.idr
    Main> :l "KeyPresses.idr"

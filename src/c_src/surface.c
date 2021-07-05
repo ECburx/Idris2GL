@@ -9,13 +9,13 @@
 
 SDL_Surface *loadBMPSur(const char *path) {
     SDL_Surface *raw = SDL_LoadBMP(path);
-    if (raw == NULL) printf("%s", SDL_GetError());
+    if (raw == NULL) printf("%s\n", SDL_GetError());
     return raw;
 }
 
 void loadBMP2Win(SDL_Window *win, const char *path, int x, int y, int w, int h) {
-    SDL_Surface *raw = SDL_LoadBMP(path);
-    if (raw == NULL) printf("%s", SDL_GetError());
+    SDL_Surface *raw = loadBMPSur(path);
+    if (raw == NULL) return;
 
     SDL_Surface *screen    = SDL_GetWindowSurface(win);
     SDL_Surface *optimized = SDL_ConvertSurface(raw, screen->format, 0);
@@ -24,6 +24,7 @@ void loadBMP2Win(SDL_Window *win, const char *path, int x, int y, int w, int h) 
     SDL_Rect stretchRect = {x, y, w, h};
     SDL_BlitScaled(optimized, NULL, SDL_GetWindowSurface(win), &stretchRect);
     SDL_UpdateWindowSurface(win);
+    SDL_FreeSurface(optimized);
 }
 
 void blitSur(SDL_Surface *src, SDL_Surface *dst) {

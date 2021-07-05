@@ -17,6 +17,7 @@ modules     = IdrisGL
             , IdrisGL.Video
             , IdrisGL.Events
             , IdrisGL.Preset
+            , IdrisGL.Image
 
 postbuild   = "make -C c_src"
 postinstall = "make -C c_src install"
