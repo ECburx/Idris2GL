@@ -21,3 +21,13 @@ prim_qLoadBMP : String -> Int -> Int -> Int -> Int -> PrimIO ()
 export
 qLoadBMP : HasIO io => String -> Rect -> io ()
 qLoadBMP path (MkRect x y w h) = primIO $ prim_qLoadBMP path x y w h
+
+-----------------------------------------------------------
+-- void qLoadIMG(const char *path, int x, int y, int w, int h);
+%foreign frgn "qLoadIMG"
+prim_qLoadIMG : String -> Int -> Int -> Int -> Int -> PrimIO ()
+
+-- | Loads, scales and shows an image in one window.
+export
+qLoadIMG : HasIO io => String -> Rect -> io ()
+qLoadIMG path (MkRect x y w h) = primIO $ prim_qLoadIMG path x y w h

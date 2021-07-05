@@ -8,3 +8,4 @@ import public IdrisGL.Timer
 import public IdrisGL.Video
 import public IdrisGL.Events
 import public IdrisGL.Preset
+import public IdrisGL.Image

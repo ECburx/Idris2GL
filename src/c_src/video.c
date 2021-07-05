@@ -22,7 +22,7 @@ SDL_Window *createWin(
 
     /* Creates window */
     SDL_Window *window = SDL_CreateWindow(title, x, y, w, h, SDL_WINDOW_SHOWN);
-    if (window == NULL) printf("%s", SDL_GetError());
+    if (window == NULL) printf("%s\n", SDL_GetError());
     return window;
 }
 

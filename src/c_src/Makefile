@@ -10,7 +10,8 @@ RM               := rm -f
 OFLAG            := -o
 WFLAG            := -w
 SHARE            := -shared
-SDL_FLAG         := -lSDL2
+SDL_FLAG         := -lSDL2 -lSDL2_image
+SDL_I_FLAG       := -lSDL2_image
 MKDIR            := mkdir -p
 
 ifneq            (, $(findstring darwin,  $(MACHINE)))
