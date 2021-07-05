@@ -16,6 +16,8 @@ A Graphics Library for Idris2, based on SDL2.
 
 - SDL 2.0.10
   - `apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev`
+- SDL Image Extension
+  - `apt-get install libsdl2-image-dev`
 
 ## Samples
 
