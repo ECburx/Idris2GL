@@ -26,11 +26,15 @@ A Graphics Library for Idris2, based on SDL2.
 ### Showing a bmp file. 
 
 - `samples/ShowBMP.idr`
-
 - Shows 4 possible ways to load, scale and show a bmp file, with each ways in different customization level.
 
 ### Handling Key Presses Events
 
 - `samples/KeyPresses.idr`
 - Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.
+
+### Showing pictures in other formats
+
+- `samples/ShowIMG.idr`
+- Shows 4 possible ways to load, scale and show a png file, with each ways in different customization level.
 
