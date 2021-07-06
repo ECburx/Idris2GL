@@ -11,35 +11,17 @@ import IdrisGL
    ShowIMG> :exec main
 -}
 
--- The easiest way to load an image:
+-- The painless way to load an image:
 main : IO ()
-main = do 
-    win       <- qLoadIMG "loaded.png" (MkRect 0 0 320 240)
-    pure         ()
+main = display 
+    (InWindow "Show BMP" (MkRect 30 50 640 480))        -- window setting
+    (MkColor 100 150 255 100)                           -- background color
+    (Image "loaded.png" (MkRect 25 20 320 240))         -- Picture
 
 -- Or you can customize details:
 main' : IO ()
-main' = do
-    win       <- createWin "Show IMG" (MkRect 30 50 640 480) 0
-    loadIMG2Win  win "loaded.png" (MkRect 10 10 320 240)
-    delayWin     2000
-
--- Or:
-main'' : IO ()
-main'' = do
-    win       <- createWin "Show IMG" (MkRect 30 50 640 480) 0
-    screenSur <- getWinSur win
-    imgSur    <- loadIMGSur "loaded.png"
-    blitSur      imgSur screenSur
-    updateWinSur win
-    delayWin     2000
-    freeSur      imgSur
-    closeWin     win
-
--- Or even:
-main''' : IO ()
-main''' = do 
-    win       <- createWin  "Show IMG" (MkRect 30 50 640 480) 0
+main' = do 
+    win       <- createWin $ InWindow "Show IMG" (MkRect 30 50 640 480)
     screenSur <- getWinSur   win
     imgSur    <- loadIMGSur "loaded.png"
     loop         win         imgSur screenSur

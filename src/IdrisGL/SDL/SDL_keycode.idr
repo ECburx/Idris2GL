@@ -1,6 +1,6 @@
 {- Tian Z (ecburx@burx.vip) -}
 
-module IdrisGL.SDL_Support.SDL_keycode
+module IdrisGL.SDL.SDL_keycode
 
 public export
 data Key

@@ -4,21 +4,17 @@ version     = 0.0
 
 modules     = IdrisGL
 
-            , IdrisGL.SDL_Support.SDL_pixels
-            , IdrisGL.SDL_Support.SDL_rect
-            , IdrisGL.SDL_Support.SDL_shape
-            , IdrisGL.SDL_Support.SDL_surface
-            , IdrisGL.SDL_Support.SDL_sysvideo
-            , IdrisGL.SDL_Support.SDL_video
-            , IdrisGL.SDL_Support.SDL_keycode
-
-            , IdrisGL.SDLtypes
-            , IdrisGL.Surface
-            , IdrisGL.Timer
-            , IdrisGL.Video
-            , IdrisGL.Events
-            , IdrisGL.Preset
-            , IdrisGL.Image
+            , IdrisGL.DataType
+            , IdrisGL.Display
+            
+            , IdrisGL.SDL.SDL_event
+            , IdrisGL.SDL.SDL_image
+            , IdrisGL.SDL.SDL_keycode
+            , IdrisGL.SDL.SDL_render
+            , IdrisGL.SDL.SDL_surface
+            , IdrisGL.SDL.SDL_timer
+            , IdrisGL.SDL.SDL_video
+            , IdrisGL.SDL.SDL_generic
 
 postbuild   = "make -C c_src"
 postinstall = "make -C c_src install"

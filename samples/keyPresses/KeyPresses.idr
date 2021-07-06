@@ -14,7 +14,7 @@ import IdrisGL
 
 main : IO ()
 main = do
-    window <- createWin "Show BMP" (MkRect 30 50 640 480) 0
+    window <- createWin $ InWindow "Show BMP" (MkRect 30 50 640 480)
     screen <- getWinSur window
 
     let bmps = [ !(loadBMPSur "press.bmp")
