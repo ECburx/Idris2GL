@@ -1,7 +1,12 @@
 # IdrisGL
 A Graphics Library for Idris2, based on SDL2.
 
-(in progress)
+- Provides painless functions to build 2D vector graphics, animations and simulations.
+- Also provides SDL2 SDL2image bindings. (in progress).
+- Supports most of keyboard events. (Done).
+- 2D Shapes (in progress).
+- Animations (Not yet).
+- Simulations (Not yet).
 
 ## Build
 
@@ -21,18 +26,14 @@ A Graphics Library for Idris2, based on SDL2.
 
 `$ idris2 -p idrisGL IdrisGL.idr` to load dependencies.
 
-### Showing a bmp file. 
+### Showing a bmp file or showing pictures in other formats.
 
 - `samples/ShowBMP.idr`
-- Shows 4 possible ways to load, scale and show a bmp file, with each ways in different customization level.
+- `samples/ShowIMG.idr`
+- Use `display` function to show, sclare an image painlessly.
+- Or use SDL2 binding functions.
 
 ### Handling Key Presses Events
 
 - `samples/KeyPresses.idr`
 - Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.
-
-### Showing pictures in other formats
-
-- `samples/ShowIMG.idr`
-- Shows 4 possible ways to load, scale and show a png file, with each ways in different customization level.
-
