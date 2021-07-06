@@ -1,9 +1,7 @@
 # IdrisGL
 A Graphics Library for Idris2, based on SDL2.
 
-(in progress) (just a few basic functions)
-
-- Key Presses Events in progress.
+(in progress)
 
 ## Build
 
