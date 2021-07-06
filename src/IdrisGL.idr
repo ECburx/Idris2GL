@@ -2,11 +2,14 @@
 
 module IdrisGL
 
-import public IdrisGL.SDLtypes
-import public IdrisGL.Surface
-import public IdrisGL.Timer
-import public IdrisGL.Video
-import public IdrisGL.Events
-import public IdrisGL.Preset
-import public IdrisGL.Image
-import public IdrisGL.SDL_Support.SDL_keycode
+import public IdrisGL.DataType
+import public IdrisGL.Display
+
+import public IdrisGL.SDL.SDL_event
+import public IdrisGL.SDL.SDL_image
+import public IdrisGL.SDL.SDL_keycode
+import public IdrisGL.SDL.SDL_render
+import public IdrisGL.SDL.SDL_video
+import public IdrisGL.SDL.SDL_surface
+import public IdrisGL.SDL.SDL_timer
+import public IdrisGL.SDL.SDL_generic

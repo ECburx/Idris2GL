@@ -1,9 +1,8 @@
-/**
- * events.c
- * @author Tian Z ecburx@burx.vip
- */
+//
+// Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
+//
 
-#include "events.h"
+#include "sdl_events.h"
 
 int pollEve() {
     SDL_Event e;

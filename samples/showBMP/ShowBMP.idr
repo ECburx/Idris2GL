@@ -11,35 +11,17 @@ import IdrisGL
    ShowBMP> :exec main
 -}
 
--- The easiest way to load a bmp:
+-- The painless way to load a bmp:
 main : IO ()
-main = do 
-    win       <- qLoadBMP "hello_world.bmp" (MkRect 0 0 320 240)
-    pure         ()
+main = display 
+    (InWindow "Show BMP" (MkRect 30 50 640 480))        -- window setting
+    (MkColor 100 150 200 100)                           -- background color
+    (Bitmap "hello_world.bmp" (MkRect 25 20 320 240))   -- Picture
 
 -- Or you can customize details:
 main' : IO ()
-main' = do
-    win       <- createWin "Show BMP" (MkRect 30 50 640 480) 0
-    loadBMP2Win  win "hello_world.bmp" (MkRect 10 10 320 240)
-    delayWin     2000
-
--- Or:
-main'' : IO ()
-main'' = do
-    win       <- createWin "Show BMP" (MkRect 30 50 640 480) 0
-    screenSur <- getWinSur win
-    bmpSur    <- loadBMPSur "hello_world.bmp"
-    blitSur      bmpSur screenSur
-    updateWinSur win
-    delayWin     2000
-    freeSur      bmpSur
-    closeWin     win
-
--- Or even:
-main''' : IO ()
-main''' = do 
-    win       <- createWin  "Show BMP" (MkRect 30 50 640 480) 0
+main' = do 
+    win       <- createWin $ InWindow "Show BMP" (MkRect 30 50 640 480)
     screenSur <- getWinSur   win
     bmpSur    <- loadBMPSur "hello_world.bmp"
     loop         win         bmpSur screenSur

@@ -41,13 +41,10 @@ OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
 SYS_LIB_DIR      =  $(shell ${IDRIS} --libdir)
 INSTALL_DIR      =  $(SYS_LIB_DIR)/$(RELEASE_NAME)/lib/
 
-all:$(SOURCES) preset
+all:$(SOURCES)
 
 $(SOURCES):%:%.c
 	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
-
-#preset: preset.c preset.h video.h
-#	$(CC) $(SHARE) preset.c $(WFLAG) $(SDL_FLAG) $(OFLAG) preset.$(SHLIB_SUFFIX) -ldl video.$(SHLIB_SUFFIX)
 
 clean:
 	-rm -rf *.o *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.h

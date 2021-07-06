@@ -1,18 +1,19 @@
-/**
- * video.c
- * @author Tian Z ecburx@burx.vip
- */
+//
+// Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
+//
 
+#include "sdl_video.h"
 #include <stdio.h>
-
-#include "video.h"
 
 SDL_Window *createWin(
         const char *title,
-        int x, int y,
-        int w, int h,
-        int flags) {
-    // ignore flags for now. TODO: activate flags.
+        int x, int y, int w, int h,
+        int isFullScreen) {
+    /* Window Flag */
+    SDL_WindowFlags f;
+    if (isFullScreen) {
+        f = SDL_WINDOW_FULLSCREEN;
+    } else { f = SDL_WINDOW_SHOWN; }
 
     /* SDL initialization */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -21,7 +22,7 @@ SDL_Window *createWin(
     }
 
     /* Creates window */
-    SDL_Window *window = SDL_CreateWindow(title, x, y, w, h, SDL_WINDOW_SHOWN);
+    SDL_Window *window = SDL_CreateWindow(title, x, y, w, h, f);
     if (window == NULL) printf("%s\n", SDL_GetError());
     return window;
 }

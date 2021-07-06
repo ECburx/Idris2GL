@@ -1,10 +1,8 @@
-/**
- * image.c
- * @author Tian Z ecburx@burx.vip
- */
+//
+// Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
+//
 
-#include <stdio.h>
-#include "image.h"
+#include "sdl_image.h"
 
 char *getSuffix(char *fn) {
     int s = 0, i = 0;
@@ -47,18 +45,4 @@ SDL_Surface *loadIMGSur(char *path) {
     SDL_Surface *raw = IMG_Load(path);
     if (raw == NULL) printf("%s\n", IMG_GetError());
     return raw;
-}
-
-void loadIMG2Win(SDL_Window *win, char *path, int x, int y, int w, int h) {
-    SDL_Surface *raw = loadIMGSur(path);
-    if (raw == NULL) return;
-
-    SDL_Surface *screen    = SDL_GetWindowSurface(win);
-    SDL_Surface *optimized = SDL_ConvertSurface(raw, screen->format, 0);
-    SDL_FreeSurface(raw);
-
-    SDL_Rect stretchRect = {x, y, w, h};
-    SDL_BlitScaled(optimized, NULL, SDL_GetWindowSurface(win), &stretchRect);
-    SDL_UpdateWindowSurface(win);
-    SDL_FreeSurface(optimized);
 }

@@ -1,21 +1,11 @@
-/**
- * surface.h
- * @author Tian Z ecburx@burx.vip
- */
-
-#define SDL2
-
-#ifdef SDL2
-#define SDL_MAIN_HANDLED
+//
+// Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
+//
 
 #include <SDL2/SDL.h>
 
-#else
-#include <SDL.h>
-#endif
-
-#ifndef CLIB_SURFACE_H
-#define CLIB_SURFACE_H
+#ifndef IDRISGL_SDL_SURFACE_H
+#define IDRISGL_SDL_SURFACE_H
 
 /**
  * Use this function to load a surface from a BMP file.
@@ -23,17 +13,6 @@
  * @return The pointer of the surface.
  */
 SDL_Surface *loadBMPSur(const char *path);
-
-/**
- * Loads and shows a bmp file in a window.
- * @param win The window to show BMP file.
- * @param path The path of the BMP file.
- * @param x The x location of the BMP's upper left corner.
- * @param y The y location of the BMP's upper left corner.
- * @param w The width of the bmp.
- * @param h The height of the bmp.
- */
-void loadBMP2Win(SDL_Window *win, const char *path, int x, int y, int w, int h);
 
 /**
  * Use this function to perform a fast surface copy to a destination surface.
@@ -59,4 +38,4 @@ void scaledSur(SDL_Surface *src, SDL_Surface *dst, int x, int y, int w, int h);
  */
 void freeSur(SDL_Surface *sur);
 
-#endif //CLIB_SURFACE_H
+#endif //IDRISGL_SDL_SURFACE_H
