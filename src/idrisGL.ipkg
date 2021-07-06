@@ -10,6 +10,7 @@ modules     = IdrisGL
             , IdrisGL.SDL_Support.SDL_surface
             , IdrisGL.SDL_Support.SDL_sysvideo
             , IdrisGL.SDL_Support.SDL_video
+            , IdrisGL.SDL_Support.SDL_keycode
 
             , IdrisGL.SDLtypes
             , IdrisGL.Surface

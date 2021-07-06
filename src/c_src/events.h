@@ -18,10 +18,10 @@
 
 #define UNAVAILABLE_EVENT -1
 
-typedef enum {
-    QUIT
-} EveCode;
-
+/**
+ * Poll for currently pending events.
+ * @return Event code.
+ */
 int pollEve();
 
 #endif //CLIB_EVENTS_H
