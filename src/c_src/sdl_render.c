@@ -40,3 +40,33 @@ void freeRender(SDL_Renderer *renderer) {
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
 }
+
+void renderFillRect(SDL_Renderer *renderer,
+                    int x, int y, int w, int h,
+                    int r, int g, int b, int a) {
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_Rect rect = {x, y, w, h};
+    SDL_RenderFillRect(renderer, &rect);
+}
+
+void renderDrawRect(SDL_Renderer *renderer,
+                    int x, int y, int w, int h,
+                    int r, int g, int b, int a) {
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_Rect rect = {x, y, w, h};
+    SDL_RenderDrawRect(renderer, &rect);
+}
+
+void renderDrawLine(SDL_Renderer *renderer,
+                    int x1, int y1, int x2, int y2,
+                    int r, int g, int b, int a) {
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+}
+
+void renderDrawPoint(SDL_Renderer *renderer,
+                     int x, int y,
+                     int r, int g, int b, int a) {
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
+    SDL_RenderDrawPoint(renderer, x, y);
+}
