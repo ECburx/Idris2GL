@@ -145,31 +145,3 @@ void aatrigon(SDL_Renderer *renderer,
               int r, int g, int b, int a) {
     aatrigonRGBA(renderer, x1, y1, x2, y2, x3, y3, r, g, b, a);
 }
-
-/* Polygon */
-
-void polygon(SDL_Renderer *renderer,
-             int *vx, int *vy, int n,
-             int r, int g, int b, int a) {
-
-}
-
-void aapolygon(SDL_Renderer *renderer,
-               int *vx, int *vy, int n,
-               int r, int g, int b, int a) {
-
-}
-
-void filledPolygon(SDL_Renderer *renderer,
-                   int *vx, int *vy, int n,
-                   int r, int g, int b, int a) {
-
-}
-
-/* Bezier */
-
-void bezier(SDL_Renderer *renderer,
-            int *vx, int *vy, int n, int s,
-            int r, int g, int b, int a) {
-
-}

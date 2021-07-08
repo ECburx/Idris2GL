@@ -24,6 +24,8 @@ shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkColor 60 60 60 255) Tru
                   ,Pixel       (MkCoor 320 240) (MkColor 255 0 0 255)
                   ,Trigon      (MkCoor 300 253) (MkCoor 340 253) (MkCoor 320 218) (MkColor 255 0 0 255) False
                   ,Pie         (MkCoor 320 240) (MkColor 255 255 0 255) 40 35 185
+                  ,Polygon     [MkCoor 120 30 , MkCoor 40 70, MkCoor 40 160
+                               ,MkCoor 120 200, MkCoor 200 160, MkCoor 200 70] (MkColor 30 255 30 255) False
                   ]
 
 -- The painless way to show shapes:
