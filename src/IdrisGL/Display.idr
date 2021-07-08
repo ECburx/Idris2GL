@@ -54,10 +54,24 @@ display mode color pic =  do
       loadPicture (Trigon      p1  p2 p3    color   False) ren = aatrigon          ren p1  p2 p3 color
       -- loadPicture (Character   c   p        color    size) ren = character         ren c   p     color size
       -- loadPicture (StringPic   str p        color    size) ren = string            ren str p     color size
-
+      loadPicture (Polygon (p::ps) color False)            ren = polygon          ren p (p::ps) color
+        where polygon : Renderer -> Coordinate -> List Coordinate -> Color -> IO ()
+              polygon ren fp (p1::p2::ps) color       = do
+                loadPicture (Line p1  p2  color) ren
+                polygon ren fp (p2::ps)   color
+              polygon   ren fp [pn]       color       = loadPicture (Line pn fp color) ren
+              polygon   _   _  []   _                 = pure ()
+      loadPicture (Polygon (p::ps) color True) ren    = polygon ren p p (p::ps) color
+        where polygon : Renderer -> Coordinate -> Coordinate -> List Coordinate -> Color -> IO ()
+              polygon   ren fp lp  (p1::p2::ps) color = do      -- FIXME: unexpected line color while alpha (rgba) is less than 255
+                loadPicture (Trigon fp  p1  p2  color True) ren
+                polygon ren fp p1  (p2::ps)     color
+              polygon   _   _  _   _            _     = pure ()
+ 
       loadPicture (Pictures (x :: xs)) ren = do
         loadPicture      x ren
         loadPicture      (Pictures xs) ren
+
       loadPicture  _ _  = pure ()
 
       loop : IO ()

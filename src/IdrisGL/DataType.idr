@@ -68,7 +68,5 @@ data Picture
     | Ellipse       Coordinate Int               Int             Color Bool
     --                                                     Fill
     | Trigon        Coordinate Coordinate Coordinate Color Bool
-    --                                      Size
-    -- | Character     Char   Coordinate Color Int
-    -- | StringPic     String Coordinate Color Int
+    | Polygon       (List Coordinate)                Color Bool
     | Pictures      (List Picture)
