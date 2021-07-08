@@ -10,8 +10,12 @@ RM               := rm -f
 OFLAG            := -o
 WFLAG            := -w
 SHARE            := -shared
-SDL_FLAG         := -lSDL2 -lSDL2_image -lSDL2_gfx
 MKDIR            := mkdir -p
+
+SDL_FLAG         := -lSDL2
+SDL_IMG_FLAG     := $(SDL_FLAG) -lSDL2_image
+SDL_GFX_FLAG     := $(SDL_FLAG) -lSDL2_gfx
+SDL_TTF_FLAG     := $(SDL_FLAG) -lSDL2_ttf
 
 ifneq            (, $(findstring darwin,  $(MACHINE)))
 	OS           := darwin
@@ -34,22 +38,38 @@ else
 endif
 
 HEADERS          =  $(wildcard *.h)
-SOURCES          =  $(patsubst %.h, %, $(HEADERS))
+#SOURCES          =  $(patsubst %.h, %, $(HEADERS))
 TARGETS          =  $(patsubst %.h, %.$(SHLIB_SUFFIX), $(HEADERS))
-OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
+#OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
+
+SDL_SOURCES      =  generic sdl_events sdl_render sdl_surface sdl_timer sdl_video
+SDL_GFX_SOURCES  =  sdl_gfx
+SDL_IMG_SOURCES  =  sdl_image
+SDL_TTF_SOURCES  =  sdl_ttf
+
 SYS_LIB_DIR      =  $(shell ${IDRIS} --libdir)
 INSTALL_DIR      =  $(SYS_LIB_DIR)/$(RELEASE_NAME)/lib/
 
-all:$(SOURCES)
+all:$(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES)
 
-$(SOURCES):%:%.c
+$(SDL_SOURCES):%:%.c
 	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
 
+$(SDL_GFX_SOURCES):%:%.c
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_GFX_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
+
+$(SDL_IMG_SOURCES):%:%.c
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_IMG_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
+
+$(SDL_TTF_SOURCES):%:%.c
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_TTF_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
+
 clean:
-	-rm -rf *.o *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.h
+	-rm -rf $(TARGETS) $(HEADERS) *.o *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.h
 
 install:
 	@if ! [ -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
-	install $(TARGETS) $(HEADERS) $(INSTALL_DIR)
+	install $(TARGETS) $(INSTALL_DIR)
+	#install $(TARGETS) $(HEADERS) $(INSTALL_DIR)
 
 .PHONY: install clean all
