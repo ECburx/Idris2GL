@@ -9,8 +9,9 @@
 
 #define STYLE_NORMAL        0
 #define STYLE_BOLD          1
-#define STYLE_UNDERLINE     2
-#define STYLE_STRIKETHROUGH 3
+#define STYLE_ITALIC        2
+#define STYLE_UNDERLINE     3
+#define STYLE_STRIKETHROUGH 4
 
 #define HINTING_NORMAL      0
 #define HINTING_LIGHT       1

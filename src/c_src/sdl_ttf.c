@@ -52,6 +52,9 @@ void setFontStyle(TTF_Font *font, int code) {
         case STYLE_BOLD:
             TTF_SetFontStyle(font, TTF_STYLE_BOLD);
             return;
+        case STYLE_ITALIC:
+            TTF_SetFontStyle(font, TTF_STYLE_ITALIC);
+            return;
         case STYLE_UNDERLINE:
             TTF_SetFontStyle(font, TTF_STYLE_UNDERLINE);
             return;
@@ -67,7 +70,7 @@ void drawText(SDL_Renderer *renderer,
               char *str, int size, char *file,
               int x, int y,
               int r, int g, int b, int a) {
-    if (str == NULL) str = "";
+    if (str == NULL) return;
 
     ttf_init();
     TTF_Font *font       = loadFont(file, size);
@@ -75,7 +78,93 @@ void drawText(SDL_Renderer *renderer,
 
     int         w, h;
     SDL_Color   color    = {r, g, b, a};
+    SDL_Surface *textSur = TTF_RenderText_Blended(font, str, color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSur);
+
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    SDL_Rect rect = {x, y, w, h};
+
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    SDL_FreeSurface(textSur);
+    TTF_CloseFont(font);
+}
+
+void drawSolidText(SDL_Renderer *renderer,
+                   char *str, int size, char *file,
+                   int style, int kerning, int hinting,
+                   int x, int y,
+                   int r, int g, int b, int a) {
+    if (str == NULL) return;
+
+    ttf_init();
+    TTF_Font *font       = loadFont(file, size);
+    if (font == NULL) return;
+
+    setFontStyle(font, style);
+    setFontKerning(font, kerning);
+    setFontHinting(font, hinting);
+
+    int         w, h;
+    SDL_Color   color    = {r, g, b, a};
     SDL_Surface *textSur = TTF_RenderText_Solid(font, str, color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSur);
+
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    SDL_Rect rect = {x, y, w, h};
+
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    SDL_FreeSurface(textSur);
+    TTF_CloseFont(font);
+}
+
+void drawBlendedText(SDL_Renderer *renderer,
+                     char *str, int size, char *file,
+                     int style, int kerning, int hinting,
+                     int x, int y,
+                     int r, int g, int b, int a) {
+    if (str == NULL) return;
+
+    ttf_init();
+    TTF_Font *font       = loadFont(file, size);
+    if (font == NULL) return;
+
+    setFontStyle(font, style);
+    setFontKerning(font, kerning);
+    setFontHinting(font, hinting);
+
+    int         w, h;
+    SDL_Color   color    = {r, g, b, a};
+    SDL_Surface *textSur = TTF_RenderText_Blended(font, str, color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSur);
+
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+    SDL_Rect rect = {x, y, w, h};
+
+    SDL_RenderCopy(renderer, texture, NULL, &rect);
+    SDL_FreeSurface(textSur);
+    TTF_CloseFont(font);
+}
+
+void drawShadedText(SDL_Renderer *renderer,
+                    char *str, int size, char *file,
+                    int style, int kerning, int hinting,
+                    int x, int y,
+                    int r1, int g1, int b1, int a1,
+                    int r2, int g2, int b2, int a2) {
+    if (str == NULL) return;
+
+    ttf_init();
+    TTF_Font *font       = loadFont(file, size);
+    if (font == NULL) return;
+
+    setFontStyle(font, style);
+    setFontKerning(font, kerning);
+    setFontHinting(font, hinting);
+
+    int         w, h;
+    SDL_Color   color1   = {r1, g1, b1, a1};
+    SDL_Color   color2   = {r2, g2, b2, a2};
+    SDL_Surface *textSur = TTF_RenderText_Shaded(font, str, color1, color2);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSur);
 
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);

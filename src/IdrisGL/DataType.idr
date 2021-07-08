@@ -45,6 +45,12 @@ data Display
     | FullWindow
 
 public export
+data TextStyle   = TS_NORMAL | TS_BOLD | TS_ITALIC | TS_UNDERLINE | TS_STRIKETHROUGH
+
+public export
+data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO | TH_NONE
+
+public export
 data Picture
     = Blank
     --              Path   Size
@@ -69,6 +75,10 @@ data Picture
     --                                                     Fill
     | Trigon        Coordinate Coordinate Coordinate Color Bool
     | Polygon       (List Coordinate)                Color Bool
-    --              text   size font   
-    | Text          String Int  String Coordinate Color
+    --              Text   Size Font                    Shade                       Kerning
+    | Text          String Int  String Coordinate Color 
+    | SolidText     String Int  String Coordinate Color       TextStyle TextHinting Int
+    | BlendedText   String Int  String Coordinate Color       TextStyle TextHinting Int
+    | ShadedText    String Int  String Coordinate Color Color TextStyle TextHinting Int
+    --
     | Pictures      (List Picture)

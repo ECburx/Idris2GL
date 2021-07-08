@@ -4,11 +4,11 @@ module DrawShapes
 
 import IdrisGL
 
-{- Show a bmp file.
+{- Draw shapes.
   
    $ idris2 -p idrisGL IdrisGL.idr
-   Main> :l "ShowBMP.idr"
-   ShowBMP> :exec main
+   Main> :l "DrawShapes.idr"
+   DrawShapes> :exec main
 -}
 
 font : String

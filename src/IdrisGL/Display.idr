@@ -57,7 +57,14 @@ display mode color pic =  do
       loadPicture (Pie         center color rad start end) ren = pie               ren center color rad start end
       loadPicture (Trigon      p1  p2 p3    color    True) ren = filledTrigon      ren p1  p2 p3 color
       loadPicture (Trigon      p1  p2 p3    color   False) ren = aatrigon          ren p1  p2 p3 color
+
       loadPicture (Text text   size font p  color)         ren = drawText          ren text size font p color
+      loadPicture (SolidText   text size font p color         style hinting kerning) ren =
+        drawSolidText   ren text size font style kerning hinting p color
+      loadPicture (BlendedText text size font p color         style hinting kerning) ren =
+        drawBlendedText ren text size font style kerning hinting p color
+      loadPicture (ShadedText  text size font p color1 color2 style hinting kerning) ren =
+        drawShadedText  ren text size font style kerning hinting p color1 color2
 
       loadPicture (Polygon (p::ps) color False)            ren = polygon           ren p (p::ps) color
         where polygon : Renderer -> Coordinate -> List Coordinate -> Color -> IO ()
