@@ -28,9 +28,9 @@ SDL_Window *createWin(
 }
 
 void closeWin(SDL_Window *win) {
-    if (win == NULL) return;
     SDL_DestroyWindow(win);
     win = NULL;
+    SDL_Quit();
 }
 
 SDL_Surface *getWinSur(SDL_Window *win) {

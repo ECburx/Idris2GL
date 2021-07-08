@@ -83,3 +83,55 @@ export
 freeRender : HasIO io => Renderer -> io ()
 freeRender (MkRenderer ren)
     = primIO $ prim_freeRender ren
+
+--
+
+%foreign frgn "renderFillRect"
+prim_renderFillRect : AnyPtr
+                    -> Int -> Int -> Int -> Int
+                    -> Int -> Int -> Int -> Int
+                    -> PrimIO ()
+
+export
+renderFillRect : HasIO io => Renderer -> Rect -> Color -> io ()
+renderFillRect (MkRenderer ren) (MkRect x y w h) (MkColor r g b a)
+    = primIO $ prim_renderFillRect ren x y w h r g b a
+
+--
+
+%foreign frgn "renderDrawRect"
+prim_renderDrawRect : AnyPtr
+                    -> Int -> Int -> Int -> Int
+                    -> Int -> Int -> Int -> Int
+                    -> PrimIO ()
+
+export
+renderDrawRect : HasIO io => Renderer -> Rect -> Color -> io ()
+renderDrawRect (MkRenderer ren) (MkRect x y w h) (MkColor r g b a)
+    = primIO $ prim_renderDrawRect ren x y w h r g b a
+
+--
+
+%foreign frgn "renderDrawLine"
+prim_renderDrawLine : AnyPtr
+                    -> Int -> Int -> Int -> Int
+                    -> Int -> Int -> Int -> Int
+                    -> PrimIO ()
+
+export
+renderDrawLine : HasIO io => Renderer -> Coordinate -> Coordinate -> Color -> io ()
+renderDrawLine (MkRenderer ren) (MkCoor x1 y1) (MkCoor x2 y2) (MkColor r g b a)
+    = primIO $ prim_renderDrawLine ren x1 y1 x2 y2 r g b a
+
+-- 
+
+%foreign frgn "renderDrawPoint"
+prim_renderDrawPoint : AnyPtr
+                     -> Int -> Int
+                     -> Int -> Int -> Int -> Int
+                     -> PrimIO ()
+
+export
+renderDrawPoint : HasIO io => Renderer -> Coordinate -> Color -> io ()
+renderDrawPoint (MkRenderer ren) (MkCoor x y) (MkColor r g b a)
+    = primIO $ prim_renderDrawPoint ren x y r g b a

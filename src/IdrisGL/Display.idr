@@ -7,6 +7,7 @@ import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_generic
 import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_image
+import IdrisGL.SDL.SDL_gfx
 
 export
 display : Display -> Color -> Picture -> IO ()
@@ -15,44 +16,52 @@ display mode color pic =  do
     ren                <- createRenderer win
     setRenderDrawColor    ren color
 
-    t                  <- loadPicture pic ren
-    loop                  pic ren t
+    renderClear      ren
+    loadPicture pic ren
+    renderPresent    ren
+    loop
 
     freeRender            ren
     closeWin              win
 
-    where 
-      loadPicture : Picture -> Renderer -> IO Texture
-      loadPicture  Blank             ren =  pure $ MkTexture nullPtr
-      loadPicture (Bitmap path rect) ren =  do
-        bmpSur                           <- loadBMPSur path
-        createTextureFromSur                ren bmpSur
-      loadPicture (Image  path rect) ren =  do
-        imgSur                           <- loadIMGSur path
-        createTextureFromSur                ren imgSur
-      loadPicture  _                  _  =  
-        pure                             $  MkTexture nullPtr -- TODO
+    where
+      loadPicture : Picture -> Renderer -> IO ()
+      loadPicture Blank ren = pure ()
 
-      loop' : IO () -> IO ()
-      loop' l = 
+      loadPicture (Bitmap path rect) ren = do
+        bmpSur        <- loadBMPSur path
+        texture       <- createTextureFromSur ren bmpSur
+        renderCopy       ren texture rect
+      loadPicture (Image path rect) ren = do
+        imgSur        <- loadIMGSur path
+        texture       <- createTextureFromSur ren imgSur
+        renderCopy       ren texture rect
+
+      loadPicture (Pixel       coordinate           color) ren = pixel             ren coordinate color
+      loadPicture (ThickLine   start  end   color   thick) ren = thickLine         ren start end color thick
+      loadPicture (Line        start  end           color) ren = aaline            ren start end color
+      loadPicture (Rectangle   rect   color          True) ren = filledRect        ren rect   color
+      loadPicture (Rectangle   rect   color         False) ren = rectangle         ren rect   color
+      loadPicture (R_Rectangle rect   color True      rad) ren = roundedFilledRect ren rect   color rad
+      loadPicture (R_Rectangle rect   color False     rad) ren = roundedRect       ren rect   color rad
+      loadPicture (Circle      center color True      rad) ren = filledCircle      ren center color rad
+      loadPicture (Circle      center color False     rad) ren = aaCircle          ren center color rad
+      loadPicture (Arc         center color rad start end) ren = arc               ren center color rad start end
+      loadPicture (Ellipse     center rx ry color    True) ren = filledEllipse     ren center rx ry color
+      loadPicture (Ellipse     center rx ry color   False) ren = aaellipse         ren center rx ry color
+      loadPicture (Pie         center color rad start end) ren = pie               ren center color rad start end
+      loadPicture (Trigon      p1  p2 p3    color    True) ren = filledTrigon      ren p1  p2 p3 color
+      loadPicture (Trigon      p1  p2 p3    color   False) ren = aatrigon          ren p1  p2 p3 color
+      -- loadPicture (Character   c   p        color    size) ren = character         ren c   p     color size
+      -- loadPicture (StringPic   str p        color    size) ren = string            ren str p     color size
+
+      loadPicture (Pictures (x :: xs)) ren = do
+        loadPicture      x ren
+        loadPicture      (Pictures xs) ren
+      loadPicture  _ _  = pure ()
+
+      loop : IO ()
+      loop = 
         case pollEve                     of
              E_QUIT                      => pure ()
-             _                           => l
-
-      loop : Picture -> Renderer -> Texture -> IO ()
-      loop  Blank             ren t      = do
-        renderClear                        ren
-        renderPresent                      ren
-        loop'                            $ loop Blank ren t
-      loop (Bitmap path rect) ren t      = do
-        renderClear                        ren
-        renderCopy                         ren t rect
-        renderPresent                      ren
-        loop'                            $ loop (Bitmap path rect) ren t
-      loop (Image  path rect) ren t      = do
-        renderClear                        ren
-        renderCopy                         ren t rect
-        renderPresent                      ren
-        loop'                            $ loop (Image  path rect) ren t
-      loop  _                 _   _      = pure ()                          -- TODO
- 
+             _                           => loop
