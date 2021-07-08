@@ -248,33 +248,3 @@ export
 aatrigon : HasIO io => Renderer -> Coordinate -> Coordinate -> Coordinate -> Color -> io ()
 aatrigon (MkRenderer ren) (MkCoor x1 y1) (MkCoor x2 y2) (MkCoor x3 y3) (MkColor r g b a)
     = primIO $ prim_aatrigon ren x1 y1 x2 y2 x3 y3 r g b a
-
--- Characters / Strings
-
-%foreign frgn "character"
-prim_character : AnyPtr
-               -> Char
-               -> Int -> Int 
-               -> Int -> Int -> Int -> Int
-               -> Int
-               -> PrimIO ()
-
-export
-character : HasIO io => Renderer -> Char -> Coordinate -> Color -> Int -> io ()
-character (MkRenderer ren) c (MkCoor x y) (MkColor r g b a) size
-    = primIO $ prim_character ren c x y r g b a size
-
---
-
-%foreign frgn "string"
-prim_string : AnyPtr
-            -> String
-            -> Int -> Int 
-            -> Int -> Int -> Int -> Int
-            -> Int
-            -> PrimIO ()
-
-export
-string : HasIO io => Renderer -> String -> Coordinate -> Color -> Int -> io ()
-string (MkRenderer ren) str (MkCoor x y) (MkColor r g b a) size 
-    = primIO $ prim_string ren str x y r g b a size 

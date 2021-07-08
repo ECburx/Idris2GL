@@ -2,6 +2,7 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
+#include <stdio.h>
 #include "sdl_image.h"
 
 char *getSuffix(char *fn) {
@@ -44,5 +45,6 @@ SDL_Surface *loadIMGSur(char *path) {
 
     SDL_Surface *raw = IMG_Load(path);
     if (raw == NULL) printf("%s\n", IMG_GetError());
+    atexit(IMG_Quit);
     return raw;
 }

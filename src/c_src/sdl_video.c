@@ -5,6 +5,12 @@
 #include "sdl_video.h"
 #include <stdio.h>
 
+void closeWin(SDL_Window *win) {
+    SDL_DestroyWindow(win);
+    win = NULL;
+    SDL_Quit();
+}
+
 SDL_Window *createWin(
         const char *title,
         int x, int y, int w, int h,
@@ -24,13 +30,9 @@ SDL_Window *createWin(
     /* Creates window */
     SDL_Window *window = SDL_CreateWindow(title, x, y, w, h, f);
     if (window == NULL) printf("%s\n", SDL_GetError());
-    return window;
-}
 
-void closeWin(SDL_Window *win) {
-    SDL_DestroyWindow(win);
-    win = NULL;
-    SDL_Quit();
+    atexit(SDL_Quit);
+    return window;
 }
 
 SDL_Surface *getWinSur(SDL_Window *win) {

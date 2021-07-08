@@ -69,4 +69,6 @@ data Picture
     --                                                     Fill
     | Trigon        Coordinate Coordinate Coordinate Color Bool
     | Polygon       (List Coordinate)                Color Bool
+    --              text   size font   
+    | Text          String Int  String Coordinate Color
     | Pictures      (List Picture)

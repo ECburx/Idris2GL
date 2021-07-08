@@ -14,3 +14,4 @@ import public IdrisGL.SDL.SDL_surface
 import public IdrisGL.SDL.SDL_timer
 import public IdrisGL.SDL.SDL_generic
 import public IdrisGL.SDL.SDL_gfx
+import public IdrisGL.SDL.SDL_ttf

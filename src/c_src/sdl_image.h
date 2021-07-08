@@ -15,4 +15,6 @@
  */
 SDL_Surface *loadIMGSur(char *path);
 
+void imgQuit();
+
 #endif //IDRISGL_SDL_IMAGE_H
