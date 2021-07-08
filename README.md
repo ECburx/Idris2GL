@@ -28,12 +28,16 @@ A Graphics Library for Idris2, based on SDL2.
 
 ### Showing a bmp file or showing pictures in other formats.
 
-- `samples/ShowBMP.idr`
-- `samples/ShowIMG.idr`
+- `samples/showBMP/ShowBMP.idr`
+- `samples/showIMG/ShowIMG.idr`
 - Use `display` function to show, sclare an image painlessly.
 - Or use SDL2 binding functions.
 
 ### Handling Key Presses Events
 
-- `samples/KeyPresses.idr`
+- `samples/keyPresses/KeyPresses.idr`
 - Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.
+
+### Draw shapes
+
+- `sample/drawShapes/DrawShapes.idr`
