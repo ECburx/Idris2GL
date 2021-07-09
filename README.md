@@ -5,7 +5,7 @@ A Graphics Library for Idris2, based on SDL2.
 - Also provides `SDL2` , `SDL2_image` , `SDL2_gfx`,  `SDL2_ttf` bindings.
 - Supports most of keyboard events.
 - 2D Shapes.
-- Animations (Not yet).
+- Animations (In Progress).
 - Simulations (Not yet).
 
 ## Build
@@ -56,4 +56,11 @@ A Graphics Library for Idris2, based on SDL2.
 - `display <Window> <Background> <Texts>`
 
 ![sample4](./img/sample4.png)
+
+### Animation - Clock
+
+- `sample/animateClock/Clock.idr`
+- `animate <Window> <Background> <Time -> Pictures>`
+
+![sample5](./img/sample5.gif)
 
