@@ -45,10 +45,10 @@ data Display
     | FullWindow
 
 public export
-data TextStyle   = TS_NORMAL | TS_BOLD | TS_ITALIC | TS_UNDERLINE | TS_STRIKETHROUGH
+data TextStyle   = TS_NORMAL | TS_BOLD  | TS_ITALIC | TS_UNDERLINE | TS_STRIKETHROUGH
 
 public export
-data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO | TH_NONE
+data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO   | TH_NONE
 
 public export
 data Picture
