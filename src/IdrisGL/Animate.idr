@@ -2,7 +2,7 @@
 
 module IdrisGL.Animate
 
-import System
+import System as Sys
 
 import IdrisGL.Picture
 import IdrisGL.DataType
@@ -17,7 +17,7 @@ animate : Display -> Color -> (Integer -> Picture)-> IO ()
 animate window bgColor picF             =  do
     win                                 <- createWin window
     ren                                 <- createRenderer win
-    loop                                   ren picF bgColor !time
+    loop                                   ren picF bgColor !Sys.time
     freeRender                             ren
     closeWin                               win
     where
@@ -25,7 +25,7 @@ animate window bgColor picF             =  do
         loop ren picF bgColor startTime =  do
             setRenderDrawColor             ren bgColor
             renderClear                    ren
-            let s                       =  !time - startTime
+            let s                       =  !Sys.time - startTime
             picF s `loadPicture`           ren
             renderPresent                  ren
             delayWin                       10
