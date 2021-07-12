@@ -8,6 +8,7 @@ modules     = IdrisGL
             , IdrisGL.Display
             , IdrisGL.Animate
             , IdrisGL.Picture
+            , IdrisGL.Simulate
             
             , IdrisGL.SDL.SDL_event
             , IdrisGL.SDL.SDL_image
