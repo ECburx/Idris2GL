@@ -107,7 +107,7 @@ main =
    simulate
        (InWindow "Kmeans" (MkRect 50 50 500 320))        -- window setting
        (MkColor 43 43 43 255)                            -- background color
-       2
+       1
        initDS
        showDS
        updateDS

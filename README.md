@@ -5,8 +5,9 @@ A Graphics Library for Idris2, based on SDL2.
 - Also provides `SDL2` , `SDL2_image` , `SDL2_gfx`,  `SDL2_ttf` bindings.
 - Supports most of keyboard events.
 - 2D Shapes.
-- Animations (In Progress).
-- Simulations (Not yet).
+- Animations.
+- Simulations. (In Progress)
+- Play games. (Not yet)
 
 ## Build
 
@@ -30,8 +31,11 @@ A Graphics Library for Idris2, based on SDL2.
 
 - `samples/showBMP/ShowBMP.idr`
 - `samples/showIMG/ShowIMG.idr`
-- `display <Window> <Background> <Images>`
 - Or use SDL2 binding functions.
+
+```
+display : Display -> Color -> Picture -> IO ()
+```
 
 ![Sample1](./img/sample1.png)
 
@@ -46,21 +50,50 @@ A Graphics Library for Idris2, based on SDL2.
 ### Draw shapes
 
 - `sample/drawShapes/DrawShapes.idr`
-- `display <Window> <Background> <Shapes>`
+
+```
+display : Display -> Color -> Picture -> IO ()
+```
+
+
 
 ![Sample3](./img/sample3.png)
 
 ### Displaying text
 
 - `sample/text/Text.idr`
-- `display <Window> <Background> <Texts>`
+
+```
+display : Display -> Color -> Picture -> IO ()
+```
+
+
 
 ![sample4](./img/sample4.png)
 
 ### Animation - Clock
 
-- `sample/animateClock/Clock.idr`
-- `animate <Window> <Background> <Time -> Pictures>`
+- `sample/animate_clock/Clock.idr`
+
+```
+animate : Display -> Color 
+       -> (Integer -> Picture)
+       -> IO ()
+```
 
 ![sample5](./img/sample5.gif)
 
+### Simulation - K-means clustering
+
+- `sample/simulation_kmeans/Kmeans.idr`
+
+```
+simulate : Display -> Color 
+        -> Integer
+        -> model
+        -> (model -> Picture)
+        -> (Integer -> model -> model)
+        -> IO ()
+```
+
+![Sample6](./img/sample6.gif)
