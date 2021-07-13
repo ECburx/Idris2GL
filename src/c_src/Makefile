@@ -37,9 +37,9 @@ else
 	SHLIB_SUFFIX := so
 endif
 
-HEADERS          =  $(wildcard *.h)
+SOURCES_CODE      =  $(wildcard *.c)
 #SOURCES          =  $(patsubst %.h, %, $(HEADERS))
-TARGETS          =  $(patsubst %.h, %.$(SHLIB_SUFFIX), $(HEADERS))
+TARGETS           =  $(patsubst %.c, %.$(SHLIB_SUFFIX), $(SOURCES_CODE))
 #OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
 
 SDL_SOURCES      =  generic sdl_events sdl_render sdl_surface sdl_timer sdl_video
@@ -65,7 +65,7 @@ $(SDL_TTF_SOURCES):%:%.c
 	$(CC) $(SHARE) $< $(WFLAG) $(SDL_TTF_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX)
 
 clean:
-	-rm -rf $(TARGETS) $(HEADERS) *.o *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.h
+	-rm -rf $(TARGETS) *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX)
 
 install:
 	@if ! [ -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi

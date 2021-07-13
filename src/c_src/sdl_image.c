@@ -3,7 +3,9 @@
 //
 
 #include <stdio.h>
-#include "sdl_image.h"
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 char *getSuffix(char *fn) {
     int s = 0, i = 0;

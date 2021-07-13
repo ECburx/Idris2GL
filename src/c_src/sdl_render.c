@@ -2,8 +2,9 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
-#include "sdl_render.h"
 #include <stdio.h>
+
+#include <SDL2/SDL.h>
 
 SDL_Renderer *createRenderer(SDL_Window *win) {
     SDL_Renderer *renderer = SDL_CreateRenderer(

@@ -2,7 +2,8 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
-#include "sdl_events.h"
+#include <SDL2/SDL.h>
+#define UNAVAILABLE_EVENT -1
 
 int pollEve() {
     SDL_Event e;

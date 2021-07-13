@@ -2,6 +2,8 @@
 
 module IdrisGL.SDL.SDL_event
 
+import System.FFI
+
 import IdrisGL.SDL.SDL_keycode
 
 public export
@@ -14,7 +16,8 @@ data Eve
 
 getEve : Int -> Eve
 getEve 256        = E_QUIT
-getEve 768        = E_KEY EK_UNKNOWN
+getEve 768        = E_KEY EK_UNKNOWN  -- SDL_KEYDOWN
+-- getEve 769        = E_KEYUP   EK_UNKNOWN  -- SDL_KEYUP
 getEve _          = E_UNAVAILABLE
 
 {- 
@@ -23,6 +26,9 @@ getEve _          = E_UNAVAILABLE
 
 frgn : String -> String
 frgn func = "C:" ++ func ++ ",sdl_events"
+
+-- Event : Type
+-- Event = Struct "event" [("e", AnyPtr), ("type", Int)]
 
 --
 
