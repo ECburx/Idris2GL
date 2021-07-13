@@ -3,7 +3,6 @@
 //
 
 #include <stdio.h>
-#include "generic.h"
 
 void *nullPointer() {
     return NULL;

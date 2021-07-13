@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "sdl_surface.h"
+#include <SDL2/SDL.h>
 
 SDL_Surface *loadBMPSur(const char *path) {
     SDL_Surface *raw = SDL_LoadBMP(path);
