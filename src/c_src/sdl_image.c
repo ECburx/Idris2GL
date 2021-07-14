@@ -2,10 +2,10 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
-#include <stdio.h>
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
+#include <stdio.h>
 
 char *getSuffix(char *fn) {
     int s = 0, i = 0;

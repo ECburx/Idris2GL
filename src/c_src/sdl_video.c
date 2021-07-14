@@ -2,9 +2,9 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
-#include <stdio.h>
-
 #include <SDL2/SDL.h>
+
+#include <stdio.h>
 
 void closeWin(SDL_Window *win) {
     SDL_DestroyWindow(win);

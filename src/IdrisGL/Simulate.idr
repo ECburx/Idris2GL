@@ -26,14 +26,15 @@ simulate : Display -> Color
 simulate window bgColor tps m m2p m2m = do
     win                         <- createWin window
     ren                         <- createRenderer win
-    loop                           ren !Sys.time m
+    e                           <-  newEve
+    loop                           ren e !Sys.time m
     freeRender                     ren
     closeWin                       win
     where mutual
-          loop : Renderer -> Integer -> model -> IO ()
-          loop ren lastTime model = 
+          loop : Renderer -> Event -> Integer -> model -> IO ()
+          loop ren e lastTime model = 
             if   !Sys.time - lastTime < tps 
-            then loop' ren lastTime model
+            then loop' ren e lastTime model
             else do
               setRenderDrawColor   ren bgColor
               renderClear          ren
@@ -41,10 +42,11 @@ simulate window bgColor tps m m2p m2m = do
               renderPresent        ren
               currT             <- time
               let newM          =  m2m (currT - lastTime) model
-              loop' ren currT newM
+              loop' ren e currT newM
 
-          loop' : Renderer -> Integer -> model -> IO ()
-          loop' ren lastTime model = 
-            case pollEve        of
-                 E_QUIT         => pure ()
-                 _              => loop ren lastTime model
+          loop' : Renderer -> Event -> Integer -> model -> IO ()
+          loop' ren e lastTime model = do
+          case eveType e        of
+               E_QUIT           => do freeEve e
+                                      pure ()
+               _                => loop ren e lastTime model

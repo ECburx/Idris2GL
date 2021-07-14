@@ -17,18 +17,20 @@ animate : Display -> Color -> (Integer -> Picture)-> IO ()
 animate window bgColor picF             =  do
     win                                 <- createWin window
     ren                                 <- createRenderer win
-    loop                                   ren picF bgColor !Sys.time
+    e                                   <- newEve
+    loop                                   ren e picF bgColor !Sys.time
     freeRender                             ren
     closeWin                               win
     where
-        loop : Renderer -> (Integer -> Picture) -> Color -> Integer -> IO ()
-        loop ren picF bgColor startTime =  do
+        loop : Renderer -> Event -> (Integer -> Picture) -> Color -> Integer -> IO ()
+        loop ren e picF bgColor startTime =  do
             setRenderDrawColor             ren bgColor
             renderClear                    ren
             let s                       =  !Sys.time - startTime
             picF s `loadPicture`           ren
             renderPresent                  ren
             delayWin                       10
-            case pollEve                of
-                 E_QUIT                 => pure ()
-                 _                      => loop ren picF bgColor startTime
+            case eveType e              of
+                 E_QUIT                 => do freeEve e
+                                              pure ()
+                 _                      => loop ren e picF bgColor startTime

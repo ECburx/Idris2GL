@@ -4,8 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 //#include "SDL2_GFX/SDL2_gfxPrimitives.h"
+
 #include <stdio.h>
-//#include "sdl_gfx.h"
 
 void pixel(SDL_Renderer *renderer,
            int x, int y,

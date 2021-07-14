@@ -27,14 +27,15 @@ play : Display -> Color
 play window bgColor tps w w2p ew2w tw2w = do
     win                            <- createWin window
     ren                            <- createRenderer win
-    loop                              ren !Sys.time w
+    e                              <- newEve
+    loop                              ren e !Sys.time w
     freeRender                        ren
     closeWin                          win
     where mutual
-          loop : Renderer -> Integer -> world -> IO ()
-          loop ren lastTime world  = 
-            if   !Sys.time - lastTime < tps 
-            then loop'                ren lastTime world
+          loop : Renderer -> Event -> Integer -> world -> IO ()
+          loop ren e lastTime world   = 
+            if   !Sys.time - lastTime < tps
+            then loop'                ren e lastTime world
             else do
               setRenderDrawColor      ren bgColor
               renderClear             ren
@@ -42,7 +43,14 @@ play window bgColor tps w w2p ew2w tw2w = do
               renderPresent           ren
               currT                <- time
               let newW             =  tw2w (currT - lastTime) world
-              loop'                   ren currT newW
+              loop'                   ren e currT newW
           
-          loop' : Renderer -> Integer -> world -> IO ()
-          loop' ren lastTime world =  loop ren lastTime (ew2w pollEve world)
+          loop' : Renderer -> Event -> Integer -> world -> IO ()
+          loop' ren e lastTime world  =
+            case eveType e         of
+               E_QUIT              => do 
+                 freeEve e
+                 pure ()
+               other               => do
+                 let newW = ew2w other world
+                 loop ren e lastTime newW

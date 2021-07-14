@@ -24,14 +24,16 @@ main' = do
     win       <- createWin $ InWindow "Show IMG" (MkRect 30 50 640 480)
     screenSur <- getWinSur   win
     imgSur    <- loadIMGSur "loaded.png"
-    loop         win         imgSur screenSur
+    e         <- newEve
+    loop         win e imgSur screenSur
     freeSur      imgSur
     closeWin     win
     where 
-      loop : Win -> Sur -> Sur -> IO ()
-      loop win img screen = do 
+      loop : Win -> Event -> Sur -> Sur -> IO ()
+      loop win e img screen = do 
         scaledSur    img screen (MkRect 20 20 300 500)
         updateWinSur win
-        case pollEve of
-             E_QUIT => pure ()
-             _      => loop win img screen
+        case eveType e of
+             E_QUIT => do freeEve e
+                          pure ()
+             _      => loop win e img screen
