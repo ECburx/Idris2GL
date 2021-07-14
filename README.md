@@ -1,4 +1,4 @@
-# IdrisGL
+# Idris2GL
 A Graphics Library for Idris2, based on SDL2.
 
 - Provides painless functions to build 2D vector graphics, animations and simulations.
