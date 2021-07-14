@@ -11,21 +11,23 @@ import IdrisGL.SDL.SDL_surface
 
 export
 display : Display -> Color -> Picture -> IO ()
-display window bgColor pic =  do 
-    win                    <- createWin window
-    ren                    <- createRenderer win
-    setRenderDrawColor        ren bgColor
+display window bgColor pic  =  do 
+    win                     <- createWin window
+    ren                     <- createRenderer win
+    setRenderDrawColor         ren bgColor
 
-    renderClear               ren
-    loadPicture pic           ren
-    renderPresent             ren
-    loop
+    renderClear                ren
+    loadPicture pic            ren
+    renderPresent              ren
+    e                       <- newEve
+    loop                       e
 
-    freeRender                ren
-    closeWin                  win
+    freeRender                 ren
+    closeWin                   win
 
-    where loop : IO ()
-          loop             = 
-          case pollEve     of
-               E_QUIT      => pure ()
-               _           => loop
+    where loop : Event -> IO ()
+          loop e            =  do
+          case eveType e    of
+               E_QUIT       => do freeEve e
+                                  pure ()
+               _            => loop e

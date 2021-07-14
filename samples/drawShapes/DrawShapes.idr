@@ -47,16 +47,17 @@ main' = do
     setRenderDrawColor    ren (MkColor 200 200 200 255)
 
     renderClear           ren
-    aaline    ren (MkCoor 10 10) (MkCoor 500 400) (MkColor 0 255 255 255)
-    thickLine ren (MkCoor 20 20) (MkCoor 500 300) (MkColor 255 0 0 255) 10
+    aaline                ren (MkCoor 10 10) (MkCoor 500 400) (MkColor 0 255 255 255)
+    thickLine             ren (MkCoor 20 20) (MkCoor 500 300) (MkColor 255 0 0 255) 10
     renderPresent         ren
 
-    loop                  ren
+    e                  <- newEve
+    loop                  ren e
     freeRender            ren
     closeWin              win
     where 
-      loop : Renderer -> IO ()
-      loop ren = do
-        case pollEve of
+      loop : Renderer -> Event -> IO ()
+      loop ren e = do
+        case eveType e of
              E_QUIT => pure ()
-             _      => loop ren
+             _      => loop ren e

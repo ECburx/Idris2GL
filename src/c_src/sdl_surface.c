@@ -2,8 +2,9 @@
 // Created by Tian Z on 2021/7/6. (ecburxvip@gmail.com)
 //
 
-#include <stdio.h>
 #include <SDL2/SDL.h>
+
+#include <stdio.h>
 
 SDL_Surface *loadBMPSur(const char *path) {
     SDL_Surface *raw = SDL_LoadBMP(path);

@@ -24,14 +24,16 @@ main' = do
     win       <- createWin $ InWindow "Show BMP" (MkRect 30 50 640 480)
     screenSur <- getWinSur   win
     bmpSur    <- loadBMPSur "hello_world.bmp"
-    loop         win         bmpSur screenSur
+    e         <- newEve
+    loop         win e bmpSur screenSur
     freeSur      bmpSur
     closeWin     win
     where 
-      loop : Win -> Sur -> Sur -> IO ()
-      loop win bmp screen = do 
-        scaledSur    bmp screen (MkRect 20 20 300 500)
+      loop : Win -> Event -> Sur -> Sur -> IO ()
+      loop win e bmp screen = do 
+        scaledSur    bmp screen (MkRect 40 20 300 200)
         updateWinSur win
-        case pollEve of
-             E_QUIT => pure ()
-             _      => loop win bmp screen
+        case eveType e of
+             E_QUIT => do freeEve e
+                          pure ()
+             _      => loop win e bmp screen

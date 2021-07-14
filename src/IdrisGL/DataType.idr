@@ -42,6 +42,10 @@ public export
 data Texture : Type where
     MkTexture : AnyPtr -> Texture
 
+public export
+data Event : Type where
+    MkEvent : AnyPtr -> Event
+
 {- Datas -}
 
 public export

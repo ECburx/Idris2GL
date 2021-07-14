@@ -70,6 +70,5 @@ clean:
 install:
 	@if ! [ -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
 	install $(TARGETS) $(INSTALL_DIR)
-	#install $(TARGETS) $(HEADERS) $(INSTALL_DIR)
 
 .PHONY: install clean all

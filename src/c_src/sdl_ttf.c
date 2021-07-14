@@ -1,10 +1,11 @@
 //
 // Created by Tian Z on 2021/7/8. (ecburxvip@gmail.com)
 //
-#include <stdio.h>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+
+#include <stdio.h>
 
 #define MINIMUM_FONT_SIZE   1
 
