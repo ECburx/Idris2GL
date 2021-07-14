@@ -22,8 +22,8 @@ display window bgColor pic  =  do
     e                       <- newEve
     loop                       e
 
-    freeRender                 ren
     closeWin                   win
+    freeRender                 ren
 
     where loop : Event -> IO ()
           loop e            =  do

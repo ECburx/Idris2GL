@@ -18,35 +18,34 @@ simulate : Display -> Color
         -> model                        -- The initial model.
         -> (model -> Picture)           -- Function to step the model one iteration.
         -> (Integer -> model -> model)  -- A function to step the model one iteration. 
-                                        --   It passes the amount of time (ms) for this simulation step
-                                        --   (Time spent in the last iteration).
-                                        --   This is often useful when the model is not changing at a constant rate.
+                                        --   It passes the amount of time (seconds) since the window creation.
         -> IO ()
 
 simulate window bgColor tps m m2p m2m = do
     win                         <- createWin window
     ren                         <- createRenderer win
-    e                           <-  newEve
-    loop                           ren e !Sys.time m
-    freeRender                     ren
+    e                           <- newEve
+    startTime                   <- Sys.time
+    loop                           ren e m startTime startTime
     closeWin                       win
+    freeRender                     ren
     where mutual
-          loop : Renderer -> Event -> Integer -> model -> IO ()
-          loop ren e lastTime model = 
+          loop : Renderer -> Event -> model -> Integer -> Integer -> IO ()
+          loop ren e model lastTime startTime = 
             if   !Sys.time - lastTime < tps 
-            then loop' ren e lastTime model
+            then loop' ren e model lastTime startTime
             else do
               setRenderDrawColor   ren bgColor
               renderClear          ren
               m2p model `loadPicture` ren
               renderPresent        ren
               currT             <- time
-              let newM          =  m2m (currT - lastTime) model
-              loop' ren e currT newM
+              let newM          =  m2m (currT - startTime) model
+              loop' ren e newM currT startTime
 
-          loop' : Renderer -> Event -> Integer -> model -> IO ()
-          loop' ren e lastTime model = do
+          loop' : Renderer -> Event -> model -> Integer -> Integer -> IO ()
+          loop' ren e model lastTime startTime = do
           case eveType e        of
                E_QUIT           => do freeEve e
                                       pure ()
-               _                => loop ren e lastTime model
+               _                => loop ren e model lastTime startTime

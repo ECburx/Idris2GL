@@ -19,8 +19,8 @@ animate window bgColor picF             =  do
     ren                                 <- createRenderer win
     e                                   <- newEve
     loop                                   ren e picF bgColor !Sys.time
-    freeRender                             ren
     closeWin                               win
+    freeRender                             ren
     where
         loop : Renderer -> Event -> (Integer -> Picture) -> Color -> Integer -> IO ()
         loop ren e picF bgColor startTime =  do
