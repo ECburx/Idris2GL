@@ -4,10 +4,12 @@ A Graphics Library for Idris2, based on SDL2.
 - Provides painless functions to build 2D vector graphics, animations and simulations.
 - Also provides `SDL2` , `SDL2_image` , `SDL2_gfx`,  `SDL2_ttf` bindings.
 - Supports most of keyboard events.
-- 2D Shapes.
+- Supports mouse events.
+- Supports other events. (In Progress)
+- 2D Shapes, text. 
 - Animations.
 - Simulations. (In Progress)
-- Play games. (Not yet)
+- Play games. (In Progress)
 
 ## Build
 
@@ -27,7 +29,7 @@ A Graphics Library for Idris2, based on SDL2.
 
 `$ idris2 -p idrisGL IdrisGL.idr` to load dependencies.
 
-### Displaying a bmp file or showing pictures in other formats.
+### Display - BMP file or showing pictures in other formats.
 
 - `samples/showBMP/ShowBMP.idr`
 - `samples/showIMG/ShowIMG.idr`
@@ -39,7 +41,7 @@ display : Display -> Color -> Picture -> IO ()
 
 ![Sample1](./img/sample1.png)
 
-### Handling Key Presses Events
+### SDL bindings example - Handling Key Presses Events
 
 - `samples/keyPresses/KeyPresses.idr`
 - Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.
@@ -47,7 +49,7 @@ display : Display -> Color -> Picture -> IO ()
 
 ![Sample2](./img/sample2.png)
 
-### Draw shapes
+### Display - Draw shapes
 
 - `sample/drawShapes/DrawShapes.idr`
 
@@ -59,7 +61,7 @@ display : Display -> Color -> Picture -> IO ()
 
 ![Sample3](./img/sample3.png)
 
-### Displaying text
+### Display - Text
 
 - `sample/text/Text.idr`
 
@@ -97,3 +99,23 @@ simulate : Display -> Color
 ```
 
 ![Sample6](./img/sample6.gif)
+
+### Play - Mouse Event
+
+- `sample/mouseEvents/Mouse.idr`
+- Mouse motion.
+- Mouse buttons (down/up).
+- Mouse wheel.
+
+```
+play : Display -> Color
+    -> Integer
+    -> world
+    -> (world   -> Picture)
+    -> (Eve     -> world -> world)
+    -> (Integer -> world -> world)
+    -> IO ()
+```
+
+![Sample7](./img/sample7.gif)
+
