@@ -63,18 +63,26 @@ data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO   | TH_NONE
 public export
 data Picture
     = Blank
+    | Pictures      (List Picture)
+    {- IMAGES -}
     --              Path   Size
-    | Image         String Rect
     | Bitmap        String Rect
+    | Image         String Rect
+    --
+    | Pixel         Coordinate Color
+    {- Line -}
     --              Start      End              Thickness
-    | Pixel         Coordinate            Color
     | ThickLine     Coordinate Coordinate Color Int
     | Line          Coordinate Coordinate Color
+    {- Rectangle -}
     --                         Fill Radius
     | Rectangle     Rect Color Bool
     | R_Rectangle   Rect Color Bool Int
-    --              Center           Fill Radius
+    {- Circle -}
+    --              Center           Fill Radius Thickness
     | Circle        Coordinate Color Bool Int
+    | ThickCircle   Coordinate Color      Int    Int
+    {- Misc. -}
     -- Start : Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
     -- End   :   Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise. 
     --              Center           Radius Start End
@@ -85,10 +93,9 @@ data Picture
     --                                                     Fill
     | Trigon        Coordinate Coordinate Coordinate Color Bool
     | Polygon       (List Coordinate)                Color Bool
+    {- Text -}
     --              Text   Size Font                    Shade                       Kerning
     | Text          String Int  String Coordinate Color 
     | SolidText     String Int  String Coordinate Color       TextStyle TextHinting Int
     | BlendedText   String Int  String Coordinate Color       TextStyle TextHinting Int
     | ShadedText    String Int  String Coordinate Color Color TextStyle TextHinting Int
-    --
-    | Pictures      (List Picture)

@@ -8,6 +8,7 @@ import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
+import IdrisGL.SDL.SDL_timer
 
 export
 display : Display -> Color -> Picture -> IO ()
@@ -23,11 +24,11 @@ display window bgColor pic  =  do
     loop                       e
 
     closeWin                   win
+    freeEve e
     freeRender                 ren
 
     where loop : Event -> IO ()
-          loop e            =  do
+          loop e            =
           case eveType e    of
-               E_QUIT       => do freeEve e
-                                  pure ()
+               E_QUIT       => pure ()
                _            => loop e

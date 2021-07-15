@@ -22,5 +22,5 @@ modules     = IdrisGL
             , IdrisGL.SDL.SDL_gfx
             , IdrisGL.SDL.SDL_ttf
 
-postbuild   = "make -C c_src"
+postbuild   = "make -C c_src build"
 postinstall = "make -C c_src install"

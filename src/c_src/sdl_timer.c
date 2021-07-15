@@ -7,3 +7,7 @@
 void delayWin(int ms) {
     SDL_Delay(ms);
 }
+
+int getTicks() {
+    return SDL_GetTicks();
+}

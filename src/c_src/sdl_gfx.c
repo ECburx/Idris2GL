@@ -83,6 +83,24 @@ void filledCircle(SDL_Renderer *renderer,
     filledCircleRGBA(renderer, x, y, rad, r, g, b, a);
 }
 
+void thickCircle(SDL_Renderer *renderer,
+                 int x, int y,
+                 int r, int g, int b, int a,
+                 int rad, int width) {
+    circleRGBA(renderer, x, y, rad, r, g, b, a);
+    if (width <= 1) return;
+    if (rad <= 1) return;
+
+    int      odd   = width % 2;
+    int      inner = width / 2;
+    for (int i     = 1; i <= inner; ++i) {
+        circleRGBA(renderer, x, y, rad - i, r, g, b, a);
+    }
+    for (int i     = 1; i <= inner + odd; ++i) {
+        circleRGBA(renderer, x, y, rad + i, r, g, b, a);
+    }
+}
+
 /* Arc */
 
 void arc(SDL_Renderer *renderer,

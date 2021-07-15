@@ -146,6 +146,20 @@ filledCircle : HasIO io => Renderer -> Coordinate -> Color -> Int -> io ()
 filledCircle (MkRenderer ren) (MkCoor x y) (MkColor r g b a) rad
     = primIO $ prim_filledCircle ren x y r g b a rad
 
+--
+
+%foreign frgn "thickCircle"
+prim_thickCircle : AnyPtr
+                -> Int -> Int
+                -> Int -> Int -> Int -> Int
+                -> Int -> Int
+                -> PrimIO ()
+
+export
+thickCircle : HasIO io => Renderer -> Coordinate -> Color -> Int -> Int -> io ()
+thickCircle (MkRenderer ren) (MkCoor x y) (MkColor r g b a) rad width
+    = primIO $ prim_thickCircle ren x y r g b a rad width
+
 -- Arc
 
 %foreign frgn "arc"

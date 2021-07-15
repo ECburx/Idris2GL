@@ -10,6 +10,7 @@ import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
+import IdrisGL.SDL.SDL_timer
 
 export
 simulate : Display -> Color 
@@ -28,6 +29,7 @@ simulate window bgColor tps m m2p m2m = do
     startTime                   <- Sys.time
     loop                           ren e m startTime startTime
     closeWin                       win
+    freeEve                        e
     freeRender                     ren
     where mutual
           loop : Renderer -> Event -> model -> Integer -> Integer -> IO ()
@@ -44,8 +46,7 @@ simulate window bgColor tps m m2p m2m = do
               loop' ren e newM currT startTime
 
           loop' : Renderer -> Event -> model -> Integer -> Integer -> IO ()
-          loop' ren e model lastTime startTime = do
+          loop' ren e model lastTime startTime =
           case eveType e        of
-               E_QUIT           => do freeEve e
-                                      pure ()
+               E_QUIT           => pure ()
                _                => loop ren e model lastTime startTime

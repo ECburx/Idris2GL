@@ -50,3 +50,31 @@ SDL_Surface *loadIMGSur(char *path) {
     atexit(IMG_Quit);
     return raw;
 }
+
+void loadIMG(SDL_Renderer *renderer, char *path,
+             int x, int y, int w, int h) {
+    int imgFlags = getImgFlags(path);
+    if (!imgFlags) return;
+
+    /* Initialize image loading */
+    if (!(IMG_Init(imgFlags) & imgFlags)) {
+        printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+        return;
+    }
+
+    SDL_Surface *raw = IMG_Load(path);
+    if (raw == NULL) {
+        printf("%s\n", IMG_GetError());
+        return;
+    }
+    atexit(IMG_Quit);
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, raw);
+    if (texture == NULL) {
+        printf("%s", SDL_GetError());
+        return;
+    }
+
+    SDL_Rect stretchRect = {x, y, w, h};
+    SDL_RenderCopy(renderer, texture, NULL, &stretchRect);
+}

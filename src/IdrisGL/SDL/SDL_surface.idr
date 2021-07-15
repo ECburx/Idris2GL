@@ -13,15 +13,6 @@ frgn func = "C:" ++ func ++ ",sdl_surface"
 
 --
 
-%foreign frgn "loadBMPSur"
-prim_loadBMPSur : String -> AnyPtr
-
-export
-loadBMPSur : HasIO io => String -> io Sur
-loadBMPSur path = pure $ MkSur $ prim_loadBMPSur path
-
---
-
 %foreign frgn "blitSur"
 prim_blitSur : AnyPtr -> AnyPtr -> PrimIO ()
 
@@ -46,3 +37,4 @@ prim_freeSur : AnyPtr -> PrimIO ()
 export
 freeSur : HasIO io => Sur -> io ()
 freeSur (MkSur sur) = primIO $ prim_freeSur sur
+
