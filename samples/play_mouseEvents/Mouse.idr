@@ -17,17 +17,22 @@ font = "FreeSerif.ttf"
 black : Color
 black = MkColor 0 0 0 255 
 
-data World = WD (Int,Int) Int String
+--              Mouse position  Time  Mouse state
+data World = WD (Int,Int)       Int   String
 
 initWorld : World
 initWorld = WD (0,0) 0 ""
 
 showWD : World -> Picture
 showWD (WD (x,y) t state) = 
-    Pictures [Text msg   16 font (MkCoor 40 40) black
-             ,Text state 16 font (MkCoor 40 70) black]
-    where msg : String
-          msg = "Mouse Position: (" ++ show x ++ ", " ++ show y ++ ")"
+    Pictures [Text   posMsg  16 font (MkCoor 40 40) black
+             ,Text   state   16 font (MkCoor 40 70) black
+             ,Text   timeMsg 16 font (MkCoor 10 10) black
+             ,Circle (MkCoor x y) black False 10]
+    where posMsg : String
+          posMsg  = "Mouse Position: (" ++ show x ++ ", " ++ show y ++ ")"
+          timeMsg : String
+          timeMsg = "Timer: " ++ show t ++ "s"
 
 eventsHandler : Eve -> World -> World
 eventsHandler (E_MOUSEMOTION     (x,y)) (WD _ t _) = WD (x,y) t "Mouse Motion."
@@ -40,7 +45,7 @@ timeHandler : Integer -> World -> World
 timeHandler t (WD xy _ s) = WD xy (cast t) s
 
 main : IO ()
-main = 
+main = do
     play (InWindow "Kmeans" (MkRect 50 50 300 120))        -- window setting
          (MkColor 255 255 255 255)                         -- background color
        0                                                   -- set to 0 to show continuous animation.

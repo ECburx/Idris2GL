@@ -10,6 +10,7 @@ import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
+import IdrisGL.SDL.SDL_timer
 
 export
 play : Display -> Color
@@ -29,10 +30,11 @@ play window bgColor tps w w2p ew2w tw2w = do
     startTime                      <- Sys.time
     loop                              ren e w startTime startTime
     closeWin                          win
+    freeEve                           e
     freeRender                        ren
     where mutual
           loop : Renderer -> Event -> world -> Integer -> Integer -> IO ()
-          loop ren e world lastTime startTime = 
+          loop ren e world lastTime startTime =
             if   !Sys.time - lastTime < tps
             then loop'                ren e world lastTime startTime
             else do
@@ -45,11 +47,9 @@ play window bgColor tps w w2p ew2w tw2w = do
               loop'                   ren e newW currT startTime
           
           loop' : Renderer -> Event -> world -> Integer -> Integer -> IO ()
-          loop' ren e world lastTime startTime =
+          loop' ren e world lastTime startTime = 
             case eveType e         of
-               E_QUIT              => do 
-                 freeEve e
-                 pure ()
+               E_QUIT              => pure ()
                other               => do
                  let newW = ew2w other world
                  loop ren e newW lastTime startTime
