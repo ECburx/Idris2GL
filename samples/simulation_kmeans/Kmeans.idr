@@ -68,7 +68,7 @@ showDS (DS units ks)              = Pictures (frame :: k2p ks ++ u2p units)
          frame : Picture
          frame = Rectangle (MkRect 10 10 480 300) (MkColor 60 60 60 255) True
 
-updateDS : Integer -> DataSet -> DataSet
+updateDS : Double -> DataSet -> DataSet
 updateDS _ (DS units ks) =
    let udUnits = updateUnits units in DS udUnits (updateKs ks udUnits)
    where ipow2 : Int -> Int
@@ -107,7 +107,7 @@ main =
    simulate
        (InWindow "Kmeans" (MkRect 50 50 500 320))        -- window setting
        (MkColor 43 43 43 255)                            -- background color
-       1
+       1.0
        initDS
        showDS
        updateDS

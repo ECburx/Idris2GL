@@ -11,3 +11,7 @@ void delayWin(int ms) {
 int getTicks() {
     return SDL_GetTicks();
 }
+
+double getSecondsTicks() {
+    return SDL_GetTicks() / 1000.0;
+}

@@ -17,8 +17,11 @@ font = "FreeSerif.ttf"
 black : Color
 black = MkColor 0 0 0 255 
 
---              Mouse position  Time  Mouse state
-data World = WD (Int,Int)       Int   String
+-- --              Mouse position  Time  Mouse state
+-- data World = WD (Int,Int)       Int   String
+
+--              Mouse position  Time   Mouse state
+data World = WD (Int,Int)       Double String
 
 initWorld : World
 initWorld = WD (0,0) 0 ""
@@ -41,14 +44,17 @@ eventsHandler (E_MOUSEBUTTONUP   (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Up
 eventsHandler (E_MOUSEWHEEL      (x,y)) (WD _ t _) = WD (x,y) t "Mouse Wheel."
 eventsHandler _ w = w
 
-timeHandler : Integer -> World -> World
+-- timeHandler : Integer -> World -> World
+-- timeHandler t (WD xy _ s) = WD xy (cast t) s
+
+timeHandler : Double -> World -> World
 timeHandler t (WD xy _ s) = WD xy (cast t) s
 
 main : IO ()
-main = do
-    play (InWindow "Kmeans" (MkRect 50 50 300 120))        -- window setting
+main =
+    play (InWindow "Mouse" (MkRect 50 50 300 120))         -- window setting
          (MkColor 255 255 255 255)                         -- background color
-       0                                                   -- set to 0 to show continuous animation.
+       0.01                                                -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
        initWorld
        showWD
        eventsHandler

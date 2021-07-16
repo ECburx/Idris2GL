@@ -8,8 +8,9 @@ A Graphics Library for Idris2, based on SDL2.
 - Supports other events. (In Progress)
 - 2D Shapes, text. 
 - Animations.
-- Simulations. (In Progress)
-- Play games. (In Progress)
+- Simulations.
+- Play games.
+- Frames per second control.
 
 ## Build
 
@@ -78,8 +79,10 @@ display : Display -> Color -> Picture -> IO ()
 - `sample/animate_clock/Clock.idr`
 
 ```
-animate : Display -> Color 
-       -> (Integer -> Picture)
+animate : Display 
+       -> Color 
+       -> Double
+       -> (Double -> Picture)
        -> IO ()
 ```
 
@@ -90,11 +93,12 @@ animate : Display -> Color
 - `sample/simulation_kmeans/Kmeans.idr`
 
 ```
-simulate : Display -> Color 
-        -> Integer
+simulate : Display 
+        -> Color 
+        -> Double
         -> model
-        -> (model -> Picture)
-        -> (Integer -> model -> model)
+        -> (model  -> Picture)
+        -> (Double -> model -> model)
         -> IO ()
 ```
 
@@ -108,12 +112,13 @@ simulate : Display -> Color
 - Mouse wheel.
 
 ```
-play : Display -> Color
-    -> Integer
+play : Display 
+    -> Color
+    -> Double
     -> world
     -> (world   -> Picture)
     -> (Eve     -> world -> world)
-    -> (Integer -> world -> world)
+    -> (Double  -> world -> world)
     -> IO ()
 ```
 
