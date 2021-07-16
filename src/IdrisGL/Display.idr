@@ -11,7 +11,10 @@ import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_timer
 
 export
-display : Display -> Color -> Picture -> IO ()
+display : Display                   -- Display mode.
+       -> Color                     -- Background color.
+       -> Picture 
+       -> IO ()
 display window bgColor pic  =  do 
     win                     <- createWin window
     ren                     <- createRenderer win
