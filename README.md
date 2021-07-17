@@ -32,8 +32,8 @@ A Graphics Library for Idris2, based on SDL2.
 
 ### Display - BMP file or showing pictures in other formats.
 
-- `samples/showBMP/ShowBMP.idr`
-- `samples/showIMG/ShowIMG.idr`
+- `samples/display_showBMP/ShowBMP.idr`
+- `samples/display_showIMG/ShowIMG.idr`
 - Or use SDL2 binding functions.
 
 ```
@@ -52,7 +52,7 @@ display : Display -> Color -> Picture -> IO ()
 
 ### Display - Draw shapes
 
-- `sample/drawShapes/DrawShapes.idr`
+- `sample/display_drawShapes/DrawShapes.idr`
 
 ```
 display : Display -> Color -> Picture -> IO ()
@@ -64,7 +64,7 @@ display : Display -> Color -> Picture -> IO ()
 
 ### Display - Text
 
-- `sample/text/Text.idr`
+- `sample/display_text/Text.idr`
 
 ```
 display : Display -> Color -> Picture -> IO ()
@@ -106,7 +106,7 @@ simulate : Display
 
 ### Play - Mouse Event
 
-- `sample/mouseEvents/Mouse.idr`
+- `sample/play_mouseEvents/Mouse.idr`
 - Mouse motion.
 - Mouse buttons (down/up).
 - Mouse wheel.
@@ -124,3 +124,21 @@ play : Display
 
 ![Sample7](./img/sample7.gif)
 
+### Play - A Simple RPG
+
+- `sample/play_game/Game.idr`
+- A very simple 2D RPG.
+- W: Go up | S: Go down | A: Go left | D: Go right
+
+```
+play : Display 
+    -> Color
+    -> Double
+    -> world
+    -> (world   -> Picture)
+    -> (Eve     -> world -> world)
+    -> (Double  -> world -> world)
+    -> IO ()
+```
+
+![Sample7](./img/sample8.gif)
