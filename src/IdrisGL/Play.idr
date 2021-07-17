@@ -28,7 +28,6 @@ play window bgColor tps w w2p ew2w tw2w = do
     ren                            <- createRenderer win
     e                              <- newEve
     loop                              ren e w 0
-    
     closeWin                          win
     freeEve                           e
     freeRender                        ren
