@@ -19,7 +19,8 @@ void thickLine(SDL_Renderer *renderer,
                int x1, int y1, int x2, int y2,
                int r, int g, int b, int a,
                int width) {
-    thickLineRGBA(renderer, x1, y1, x2, y2, width, r, g, b, a);
+    if (thickLineRGBA(renderer, x1, y1, x2, y2, width, r, g, b, a) != 0)
+        printf("%s\n", SDL_GetError());
 }
 
 void aaline(SDL_Renderer *renderer,
