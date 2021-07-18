@@ -4,6 +4,7 @@ module IdrisGL.Simulate
 
 import IdrisGL.Picture
 import IdrisGL.DataType
+import IdrisGL.Color
 import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
@@ -26,26 +27,26 @@ simulate window bgColor tps m m2p m2m = do
     win                         <- createWin window
     ren                         <- createRenderer win
     e                           <- newEve
-    loop                           ren e m 0
+    loop                           ren win e m 0
     closeWin                       win
     freeEve                        e
     freeRender                     ren
     where mutual
-          loop : Renderer -> Event -> model -> Double -> IO ()
-          loop ren e model lastTime = 
+          loop : Renderer -> Win -> Event -> model -> Double -> IO ()
+          loop ren win e model lastTime = 
             if   !getSecondsTicks - lastTime < tps
-            then loop' ren e model lastTime
+            then loop'             ren win e model lastTime
             else do
               setRenderDrawColor   ren bgColor
               renderClear          ren
-              m2p model `loadPicture` ren
+              loadPicture          (m2p model) ren win
               renderPresent        ren
               currT             <- getSecondsTicks
               let newM          =  m2m currT model
-              loop' ren e newM currT
+              loop' ren win e newM currT
 
-          loop' : Renderer -> Event -> model -> Double -> IO ()
-          loop' ren e model lastTime =
+          loop' : Renderer -> Win -> Event -> model -> Double -> IO ()
+          loop' ren win e model lastTime =
           case eveType e        of
                E_QUIT           => pure ()
-               _                => loop ren e model lastTime
+               _                => loop ren win e model lastTime

@@ -3,6 +3,7 @@
 module IdrisGL.SDL.SDL_gfx
 
 import IdrisGL.DataType
+import IdrisGL.Color
 
 {- 
     FFI 

@@ -5,12 +5,14 @@ version     = 0.0
 modules     = IdrisGL
 
             , IdrisGL.DataType
+            , IdrisGL.Color
             , IdrisGL.Display
             , IdrisGL.Animate
             , IdrisGL.Picture
             , IdrisGL.Simulate
             , IdrisGL.Play
             
+            , IdrisGL.SDL
             , IdrisGL.SDL.SDL_event
             , IdrisGL.SDL.SDL_image
             , IdrisGL.SDL.SDL_keycode

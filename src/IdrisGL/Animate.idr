@@ -4,6 +4,7 @@ module IdrisGL.Animate
 
 import IdrisGL.Picture
 import IdrisGL.DataType
+import IdrisGL.Color
 import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
@@ -21,24 +22,24 @@ animate window bgColor tps picF =  do
     win                      <- createWin window
     ren                      <- createRenderer win
     e                        <- newEve
-    loop                        ren e 0
+    loop                        ren win e 0
     closeWin                    win
     freeEve                     e
     freeRender                  ren
     where mutual
-        loop : Renderer -> Event -> Double -> IO ()
-        loop ren e lastTime =
+        loop : Renderer -> Win -> Event -> Double -> IO ()
+        loop ren win e lastTime =
             if   !getSecondsTicks - lastTime < tps
-            then loop'          ren e lastTime
+            then loop'          ren win e lastTime
             else do
             setRenderDrawColor  ren bgColor
             renderClear         ren
-            picF !getSecondsTicks `loadPicture` ren
+            loadPicture         (picF !getSecondsTicks) ren win
             renderPresent       ren
-            loop'               ren e !getSecondsTicks
+            loop'               ren win e !getSecondsTicks
 
-        loop' : Renderer -> Event -> Double -> IO ()
-        loop' ren e lastTime =
+        loop' : Renderer -> Win -> Event -> Double -> IO ()
+        loop' ren win e lastTime =
             case eveType e   of
                  E_QUIT      => pure ()
-                 _           => loop ren e lastTime
+                 _           => loop ren win e lastTime

@@ -4,6 +4,7 @@ module IdrisGL.Display
 
 import IdrisGL.Picture
 import IdrisGL.DataType
+import IdrisGL.Color
 import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
@@ -21,7 +22,7 @@ display window bgColor pic  =  do
     setRenderDrawColor         ren bgColor
 
     renderClear                ren
-    loadPicture pic            ren
+    loadPicture                pic ren win
     renderPresent              ren
     e                       <- newEve
     loop                       e

@@ -3,6 +3,7 @@
 module Text
 
 import IdrisGL
+import IdrisGL.Color
 
 {- Show text.
   
@@ -15,8 +16,8 @@ font : String
 font = "FreeSerif.ttf"
 
 title : Picture
-title = SolidText "IdrisGL" 
-            50 font (MkCoor 490 10) (MkColor 230 230 230 255) TS_BOLD TH_NORMAL 0
+title = Rotate 10 (MkCoor 490 0) (SolidText "IdrisGL" 
+            50 font (MkCoor 490 0) (MkColor 230 230 230 255) TS_BOLD TH_NORMAL 0)
 
 solid : Picture
 solid = SolidText "Solid Text: Size 20, Color (220,220,220,255) STRIKETHROUGH NORMAL"

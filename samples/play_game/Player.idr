@@ -3,6 +3,7 @@
 module Player
 
 import IdrisGL
+import IdrisGL.Color
 
 import Map
 

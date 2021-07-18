@@ -75,8 +75,8 @@ void loadIMG(SDL_Renderer *renderer, char *path,
         return;
     }
 
-    SDL_Rect stretchRect = {x, y, w, h};
-    SDL_RenderCopy(renderer, texture, NULL, &stretchRect);
+    SDL_Rect dstRect = {x, y, w, h};
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);
     SDL_FreeSurface(raw);
     SDL_DestroyTexture(texture);
 }
@@ -95,8 +95,8 @@ void loadBMP(SDL_Renderer *renderer, char *path,
         return;
     }
 
-    SDL_Rect stretchRect = {x, y, w, h};
-    SDL_RenderCopy(renderer, texture, NULL, &stretchRect);
+    SDL_Rect dstRect = {x, y, w, h};
+    SDL_RenderCopy(renderer, texture, NULL, &dstRect);
     SDL_FreeSurface(raw);
     SDL_DestroyTexture(texture);
 }

@@ -3,6 +3,7 @@
 module IdrisGL.SDL.SDL_render
 
 import IdrisGL.DataType
+import IdrisGL.Color
 
 {- 
     FFI 
@@ -19,6 +20,36 @@ prim_createRenderer : AnyPtr -> AnyPtr
 export
 createRenderer : HasIO io => Win -> io Renderer
 createRenderer (MkWin win) = pure $ MkRenderer $ prim_createRenderer win
+
+--
+
+%foreign frgn "createTargetTexture"
+prim_createTargetTexture : AnyPtr -> AnyPtr -> AnyPtr
+
+export
+createTargetTexture : HasIO io => Win -> Renderer -> io Texture
+createTargetTexture (MkWin win) (MkRenderer ren) 
+    = pure $ MkTexture $ prim_createTargetTexture win ren
+
+--
+
+%foreign frgn "setRenderTarget"
+prim_setRenderTarget : AnyPtr -> AnyPtr -> PrimIO ()
+
+export
+setRenderTarget : HasIO io => Renderer -> Texture -> io ()
+setRenderTarget (MkRenderer ren) (MkTexture texture)
+    = primIO $ prim_setRenderTarget ren texture
+
+--
+
+%foreign frgn "resetRenderTarget"
+prim_resetRenderTarget : AnyPtr -> PrimIO ()
+
+export
+resetRenderTarget : HasIO io => Renderer -> io ()
+resetRenderTarget (MkRenderer ren)
+    = primIO $ prim_resetRenderTarget ren
 
 --
 
@@ -75,6 +106,43 @@ renderCopy (MkRenderer ren) (MkTexture t) (MkRect x y w h)
     = primIO $ prim_renderCopy ren t x y w h
 
 -- 
+
+%foreign frgn "renderCopyEx"
+prim_renderCopyEx : AnyPtr -> AnyPtr
+                 -> Int -> Int -> Int -> Int
+                 -> Double -> Int -> Int -> Int
+                 -> PrimIO ()
+
+export
+renderCopyEx : HasIO io => Renderer -> Texture -> Rect 
+                        -> Double -> Coordinate -> FlipSetting
+                        -> io ()
+renderCopyEx (MkRenderer ren) (MkTexture texture) (MkRect x y w h) angle (MkCoor cx cy) flip
+    = primIO $ prim_renderCopyEx ren texture x y w h angle cx cy (flip' flip)
+    where flip' : FlipSetting -> Int
+          flip' FLIP_NONE       = 0
+          flip' FLIP_HORIZONTAL = 1
+          flip' FLIP_VERTICAL   = 2
+
+--
+
+%foreign frgn "renderCopyExWin"
+prim_renderCopyExWin : AnyPtr -> AnyPtr -> AnyPtr
+                    -> Double -> Int -> Int -> Int
+                    -> PrimIO ()
+
+export
+renderCopyExWin : HasIO io => Win -> Renderer -> Texture
+                           -> Double -> Coordinate -> FlipSetting
+                           -> io ()
+renderCopyExWin (MkWin win) (MkRenderer ren) (MkTexture texture) angle (MkCoor cx cy) flip
+    = primIO $ prim_renderCopyExWin win ren texture angle cx cy (flip' flip)
+    where flip' : FlipSetting -> Int
+          flip' FLIP_NONE       = 0
+          flip' FLIP_HORIZONTAL = 1
+          flip' FLIP_VERTICAL   = 2
+
+--
 
 %foreign frgn "freeRender"
 prim_freeRender : AnyPtr -> PrimIO ()

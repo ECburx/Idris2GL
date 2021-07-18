@@ -4,6 +4,7 @@ module IdrisGL.Play
 
 import IdrisGL.Picture
 import IdrisGL.DataType
+import IdrisGL.Color
 import IdrisGL.SDL.SDL_event
 import IdrisGL.SDL.SDL_video
 import IdrisGL.SDL.SDL_render
@@ -27,28 +28,28 @@ play window bgColor tps w w2p ew2w tw2w = do
     win                            <- createWin window
     ren                            <- createRenderer win
     e                              <- newEve
-    loop                              ren e w 0
+    loop                              ren win e w 0
     closeWin                          win
     freeEve                           e
     freeRender                        ren
     where mutual
-          loop : Renderer -> Event -> world -> Double -> IO ()
-          loop ren e world lastTime =
+          loop : Renderer -> Win -> Event -> world -> Double -> IO ()
+          loop ren win e world lastTime =
             if   !getSecondsTicks - lastTime < tps
-            then loop'                ren e world lastTime
+            then loop'                ren win e world lastTime
             else do
               setRenderDrawColor      ren bgColor
               renderClear             ren
-              w2p world `loadPicture` ren
+              loadPicture             (w2p world) ren win
               renderPresent           ren
               currT                <- getSecondsTicks
               let newW             =  tw2w currT world
-              loop'                   ren e newW currT
+              loop'                   ren win e newW currT
           
-          loop' : Renderer -> Event -> world -> Double -> IO ()
-          loop' ren e world lastTime = 
+          loop' : Renderer -> Win -> Event -> world -> Double -> IO ()
+          loop' ren win e world lastTime = 
             case eveType e         of
                E_QUIT              => pure ()
                other               => do
                  let newW = ew2w other world
-                 loop ren e newW lastTime
+                 loop ren win e newW lastTime

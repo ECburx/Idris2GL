@@ -3,6 +3,7 @@
 module Game
 
 import IdrisGL
+import IdrisGL.Color
 
 import World
 import Map

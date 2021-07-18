@@ -3,6 +3,7 @@
 module IdrisGL.SDL.SDL_ttf
 
 import IdrisGL.DataType
+import IdrisGL.Color
 
 textStyle2Code : TextStyle -> Int
 textStyle2Code TS_NORMAL        = 0

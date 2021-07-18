@@ -2,21 +2,13 @@
 
 module IdrisGL.DataType
 
+import IdrisGL.Color
+
 {- Types -}
 
 public export
 data Rect : Type where
     MkRect : Int -> Int -> Int -> Int -> Rect
-
-public export
-data Color : Type where
-    MkColor : Int -> Int -> Int -> Int -> Color
-
-public export
-Eq Color where
-    (MkColor r1 g1 b1 a1) == (MkColor r2 g2 b2 a2) = 
-        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a1 == a2)
-    a /= b = not (a == b)
 
 public export
 data Coordinate : Type where
@@ -61,9 +53,16 @@ public export
 data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO   | TH_NONE
 
 public export
+data FlipSetting = FLIP_NONE | FLIP_HORIZONTAL | FLIP_VERTICAL
+
+public export
 data Picture
     = Blank
     | Pictures      (List Picture)
+    --              Degree Center
+    | Rotate        Double Coordinate Picture
+    --              ZoomX  ZoomY
+    -- | Scale         Double Double     Picture
     {- IMAGES -}
     --              Path   Size
     | Bitmap        String Rect
