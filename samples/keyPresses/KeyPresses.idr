@@ -3,6 +3,7 @@
 module KeyPresses
 
 import IdrisGL
+import IdrisGL.SDL
 
 {- Handle keyboard events.
    Press [ Up | Down | LEFT | RIGHT ] buttons to switch between pics.

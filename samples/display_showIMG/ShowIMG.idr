@@ -3,6 +3,8 @@
 module ShowIMG
 
 import IdrisGL
+import IdrisGL.Color
+import IdrisGL.SDL
 
 {- Show an image file.
   

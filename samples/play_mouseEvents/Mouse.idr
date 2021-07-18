@@ -3,6 +3,7 @@
 module Mouse
 
 import IdrisGL
+import IdrisGL.Color as Color
 
 {- Handle mouse events.
   
@@ -13,9 +14,6 @@ import IdrisGL
 
 font : String
 font = "FreeSerif.ttf"
-
-black : Color
-black = MkColor 0 0 0 255 
 
 -- --              Mouse position  Time  Mouse state
 -- data World = WD (Int,Int)       Int   String
@@ -28,10 +26,10 @@ initWorld = WD (0,0) 0 ""
 
 showWD : World -> Picture
 showWD (WD (x,y) t state) = 
-    Pictures [Text   posMsg  16 font (MkCoor 40 40) black
-             ,Text   state   16 font (MkCoor 40 70) black
-             ,Text   timeMsg 16 font (MkCoor 10 10) black
-             ,Circle (MkCoor x y) black False 10]
+    Pictures [Text   posMsg  16 font (MkCoor 40 40) Color.black
+             ,Text   state   16 font (MkCoor 40 70) Color.black
+             ,Text   timeMsg 16 font (MkCoor 10 10) Color.black
+             ,Circle (MkCoor x y) Color.black False 10]
     where posMsg : String
           posMsg  = "Mouse Position: (" ++ show x ++ ", " ++ show y ++ ")"
           timeMsg : String

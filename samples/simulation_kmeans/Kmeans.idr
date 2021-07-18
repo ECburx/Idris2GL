@@ -3,6 +3,8 @@
 module Kmeans
 
 import IdrisGL
+import IdrisGL.Color
+
 import Data.Primitives.Views
 import System
 import Data.Bits
@@ -15,17 +17,8 @@ import Data.Bits
    Kmeans> :exec main
 -}
 
--- k == 3. Each color represents one set.
-red   : Color
-red   = MkColor 255 0 0 255
-green : Color
-green = MkColor 0 255 0 255
-blue  : Color
-blue  = MkColor 0 0 255 255
-
--- Black represents that a unit (coordinate) hasn't belong to any set.
-white : Color
-white = MkColor 255 255 255 255
+-- k == 3. (red, green, blue) Each color represents one set.
+-- white represents that a unit (coordinate) hasn't belong to any set.
 
 -- The maximum possible data in dataset.
 maxData : Int
