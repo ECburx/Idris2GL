@@ -59,7 +59,7 @@ showDS (DS units ks)              = Pictures (frame :: k2p ks ++ u2p units)
             ,ThickLine (MkCoor (x-radius) (y+radius)) (MkCoor (x+radius) (y-radius)) color 3]
 
          frame : Picture
-         frame = Rectangle (MkRect 10 10 480 300) (MkColor 60 60 60 255) True
+         frame = Rectangle (MkRect 10 10 480 300) (MkRGB 60 60 60) True
 
 updateDS : Double -> DataSet -> DataSet
 updateDS _ (DS units ks) =
@@ -99,7 +99,7 @@ main : IO ()
 main = 
    simulate
        (InWindow "Kmeans" (MkRect 50 50 500 320))        -- window setting
-       (MkColor 43 43 43 255)                            -- background color
+       (MkRGBA 43 43 43 255)                             -- background color
        1.0
        initDS
        showDS

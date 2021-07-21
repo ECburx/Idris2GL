@@ -1,5 +1,6 @@
 {- Tian Z (ecburx@burx.vip) -}
 
+||| Loads pictures using SDL bindings.
 module IdrisGL.Picture
 
 import IdrisGL.DataType
@@ -10,8 +11,16 @@ import IdrisGL.SDL.SDL_image
 import IdrisGL.SDL.SDL_gfx
 import IdrisGL.SDL.SDL_ttf
 
+||| Loads pictures using SDL bindings.
+|||
+||| @ pic Picture.
+||| @ ren Renderer.
+||| @ win Window.
 export
-loadPicture : Picture -> Renderer -> Win -> IO ()
+loadPicture : (pic : Picture) 
+           -> (ren : Renderer)
+           -> (win : Win)
+           -> IO ()
 loadPicture Blank                      _   _   =  pure ()
 
 loadPicture (Pictures Nil)             _   _   =  pure ()

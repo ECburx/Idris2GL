@@ -1,49 +1,91 @@
 {- Tian Z (ecburx@burx.vip) -}
 
+||| Predefined and custom colors.
 module IdrisGL.Color
 
+||| Make a custom color. All components are clamped to the range [0..255].
 public export
 data Color : Type where
-    MkColor : Int -> Int -> Int -> Int -> Color
+    ||| RGBA color.
+    ||| @ r Red component.
+    ||| @ g Green component.
+    ||| @ b Blue component.
+    ||| @ a Alpha component.
+    MkRGBA : (r : Int) -> (g : Int) -> (b : Int) -> (a : Int) -> Color
+    ||| RGB color.
+    ||| @ r Red component.
+    ||| @ g Green component.
+    ||| @ b Blue component.
+    MkRGB  : (r : Int) -> (g : Int) -> (b : Int) -> Color
 
 public export
 Eq Color where
-    (MkColor r1 g1 b1 a1) == (MkColor r2 g2 b2 a2) = 
+    (MkRGBA r1 g1 b1 a1) == (MkRGBA r2 g2 b2 a2) = 
         (r1 == r2) && (g1 == g2) && (b1 == b2) && (a1 == a2)
+
+    (MkRGB  r1 g1 b1)    == (MkRGB  r2 g2 b2) = 
+        (r1 == r2) && (g1 == g2) && (b1 == b2)
+    
+    (MkRGBA r1 g1 b1 a1) == (MkRGB  r2 g2 b2) =
+        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a1 == 255)
+    
+    (MkRGB  r1 g1 b1)    == (MkRGBA r2 g2 b2 a2) = 
+        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a2 == 255)
+
     a /= b = not (a == b)
 
-public export
+||| Take the RGBA components of a color.
+||| @ color Color.
+export
+rgbaOfColor : (color : Color) -> (Int,Int,Int,Int)
+rgbaOfColor (MkRGB  r g b)   = (r,g,b,255)
+rgbaOfColor (MkRGBA r g b a) = (r,g,b,a)
+
+||| Add RGB components of a color component-wise, then normalise them to the highest resulting one. 
+||| The alpha components are averaged.
+||| @ c1 First color.
+||| @ c2 Second color.
+export
+addColors : (c1 : Color) -> (c2 : Color) -> Color
+addColors c1 c2 =
+    let (r1, g1, b1, a1) = rgbaOfColor c1
+        (r2, g2, b2, a2) = rgbaOfColor c2
+    in  MkRGBA (r1 + r2) (g1 + g2) (b1 + b2) ((a1 + a2) `div` 2)
+
+{- Predifined colors. -}
+
+export
 transparent : Color
-transparent = MkColor 0 0 0 0
+transparent = MkRGBA 0 0 0 0
 
-public export
+export
 white   : Color
-white   = MkColor 255 255 255 255
+white   = MkRGB 255 255 255
 
-public export
+export
 black   : Color
-black   = MkColor   0   0   0 255
+black   = MkRGB   0   0   0
 
-public export
+export
 red     : Color
-red     = MkColor 255   0   0 255
+red     = MkRGB 255   0   0
 
-public export
+export
 green   : Color
-green   = MkColor   0 255   0 255
+green   = MkRGB   0 255   0
 
-public export
+export
 blue    : Color
-blue    = MkColor   0   0 255 255
+blue    = MkRGB   0   0 255
 
-public export
+export
 yellow  : Color
-yellow  = MkColor 255 255   0 255
+yellow  = MkRGB 255 255   0
 
-public export
+export
 magenta : Color
-magenta = MkColor 255   0 255 255
+magenta = MkRGB 255   0 255
 
-public export
+export
 cyan    : Color
-cyan    = MkColor   0 255 255 255
+cyan    = MkRGB   0 255 255

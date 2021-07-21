@@ -15,14 +15,15 @@ import IdrisGL.Color as Color
 font : String
 font = "FreeSerif.ttf"
 
--- | The center of the clock.
+||| The center of the clock.
 center : Coordinate
 center = MkCoor 150 150
 
-clock_Hand : Int        -- Dividing the clock into 60 parts, this integer represents which part the hand points to.
-          -> Int        -- The length of a clock hand.
-          -> Int        -- The thickness of a clock hand.
-          -> Picture
+||| Picture of a clock hand.
+||| @ time Dividing the clock into 60 parts, this integer represents which part the hand points to.
+||| @ length The length of a clock hand.
+||| @ thickness The thickness of a clock hand.
+clock_Hand : (time : Int) -> (length : Int) -> (thickness : Int) -> Picture
 clock_Hand time length thickness =
     ThickLine center (MkCoor x y) Color.black thickness
     where angle : Double
@@ -62,7 +63,7 @@ clock s = let s' : Int = cast s in
 main : IO ()
 main = animate 
        (InWindow "Clock" (MkRect 50 50 300 300))        -- window setting
-       (MkColor 255 255 255 255)                        -- background color
+       Color.white                                      -- background color
        1                                                -- FPS control
        clock                                            -- Function to produce the next frame of animation.
                                                         -- It is passed the time in seconds since the program started.

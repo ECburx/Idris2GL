@@ -51,7 +51,7 @@ timeHandler t (WD xy _ s) = WD xy (cast t) s
 main : IO ()
 main =
     play (InWindow "Mouse" (MkRect 50 50 300 120))         -- window setting
-         (MkColor 255 255 255 255)                         -- background color
+         Color.white                                       -- background color
        0.01                                                -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
        initWorld
        showWD

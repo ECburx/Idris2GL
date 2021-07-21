@@ -33,8 +33,8 @@ vhMessage         = ShadedText
                     10 
                     "FreeSerif.ttf" 
                     (MkCoor 30 5) 
-                    (MkColor 255 255 255 255) 
-                    (MkColor  43  43  43 200) 
+                    Color.white
+                    (MkRGBA  43  43  43 200) 
                     TS_BOLD
                     TH_NONE
                     0

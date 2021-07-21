@@ -19,7 +19,7 @@ import Map
 main : IO ()
 main =
     play (InWindow "RPG" (MkRect 50 50 (10*blockWidth) (10*blockWidth)))
-         (MkColor 255 255 255 255)
+       Color.white
        0.1            -- Frames per seconds (FPS) = 1/0.1 = 10 (0: unlimited FPS)
        initWorld
        showWD

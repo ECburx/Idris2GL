@@ -11,16 +11,21 @@ import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_timer
 
+||| Run a simulation in a window.
+|||
+||| @ window  Display mode.
+||| @ bgColor Background color.
+||| @ tps     Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
+||| @ model   The initial model.
+||| @ m2p     Function to step the model one iteration.
+||| @ m2m     A function to step the model one iteration. It passes the amount of time (seconds) since the window creation.
 export
-simulate : Display                      -- Display mode.
-        -> Color                        -- Background color.
-        -> Double                       -- Time (seconds) of showing each step.
-                                        --   (Moving to next steps after specified seconds.)
-                                        --   Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
-        -> model                        -- The initial model.
-        -> (model  -> Picture)          -- Function to step the model one iteration.
-        -> (Double -> model -> model)   -- A function to step the model one iteration. 
-                                        --   It passes the amount of time (seconds) since the window creation.
+simulate : (window  : Display)
+        -> (bgColor : Color)
+        -> (tps     : Double)
+        -> model
+        -> (m2p     : (model  -> Picture))
+        -> (m2m     : (Double -> model -> model))
         -> IO ()
 
 simulate window bgColor tps m m2p m2m = do

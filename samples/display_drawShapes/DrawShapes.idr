@@ -17,14 +17,14 @@ font : String
 font = "FreeSerif.ttf"
 
 shapes : Picture
-shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkColor 60 60 60 255) True
-                  ,R_Rectangle (MkRect 50 50 540 380) (MkColor 200 100 200 255) False 20
+shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkRGB 60 60 60) True
+                  ,R_Rectangle (MkRect 50 50 540 380) (MkRGB 200 100 200) False 20
                   ,Line        (MkCoor 320 10)  (MkCoor 320 470) Color.cyan
                   ,ThickLine   (MkCoor 10  240) (MkCoor 630 240) Color.magenta 10
-                  ,Circle      (MkCoor 320 240) (MkColor 200 200 200 100) True  100
-                  ,Circle      (MkCoor 320 240) (MkColor 255 200 200 255) False 105
+                  ,Circle      (MkCoor 320 240) (MkRGBA 200 200 200 100) True  100
+                  ,Circle      (MkCoor 320 240) (MkRGB  255 200 200) False 105
                   ,Rotate 30   (MkCoor 320 240) (Ellipse (MkCoor 320 240) 100 50 Color.blue False)
-                  ,Ellipse     (MkCoor 320 240) 100 30 (MkColor 230 230 230 80)  True
+                  ,Ellipse     (MkCoor 320 240) 100 30 (MkRGBA 230 230 230 80)  True
                   ,Arc         (MkCoor 320 240) Color.green 50 20 200
                   ,Pixel       (MkCoor 320 240) Color.red
                   ,Trigon      (MkCoor 300 253) (MkCoor 340 253) (MkCoor 320 218) Color.red False
@@ -36,7 +36,7 @@ shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkColor 60 60 60 255) Tru
                                          ,MkCoor 120 200
                                          ,MkCoor 200 160
                                          ,MkCoor 200 70] 
-                                         (MkColor 30 255 30 255) False)
+                                         (MkRGB 30 255 30) False)
                   ,Text        "Hello World" 30 font (MkCoor 330 250) Color.red
                   ]
 
@@ -44,7 +44,7 @@ shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkColor 60 60 60 255) Tru
 main : IO ()
 main = display 
     (InWindow "Shapes" (MkRect 30 50 640 480))        -- window setting
-    (MkColor 43 43 43 255)                            -- background color
+    (MkRGB 43 43 43)                                  -- background color
     shapes                                            -- Picture
 
 -- Or you can customize details:

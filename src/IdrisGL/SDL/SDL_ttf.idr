@@ -34,13 +34,18 @@ prim_drawText : AnyPtr
               -> Int -> Int -> Int -> Int
               -> PrimIO ()
 
+||| Draw blended text to a renderer with default settings.
+||| @ text Text.
+||| @ size Font size.
+||| @ font Path of font file.
 export
 drawText : HasIO io => Renderer
-                    -> String -> Int -> String
+                    -> (text : String) -> (size : Int) -> (font : String)
                     -> Coordinate -> Color
                     -> io ()
-drawText (MkRenderer ren) text size font (MkCoor x y) (MkColor r g b a) 
-    = primIO $ prim_drawText ren text size font x y r g b a
+drawText (MkRenderer ren) text size font (MkCoor x y) color
+    = let (r,g,b,a) = rgbaOfColor color in
+      primIO $ prim_drawText ren text size font x y r g b a
 
 --
 
@@ -52,13 +57,20 @@ prim_drawSolidText : AnyPtr
                    -> Int -> Int -> Int -> Int
                    -> PrimIO ()
 
+||| Draw solid text to a renderer.
+||| @ text    Text.
+||| @ size    Font size.
+||| @ font    Path of font file.
+||| @ kerning Set freetype kerning setting.
 export
-drawSolidText : HasIO io => Renderer -> String -> Int -> String
-                         -> TextStyle -> Int -> TextHinting
+drawSolidText : HasIO io => Renderer
+                         -> (text : String) -> (size : Int) -> (font : String)
+                         -> TextStyle -> (kerning : Int) -> TextHinting
                          -> Coordinate -> Color -> io ()
-drawSolidText (MkRenderer ren) text size font style kerning hinting (MkCoor x y) (MkColor r g b a)
-    = let s = textStyle2Code style
-          h = textHinting2Code hinting in 
+drawSolidText (MkRenderer ren) text size font style kerning hinting (MkCoor x y) color
+    = let (r,g,b,a) = rgbaOfColor      color
+          s         = textStyle2Code   style
+          h         = textHinting2Code hinting in 
       primIO $ prim_drawSolidText ren text size font s kerning h x y r g b a
 
 --
@@ -71,14 +83,20 @@ prim_drawBlendedText : AnyPtr
                     -> Int -> Int -> Int -> Int
                     -> PrimIO ()
 
+||| Draw blended text to a renderer.
+||| @ text    Text.
+||| @ size    Font size.
+||| @ font    Path of font file.
+||| @ kerning Set freetype kerning setting.
 export
 drawBlendedText : HasIO io => Renderer 
-                           -> String -> Int -> String
-                           -> TextStyle -> Int -> TextHinting
+                           -> (text : String) -> (size : Int) -> (font : String)
+                           -> TextStyle -> (kerning : Int) -> TextHinting
                            -> Coordinate -> Color -> io ()
-drawBlendedText (MkRenderer ren) text size font style kerning hinting (MkCoor x y) (MkColor r g b a)
-    = let s = textStyle2Code style
-          h = textHinting2Code hinting in 
+drawBlendedText (MkRenderer ren) text size font style kerning hinting (MkCoor x y) color
+    = let (r,g,b,a) = rgbaOfColor      color 
+          s         = textStyle2Code   style
+          h         = textHinting2Code hinting in 
       primIO $ prim_drawBlendedText ren text size font s kerning h x y r g b a
 
 --
@@ -92,13 +110,25 @@ prim_drawShadedText : AnyPtr
                     -> Int -> Int -> Int -> Int
                     -> PrimIO ()
 
+||| Draw shaded text to a renderer.
+||| @ text    Text.
+||| @ size    Font size.
+||| @ font    Path of font file.
+||| @ kerning Set freetype kerning setting.
+||| @ color1  The color to render the text in.
+||| @ color2  The color to render the background box in.
 export
 drawShadedText : HasIO io => Renderer 
-                          -> String -> Int -> String
-                          -> TextStyle -> Int -> TextHinting
-                          -> Coordinate -> Color -> Color -> io ()
-drawShadedText (MkRenderer ren) text size font style kerning hinting (MkCoor x y)
-    (MkColor r1 g1 b1 a1) (MkColor r2 g2 b2 a2)
-    = let s = textStyle2Code style
-          h = textHinting2Code hinting in 
+                          -> (text : String) -> (size : Int) -> (font : String)
+                          -> TextStyle -> (kerning : Int) -> TextHinting
+                          -> Coordinate -> (color1 : Color) -> (color2 : Color) 
+                          -> io ()
+drawShadedText (MkRenderer ren) 
+    text size font 
+    style kerning hinting 
+    (MkCoor x y) color1 color2
+    = let (r1,g1,b1,a1) = rgbaOfColor color1
+          (r2,g2,b2,a2) = rgbaOfColor color2
+          s             = textStyle2Code style
+          h             = textHinting2Code hinting in
       primIO $ prim_drawShadedText ren text size font s kerning h x y r1 g1 b1 a1 r2 g2 b2 a2

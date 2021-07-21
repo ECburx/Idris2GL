@@ -1,5 +1,6 @@
 {- Tian Z (ecburx@burx.vip) -}
 
+||| Display a picture in window.
 module IdrisGL.Display
 
 import IdrisGL.Picture
@@ -11,10 +12,15 @@ import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_timer
 
+||| Open a new window and display the given picture.
+|||
+||| @ window  Display mode.
+||| @ bgColor Background color.
+||| @ pic     Picture.
 export
-display : Display                   -- Display mode.
-       -> Color                     -- Background color.
-       -> Picture 
+display : (window  : Display)
+       -> (bgColor : Color)
+       -> (pic     : Picture) 
        -> IO ()
 display window bgColor pic  =  do 
     win                     <- createWin window
