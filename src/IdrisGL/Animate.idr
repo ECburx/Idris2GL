@@ -1,5 +1,6 @@
 {- Tian Z (ecburx@burx.vip) -}
 
+||| Animate a picture in a window.
 module IdrisGL.Animate
 
 import IdrisGL.Picture
@@ -11,14 +12,19 @@ import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_timer
 
+||| Open a new window and display the given animation.
+|||
+||| @ window  Display mode.
+||| @ bgColor Background color.
+||| @ tps     Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
+||| @ picF    Function to produce the next frame of animation. It is passed the time in seconds since the program started.
 export
-animate : Display                   -- Display mode.
-       -> Color                     -- Background color.
-       -> Double                    -- Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
-       -> (Double -> Picture)       -- Function to produce the next frame of animation. 
-                                    --   It is passed the time in seconds since the program started.
+animate : (window  : Display)
+       -> (bgColor : Color)
+       -> (tps     : Double)
+       -> (picF    : (Double -> Picture))
        -> IO ()
-animate window bgColor tps picF =  do
+animate window bgColor tps picF = do
     win                      <- createWin window
     ren                      <- createRenderer win
     e                        <- newEve

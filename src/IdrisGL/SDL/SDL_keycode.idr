@@ -2,6 +2,7 @@
 
 module IdrisGL.SDL.SDL_keycode
 
+||| All supported key events.
 public export
 data Key
   = EK_UNKNOWN

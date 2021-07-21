@@ -1,5 +1,6 @@
 {- Tian Z (ecburx@burx.vip) -}
 
+||| Play a game in a window.
 module IdrisGL.Play
 
 import IdrisGL.Picture
@@ -11,17 +12,23 @@ import IdrisGL.SDL.SDL_render
 import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_timer
 
+||| Play a game in a window. Like simulate, but you manage your own input events.
+|||
+||| @ window  Display mode.
+||| @ bgColor Background color.
+||| @ tps     Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
+||| @ w       The initial world.
+||| @ w2p     A function to convert the world a picture.
+||| @ ew2w    A function to handle input events.
+||| @ tw2w    A function to step the world one iteration. It passes the amount of time (seconds) since the window creation.
 export
-play : Display                      -- Display mode.
-    -> Color                        -- Background color.
-    -> Double                       -- Time (seconds) of showing each step.
-                                    --   (Moving to next steps after specified seconds.)
-                                    --   Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
-    -> world                        -- The initial world.
-    -> (world  -> Picture)          -- A function to convert the world a picture.
-    -> (Eve    -> world -> world)   -- A function to handle input events.
-    -> (Double -> world -> world)   -- A function to step the world one iteration.
-                                    --   It passes the amount of time (seconds) since the window creation.
+play : (window  : Display)
+    -> (bgColor : Color)
+    -> (tps     : Double)
+    -> world
+    -> (w2p     : (world  -> Picture))
+    -> (ew2w    : (Eve    -> world -> world))
+    -> (tw2w    : (Double -> world -> world))
     -> IO ()
 
 play window bgColor tps w w2p ew2w tw2w = do

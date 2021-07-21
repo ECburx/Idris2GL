@@ -7,19 +7,27 @@ import System.FFI
 import IdrisGL.DataType
 import IdrisGL.SDL.SDL_keycode
 
+||| Events.
 public export
 data Eve 
-  = E_UNAVAILABLE
-
-  | E_QUIT
-
-  | E_KEYDOWN         Key
-  | E_KEYUP           Key
-
-  | E_MOUSEMOTION     (Int, Int)
-  | E_MOUSEBUTTONDOWN (Int, Int)
-  | E_MOUSEBUTTONUP   (Int, Int)
-  | E_MOUSEWHEEL      (Int, Int)
+  = ||| Unavailable event.
+  E_UNAVAILABLE
+  | ||| Quit event.
+  E_QUIT
+  {- Key events -}
+  | ||| Key pressed event.
+  E_KEYDOWN Key
+  | ||| Key release event.
+  E_KEYUP   Key
+  {- Mouse events -}
+  | ||| Moving mouse and its position.
+  E_MOUSEMOTION     (Int, Int)
+  | ||| Mouse button pressed and its position.
+  E_MOUSEBUTTONDOWN (Int, Int)
+  | ||| Mouse button released and its position.
+  E_MOUSEBUTTONUP   (Int, Int)
+  | ||| Mouse wheel event and its position.
+  E_MOUSEWHEEL      (Int, Int)
 
 EventStruct : Type
 EventStruct = Struct "Event" [("ePtr", AnyPtr), ("mouseX", Int), ("mouseY", Int)]
@@ -69,6 +77,7 @@ getEve _    _      = E_UNAVAILABLE
 %foreign frgn "newEve"
 prim_newEve : AnyPtr
 
+||| An SDL_Event pointer wrapper.
 export
 newEve : HasIO io => io Event
 newEve = pure $ MkEvent $ prim_newEve
@@ -78,8 +87,9 @@ newEve = pure $ MkEvent $ prim_newEve
 %foreign frgn "eveType"
 prim_eveType : AnyPtr -> Int
 
+||| Poll events and get its type.
 export
-eveType : Event -> Eve
+eveType : (event : Event) -> Eve
 eveType event@(MkEvent e) = getEve (prim_eveType e) event
 
 --
@@ -87,6 +97,7 @@ eveType event@(MkEvent e) = getEve (prim_eveType e) event
 %foreign frgn "freeEve"
 prim_freeEve : AnyPtr -> PrimIO ()
 
+||| Free an event initialized by newEve.
 export
 freeEve : HasIO io => Event -> io ()
 freeEve (MkEvent e) = primIO $ prim_freeEve e

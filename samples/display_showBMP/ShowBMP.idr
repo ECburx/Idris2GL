@@ -17,7 +17,7 @@ import IdrisGL.SDL
 main : IO ()
 main = display 
     (InWindow "Show BMP" (MkRect 30 50 640 480))                                 -- window setting
-    (MkColor 100 150 200 100)                                                    -- background color
+    (MkRGBA 100 150 200 100)                                                     -- background color
     (Rotate 10 (MkCoor 0 0) (Bitmap "hello_world.bmp" (MkRect 200 0 320 240)))   -- Picture
 
 -- Or you can customize details:

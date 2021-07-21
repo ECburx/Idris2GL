@@ -19,6 +19,7 @@ prim_createWin : String
                -> Int                       -- is fullscreen?
                -> AnyPtr
 
+||| Create a window.
 export
 createWin : HasIO io => Display -> io Win
 createWin (InWindow title (MkRect x y w h))
@@ -31,6 +32,7 @@ createWin FullWindow
 %foreign frgn "closeWin"
 prim_closeWin : AnyPtr -> PrimIO ()
 
+||| Close an opended window.
 export
 closeWin : HasIO io => Win -> io ()
 closeWin (MkWin wptr) = primIO $ prim_closeWin wptr
@@ -40,6 +42,7 @@ closeWin (MkWin wptr) = primIO $ prim_closeWin wptr
 %foreign frgn "getWinSur"
 prim_getWinSur : AnyPtr -> AnyPtr
 
+||| Get surface of a window.
 export
 getWinSur : HasIO io => Win -> io Sur
 getWinSur (MkWin wptr) = pure $ MkSur $ prim_getWinSur wptr
@@ -49,6 +52,7 @@ getWinSur (MkWin wptr) = pure $ MkSur $ prim_getWinSur wptr
 %foreign frgn "updateWinSur"
 prim_updateWinSur : AnyPtr -> PrimIO ()
 
+||| Update a surface of window.
 export
 updateWinSur : HasIO io => Win -> io ()
 updateWinSur (MkWin wptr) = primIO $ prim_updateWinSur wptr

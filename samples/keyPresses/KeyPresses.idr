@@ -35,8 +35,8 @@ main = do
       loop : Win -> Event -> Sur -> List Sur -> Int -> IO ()
       loop window e screen bmps i = do
         case take i bmps of
-             Nothing  => pure ()
-             Just bmp => do 
+             Nothing     => pure ()
+             Just bmp    => do 
           blitSur bmp screen
           updateWinSur window
           case eveType e of
