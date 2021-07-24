@@ -50,32 +50,33 @@ blockCode2Picture _ _     = Blank
 
 {- Map -}
 
-export
-mapWidth  : Int
-mapWidth  = 10
+-- export
+-- mapWidth  : Int
+-- mapWidth  = 10
 
-export
-mapHeight : Int
-mapHeight = mapWidth
+-- export
+-- mapHeight : Int
+-- mapHeight = mapWidth
 
 public export
-data Map = MP (List (List Nat))
+data Map : Type where
+     MP  : List (List Nat) -> (w : Int) -> (h : Int) -> Map
 
 export
 map2picture : Map -> List Picture
-map2picture (MP Nil)     = Nil
-map2picture (MP (d::ds)) = iter 0 (d::ds)
+map2picture (MP Nil     _ _)   = Nil
+map2picture (MP (d::ds) _ _)   = iter 0 (d::ds)
     where iter' : Int -> Int -> List Nat -> List Picture
-          iter' _  _  Nil     = Nil
-          iter' li ci (b::bs) = blockCode2Picture b (li,ci) :: iter' li (ci+1) bs
+          iter' _  _  Nil      = Nil
+          iter' li ci (b::bs)  = blockCode2Picture b (li,ci) :: iter' li (ci+1) bs
 
           iter  : Int -> List (List Nat) -> List Picture
-          iter  _     Nil     = Nil
-          iter  li    (l::ls) = iter' li 0 l ++ iter (li+1) ls
+          iter  _     Nil      = Nil
+          iter  li    (l::ls)  = iter' li 0 l ++ iter (li+1) ls
 
 export
 getBlockCode : Map -> (Int,Int) -> Nat
-getBlockCode (MP (l::ls)) (i,j) = 
+getBlockCode (MP (l::ls) _ _) (i,j) = 
     getCode (getLine (l::ls) i) j
     where getLine : List (List Nat) -> Int -> List Nat
           getLine Nil       _  = Nil
@@ -83,9 +84,9 @@ getBlockCode (MP (l::ls)) (i,j) =
           getLine (l'::ls') i' = getLine ls' (i'-1)
 
           getCode : List Nat -> Int -> Nat
-          getCode Nil     _  = 0
-          getCode (c::cs) 0  = c
-          getCode (c::cs) j' = getCode cs (j'-1)
+          getCode Nil       _  = 0
+          getCode (c::cs)   0  = c
+          getCode (c::cs)   j' = getCode cs (j'-1)
 getBlockCode _ _ = 0
 
 export
@@ -101,3 +102,4 @@ map1 =
        ,[3,3,3,3,5,5,5,5,5,5]
        ,[3,3,3,5,5,5,5,5,5,5]
        ,[5,5,5,5,5,5,5,5,5,5]]
+       10 10

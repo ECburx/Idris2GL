@@ -25,7 +25,7 @@ export
 play : (window  : Display)
     -> (bgColor : Color)
     -> (tps     : Double)
-    -> world
+    ->  world
     -> (w2p     : (world  -> Picture))
     -> (ew2w    : (Eve    -> world -> world))
     -> (tw2w    : (Double -> world -> world))
@@ -52,11 +52,8 @@ play window bgColor tps w w2p ew2w tw2w = do
               currT                <- getSecondsTicks
               let newW             =  tw2w currT world
               loop'                   ren win e newW currT
-          
+
           loop' : Renderer -> Win -> Event -> world -> Double -> IO ()
-          loop' ren win e world lastTime = 
-            case eveType e         of
-               E_QUIT              => pure ()
-               other               => do
-                 let newW = ew2w other world
-                 loop ren win e newW lastTime
+          loop'   ren win e w lastTime with (eveType e)
+            loop' _   _   _ _ _        | E_QUIT = pure ()
+            loop' ren win e w lastTime | other  = loop ren win e (ew2w other w) lastTime

@@ -39,7 +39,7 @@ clock_Text time = SolidText (show h ++ ":" ++ show m ++ ":" ++ show s)
     where s : Int
           s = time `mod` 60
           m : Int
-          m = mod (div time 60) 60
+          m = mod (div time 60)   60
           h : Int
           h = mod (div time 1200) 60
 
@@ -55,10 +55,10 @@ clock_Number
 clock : Double -> Picture
 clock s = let s' : Int = cast s in
             Pictures ([Circle     center Color.black False 120
-                    ,clock_Hand s'                   90  1    -- second
-                    ,clock_Hand (cast $ div s' 60)   70  4    -- minute
-                    ,clock_Hand (cast $ div s' 1200) 50  6    -- hour
-                    ,clock_Text s'] ++ clock_Number)
+                      ,clock_Hand s'                   90  1    -- second
+                      ,clock_Hand (cast $ div s' 60)   70  4    -- minute
+                      ,clock_Hand (cast $ div s' 1200) 50  6    -- hour
+                      ,clock_Text s'] ++ clock_Number)
 
 main : IO ()
 main = animate 

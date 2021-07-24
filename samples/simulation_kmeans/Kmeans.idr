@@ -5,6 +5,7 @@ module Kmeans
 import IdrisGL
 import IdrisGL.Color
 
+import Data.Vect
 import Data.Primitives.Views
 import System
 import Data.Bits
@@ -26,7 +27,7 @@ maxData = 500
 
 data UNIT = Ut Int Int Color
 
-data DataSet = DS (List UNIT) (List UNIT)
+data DataSet = DS (Vect n UNIT) (Vect m UNIT)
 
 -- initial dataset.
 initDS : DataSet
@@ -48,11 +49,11 @@ showDS (DS units ks)              = Pictures (frame :: k2p ks ++ u2p units)
    where radius : Int
          radius = 5
 
-         u2p : List UNIT -> List Picture
+         u2p : Vect n UNIT -> List Picture
          u2p Nil                  = Nil
          u2p (Ut x y color :: us) = Circle (MkCoor x y) color False radius :: u2p us
 
-         k2p : List UNIT -> List Picture
+         k2p : Vect n UNIT -> List Picture
          k2p Nil                  = Nil
          k2p (Ut x y color :: ks) = k2p ks ++
             [ThickLine (MkCoor (x-radius) (y-radius)) (MkCoor (x+radius) (y+radius)) color 3 
@@ -67,7 +68,7 @@ updateDS _ (DS units ks) =
    where ipow2 : Int -> Int
          ipow2 a = a * a
 
-         belong : UNIT -> List UNIT -> Int -> UNIT
+         belong : UNIT -> Vect n UNIT -> Int -> UNIT
          belong unit Nil _ = unit
          belong unit@(Ut ux uy _) (Ut kx ky color::ks') d2 = 
             let  d' = ipow2 (ux-kx) + ipow2 (uy-ky) in
@@ -75,11 +76,11 @@ updateDS _ (DS units ks) =
             then belong (Ut ux uy color) ks' d'
             else belong unit ks' d2
 
-         updateUnits : List UNIT -> List UNIT
+         updateUnits : Vect n UNIT -> Vect n UNIT
          updateUnits Nil     = Nil
          updateUnits (u::us) = belong u ks (ipow2 maxData) :: updateUnits us
 
-         xySum : UNIT -> List UNIT -> (Int, Int, Int)
+         xySum : UNIT -> Vect n UNIT -> (Int, Int, Int)
          xySum _ [] = (0,0,0)
          xySum k@(Ut _ _ uColor) (Ut x y kColor::us) =
             let  (xs, ys, num) = xySum k us in
@@ -87,7 +88,7 @@ updateDS _ (DS units ks) =
             then (xs+x, ys+y, num+1)
             else (  xs,   ys,   num)
          
-         updateKs : List UNIT -> List UNIT -> List UNIT
+         updateKs : Vect m UNIT -> Vect n UNIT -> Vect m UNIT
          updateKs Nil _ = Nil
          updateKs (k@(Ut _ _ color)::ks) units =
             let (xs, ys, num) = xySum k units in

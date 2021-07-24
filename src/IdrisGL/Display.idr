@@ -38,7 +38,6 @@ display window bgColor pic  =  do
     freeRender                 ren
 
     where loop : Event -> IO ()
-          loop e            =
-          case eveType e    of
-               E_QUIT       => pure ()
-               _            => loop e
+          loop     e with (eveType e)
+              loop _ | E_QUIT = pure ()
+              loop e | _      = loop e

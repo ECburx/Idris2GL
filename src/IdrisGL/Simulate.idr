@@ -51,7 +51,6 @@ simulate window bgColor tps m m2p m2m = do
               loop' ren win e newM currT
 
           loop' : Renderer -> Win -> Event -> model -> Double -> IO ()
-          loop' ren win e model lastTime =
-          case eveType e        of
-               E_QUIT           => pure ()
-               _                => loop ren win e model lastTime
+          loop'   ren win e m lastTime with (eveType e)
+            loop' _   _   _ _ _        | E_QUIT = pure ()
+            loop' ren win e m lastTime | _      = loop ren win e m lastTime
