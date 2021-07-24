@@ -65,7 +65,6 @@ main' = do
     closeWin           win
     where 
       loop : Renderer -> Event -> IO ()
-      loop ren e     = do
-        case eveType e of
-             E_QUIT => pure ()
-             _      => loop ren e
+      loop   ren e with (eveType e)
+        loop _   _ | E_QUIT = pure ()
+        loop ren e | _      = loop ren e

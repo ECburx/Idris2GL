@@ -45,7 +45,7 @@ animate window bgColor tps picF = do
             loop'               ren win e !getSecondsTicks
 
         loop' : Renderer -> Win -> Event -> Double -> IO ()
-        loop' ren win e lastTime =
-            case eveType e   of
-                 E_QUIT      => pure ()
-                 _           => loop ren win e lastTime
+        loop'     ren win e lastTime with (eveType e)
+            loop' _   _   _ _        | E_QUIT = pure ()
+            loop' ren win e lastTime | _      = loop ren win e lastTime
+            

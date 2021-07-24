@@ -2,6 +2,7 @@
 
 module Mouse
 
+import Data.Vect
 import IdrisGL
 import IdrisGL.Color as Color
 
@@ -14,9 +15,6 @@ import IdrisGL.Color as Color
 
 font : String
 font = "FreeSerif.ttf"
-
--- --              Mouse position  Time  Mouse state
--- data World = WD (Int,Int)       Int   String
 
 --              Mouse position  Time   Mouse state
 data World = WD (Int,Int)       Double String

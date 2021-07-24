@@ -23,7 +23,7 @@ loadPicture : (pic : Picture)
            -> IO ()
 loadPicture Blank                      _   _   =  pure ()
 
-loadPicture (Pictures Nil)             _   _   =  pure ()
+loadPicture (Pictures [])              _   _   =  pure ()
 loadPicture (Pictures (x::xs))         ren win =  do
   loadPicture                                     x ren win
   loadPicture                                     (Pictures xs) ren win

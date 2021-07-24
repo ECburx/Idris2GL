@@ -2,6 +2,7 @@
 
 module World
 
+import Data.Vect
 import IdrisGL
 import IdrisGL.Color
 
@@ -13,13 +14,11 @@ data World = WD Map Eve       (Int,Int)        Bool
 
 -- move to specific direction if possible
 move : World -> (Int,Int) -> World
-move w@(WD m e (x,y) s) (xM, yM) =
+move (WD m@(MP _ w h) e (x,y) s) (xM, yM) =
     let (x',y') = (x+xM,y+yM) in
-    if  (x' >= 0)                     && 
-        (y' >= 0)                     && 
-        (x' <  Map.mapWidth)          &&
-        (y' <  Map.mapHeight)         &&
-        (badCode 4)    && (badCode 5) && (badCode 6) &&
+    if  (x' >= 0)   && (y' >= 0)   && 
+        (x' <  w)   && (y' <  h)   &&
+        (badCode 4) && (badCode 5) && (badCode 6) &&
         not  ((x',y') == (2,1))
     then case (x',y') of
               (2 ,2 )   => WD m E_UNAVAILABLE (x',y') True
