@@ -4,7 +4,6 @@ module World
 
 import Data.Vect
 import IdrisGL
-import IdrisGL.Color
 
 import Map
 import Player

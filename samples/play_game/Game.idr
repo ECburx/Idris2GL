@@ -3,7 +3,7 @@
 module Game
 
 import IdrisGL
-import IdrisGL.Color
+-- import IdrisGL.Color
 
 import World
 import Map
@@ -11,7 +11,7 @@ import Map
 {- Very simple RPG.
     W: Go up | S: Go down | A: Go left | D: Go right
 
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "Game.idr"
    Game> :exec main
 -}

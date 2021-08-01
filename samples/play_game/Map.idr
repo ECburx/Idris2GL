@@ -50,14 +50,6 @@ blockCode2Picture _ _     = Blank
 
 {- Map -}
 
--- export
--- mapWidth  : Int
--- mapWidth  = 10
-
--- export
--- mapHeight : Int
--- mapHeight = mapWidth
-
 public export
 data Map : Type where
      MP  : List (List Nat) -> (w : Int) -> (h : Int) -> Map

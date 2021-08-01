@@ -3,11 +3,10 @@
 module Clock
 
 import IdrisGL
-import IdrisGL.Color as Color
 
 {- Clock.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "Clock.idr"
    Clock> :exec main
 -}
@@ -20,8 +19,8 @@ center : Coordinate
 center = MkCoor 150 150
 
 ||| Picture of a clock hand.
-||| @ time Dividing the clock into 60 parts, this integer represents which part the hand points to.
-||| @ length The length of a clock hand.
+||| @ time      Dividing the clock into 60 parts, this integer represents which part the hand points to.
+||| @ length    The length of a clock hand.
 ||| @ thickness The thickness of a clock hand.
 clock_Hand : (time : Int) -> (length : Int) -> (thickness : Int) -> Picture
 clock_Hand time length thickness =

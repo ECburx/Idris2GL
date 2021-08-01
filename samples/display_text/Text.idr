@@ -3,11 +3,10 @@
 module Text
 
 import IdrisGL
-import IdrisGL.Color
 
 {- Show text.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "Text.idr"
    Text> :exec main
 -}

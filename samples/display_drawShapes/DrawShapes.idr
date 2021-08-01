@@ -3,12 +3,11 @@
 module DrawShapes
 
 import IdrisGL
-import IdrisGL.Color as Color
 import IdrisGL.SDL
 
 {- Draw shapes.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "DrawShapes.idr"
    DrawShapes> :exec main
 -}
