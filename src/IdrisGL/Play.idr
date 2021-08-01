@@ -24,14 +24,15 @@ import IdrisGL.SDL.SDL_timer
 ||| @ ew2w    A function to handle input events.
 ||| @ tw2w    A function to step the world one iteration. It passes the amount of time (seconds) since the window creation.
 export
-play : (window  : Display)
-    -> (bgColor : Color)
-    -> (tpf     : Double)
-    -> world
-    -> (w2p     : world  -> Picture)
-    -> (ew2w    : Eve    -> world -> world)
-    -> (tw2w    : Double -> world -> world)
-    -> IO ()
+play 
+  :  (window  : Display)
+  -> (bgColor : Color)
+  -> (tpf     : Double)
+  -> world
+  -> (w2p     : world  -> Picture)
+  -> (ew2w    : Eve    -> world -> world)
+  -> (tw2w    : Double -> world -> world)
+  -> IO ()
 play window bgColor tpf w w2p ew2w tw2w = do
     win                   <- createWin window
     ren                   <- createRenderer win
