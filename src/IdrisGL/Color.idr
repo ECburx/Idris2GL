@@ -18,22 +18,6 @@ data Color : Type where
     ||| @ b Blue component.
     MkRGB  : (r : Int) -> (g : Int) -> (b : Int) -> Color
 
-public export
-Eq Color where
-    (MkRGBA r1 g1 b1 a1) == (MkRGBA r2 g2 b2 a2) = 
-        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a1 == a2)
-
-    (MkRGB  r1 g1 b1)    == (MkRGB  r2 g2 b2) = 
-        (r1 == r2) && (g1 == g2) && (b1 == b2)
-    
-    (MkRGBA r1 g1 b1 a1) == (MkRGB  r2 g2 b2) =
-        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a1 == 255)
-    
-    (MkRGB  r1 g1 b1)    == (MkRGBA r2 g2 b2 a2) = 
-        (r1 == r2) && (g1 == g2) && (b1 == b2) && (a2 == 255)
-
-    a /= b = not (a == b)
-
 ||| Take the RGBA components of a color.
 ||| @ color Color.
 export
@@ -41,6 +25,11 @@ rgbaOfColor : (color : Color) -> (Int,Int,Int,Int)
 rgbaOfColor (MkRGB  r g b)   = (r,g,b,255)
 rgbaOfColor (MkRGBA r g b a) = (r,g,b,a)
 
+public export
+Eq Color where
+    a == b = rgbaOfColor a == rgbaOfColor b
+    a /= b = not (a == b)
+    
 ||| Add RGB components of a color component-wise, then normalise them to the highest resulting one. 
 ||| The alpha components are averaged.
 ||| @ c1 First color.
@@ -54,38 +43,38 @@ addColors c1 c2 =
 
 {- Predifined colors. -}
 
-export
+export partial
 transparent : Color
 transparent = MkRGBA 0 0 0 0
 
-export
+export partial
 white   : Color
 white   = MkRGB 255 255 255
 
-export
+export partial
 black   : Color
 black   = MkRGB   0   0   0
 
-export
+export partial
 red     : Color
 red     = MkRGB 255   0   0
 
-export
+export partial
 green   : Color
 green   = MkRGB   0 255   0
 
-export
+export partial
 blue    : Color
 blue    = MkRGB   0   0 255
 
-export
+export partial
 yellow  : Color
 yellow  = MkRGB 255 255   0
 
-export
+export partial
 magenta : Color
 magenta = MkRGB 255   0 255
 
-export
+export partial
 cyan    : Color
 cyan    = MkRGB   0 255 255

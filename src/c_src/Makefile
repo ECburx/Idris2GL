@@ -38,12 +38,13 @@ else
 	SHLIB_SUFFIX := so
 endif
 
-SOURCES_CODE      =  $(wildcard *.c)
-#SOURCES          =  $(patsubst %.h, %, $(HEADERS))
-TARGETS           =  $(patsubst %.c, %.$(SHLIB_SUFFIX), $(SOURCES_CODE))
-#OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
+SOURCES_CODE     =  $(wildcard *.c)
+#SOURCES         =  $(patsubst %.h, %, $(HEADERS))
+TARGETS          =  $(patsubst %.c, %.$(SHLIB_SUFFIX), $(SOURCES_CODE))
+#OBJECTS         =  $(patsubst %.h, %.o, $(HEADERS))
 
-SDL_SOURCES      =  generic sdl_events sdl_render sdl_surface sdl_timer sdl_video
+GENERAL_SOURCES  =  generic random
+SDL_SOURCES      =  sdl_events sdl_render sdl_surface sdl_timer sdl_video
 SDL_GFX_SOURCES  =  sdl_gfx
 SDL_IMG_SOURCES  =  sdl_image
 SDL_TTF_SOURCES  =  sdl_ttf
@@ -51,7 +52,10 @@ SDL_TTF_SOURCES  =  sdl_ttf
 SYS_LIB_DIR      =  $(shell ${IDRIS} --libdir)
 INSTALL_DIR      =  $(SYS_LIB_DIR)/$(RELEASE_NAME)/lib/
 
-build:$(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES)
+build: $(GENERAL_SOURCES) $(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES)
+
+$(GENERAL_SOURCES):%:%.c
+	$(CC) $(SHARE) $< $(WFLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_SOURCES):%:%.c
 	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)

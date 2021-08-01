@@ -16,12 +16,12 @@ import IdrisGL.SDL.SDL_timer
 |||
 ||| @ window  Display mode.
 ||| @ bgColor Background color.
-||| @ tps     Frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
+||| @ tpf     Time per frame. Providing frames per seconds control. (FPS) = 1/<value> (0: unlimited FPS)
 ||| @ picF    Function to produce the next frame of animation. It is passed the time in seconds since the program started.
 export
 animate : (window  : Display)
        -> (bgColor : Color)
-       -> (tps     : Double)
+       -> (tpf     : Double)
        -> (picF    : (Double -> Picture))
        -> IO ()
 animate window bgColor tps picF = do
