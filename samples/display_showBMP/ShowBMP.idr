@@ -3,12 +3,11 @@
 module ShowBMP
 
 import IdrisGL
-import IdrisGL.Color
 import IdrisGL.SDL
 
 {- Show a bmp file.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "ShowBMP.idr"
    ShowBMP> :exec main
 -}

@@ -3,7 +3,6 @@
 module Kmeans
 
 import IdrisGL
-import IdrisGL.Color
 
 import Data.Vect
 import Data.Primitives.Views
@@ -13,7 +12,7 @@ import Data.Bits
 {- Kmeans.
    k-means clustering.
 
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "Kmeans.idr"
    Kmeans> :exec main
 -}

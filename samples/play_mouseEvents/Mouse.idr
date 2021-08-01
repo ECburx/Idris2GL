@@ -2,13 +2,14 @@
 
 module Mouse
 
+import Control.Monad.State
+
 import Data.Vect
 import IdrisGL
-import IdrisGL.Color as Color
 
 {- Handle mouse events.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "Mouse.idr"
    Mouse> :exec main
 -}
@@ -40,18 +41,58 @@ eventsHandler (E_MOUSEBUTTONUP   (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Up
 eventsHandler (E_MOUSEWHEEL      (x,y)) (WD _ t _) = WD (x,y) t "Mouse Wheel."
 eventsHandler _ w = w
 
--- timeHandler : Integer -> World -> World
--- timeHandler t (WD xy _ s) = WD xy (cast t) s
-
 timeHandler : Double -> World -> World
 timeHandler t (WD xy _ s) = WD xy (cast t) s
 
 main : IO ()
 main =
-    play (InWindow "Mouse" (MkRect 50 50 300 120))         -- window setting
-         Color.white                                       -- background color
-       0.01                                                -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
-       initWorld
-       showWD
-       eventsHandler
-       timeHandler
+    play (InWindow "Mouse" (MkRect 50 50 300 120)) -- window setting
+         Color.white                               -- background color
+         0.01                                      -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
+         initWorld
+         showWD
+         eventsHandler
+         timeHandler
+
+{- 
+
+  Play a game with mutable states. 
+
+-}
+
+showST : StateT World IO Picture
+showST = do
+    (WD pos@(x,y) t state) <- get
+    pure $ Pictures [Text   (posMsg pos) 16 font (MkCoor 40 40) Color.black
+                    ,Text   state        16 font (MkCoor 40 70) Color.black
+                    ,Text   (timeMsg t)  16 font (MkCoor 10 10) Color.black
+                    ,Circle (MkCoor x y) Color.black False 10]
+    where posMsg : (Int, Int) -> String
+          posMsg (x, y) = "Mouse Position: (" ++ show x ++ ", " ++ show y ++ ")"
+          timeMsg : Double -> String
+          timeMsg t = "Timer: " ++ show t ++ "s"
+
+eventsSTHandler : (event : Eve) -> StateT World IO ()
+eventsSTHandler event = do
+  world@(WD _ t _) <- get
+  case event of
+       E_MOUSEMOTION     pos => put $ WD pos t "Mouse Motion."
+       E_MOUSEBUTTONDOWN pos => put $ WD pos t "Mouse Button Down."
+       E_MOUSEBUTTONUP   pos => put $ WD pos t "Mouse Button Up."
+       E_MOUSEWHEEL      pos => put $ WD pos t "Mouse Wheel."
+       _                     => put world
+
+timeSTHandler : (t : Double) -> StateT World IO ()
+timeSTHandler t = do
+  WD pos _ mouse <- get
+  put $ WD pos t mouse
+
+mainST : IO ()
+mainST = playState 
+          (InWindow "Mouse" (MkRect 50 50 300 120))
+          Color.white
+          0.01 -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
+          initWorld
+          showST
+          eventsSTHandler
+          timeSTHandler

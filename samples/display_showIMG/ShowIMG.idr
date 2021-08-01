@@ -3,12 +3,11 @@
 module ShowIMG
 
 import IdrisGL
-import IdrisGL.Color
 import IdrisGL.SDL
 
 {- Show an image file.
   
-   $ idris2 -p idrisGL IdrisGL.idr
+   $ idris2 -p idrisGL
    Main> :l "ShowIMG.idr"
    ShowIMG> :exec main
 -}
