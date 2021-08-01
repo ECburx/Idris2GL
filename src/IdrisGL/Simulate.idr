@@ -22,13 +22,14 @@ import IdrisGL.SDL.SDL_timer
 ||| @ m2p     Function to step the model one iteration.
 ||| @ m2m     A function to step the model one iteration. It passes the amount of time (seconds) since the window creation.
 export
-simulate : (window  : Display)
-        -> (bgColor : Color)
-        -> (tpf     : Double)
-        -> model
-        -> (m2p     : (model  -> Picture))
-        -> (m2m     : (Double -> model -> model))
-        -> IO ()
+simulate 
+  :  (window  : Display)
+  -> (bgColor : Color)
+  -> (tpf     : Double)
+  -> model
+  -> (m2p     : (model  -> Picture))
+  -> (m2m     : (Double -> model -> model))
+  -> IO ()
 
 simulate window bgColor tps m m2p m2m = do
     win                   <- createWin window

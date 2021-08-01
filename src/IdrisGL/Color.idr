@@ -41,7 +41,7 @@ addColors c1 c2 =
         (r2, g2, b2, a2) = rgbaOfColor c2
     in  MkRGBA (r1 + r2) (g1 + g2) (b1 + b2) ((a1 + a2) `div` 2)
 
-{- Predifined colors. -}
+{- Predefined colors. -}
 
 export partial
 transparent : Color
