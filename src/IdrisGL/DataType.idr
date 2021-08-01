@@ -166,7 +166,7 @@ data Picture
     SolidText     String Int  String Coordinate Color       TextStyle TextHinting Int
     | ||| Blended text.
       ||| : text -> font size -> font file -> position -> color -> style -> hinting -> Picture
-      BlendedText   String Int  String Coordinate Color       TextStyle TextHinting Int
+    BlendedText   String Int  String Coordinate Color       TextStyle TextHinting Int
     | ||| Shaded text. (Blended text with background color)
       ||| : text -> font size -> font file -> position -> color -> style -> hinting -> Picture
-      ShadedText    String Int  String Coordinate Color Color TextStyle TextHinting Int
+    ShadedText    String Int  String Coordinate Color Color TextStyle TextHinting Int
