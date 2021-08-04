@@ -27,7 +27,10 @@ build/
 
 # Shared objects (inc. Windows DLLs)
 *.dll
+
 *.so
+!**/src/c_src/*.so
+
 *.so.*
 *.dylib
 

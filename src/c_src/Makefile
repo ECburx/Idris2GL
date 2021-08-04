@@ -1,6 +1,6 @@
 # IMPORTANT: RELEASE_NAME must match that defined in .ipkg.
 PACKAGE_NAME     := idrisGL
-VERSION          := 0.0
+VERSION          := 1.0
 RELEASE_NAME     := $(PACKAGE_NAME)-$(VERSION)
 
 IDRIS            := idris2
@@ -52,6 +52,8 @@ SDL_TTF_SOURCES  =  sdl_ttf
 SYS_LIB_DIR      =  $(shell ${IDRIS} --libdir)
 INSTALL_DIR      =  $(SYS_LIB_DIR)/$(RELEASE_NAME)/lib/
 
+.PHONY: build install clean
+
 build: $(GENERAL_SOURCES) $(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES)
 
 $(GENERAL_SOURCES):%:%.c
@@ -75,5 +77,3 @@ clean:
 install:
 	@if ! [ -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
 	install $(TARGETS) $(INSTALL_DIR)
-
-.PHONY: install clean all
