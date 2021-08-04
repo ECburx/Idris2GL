@@ -5,7 +5,7 @@ module Game
 import IdrisGL
 import IdrisGL.Random
 
-import Cell
+import Tile
 import World
 
 {- Play 2048.
