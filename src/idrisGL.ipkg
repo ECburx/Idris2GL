@@ -1,7 +1,5 @@
 package idrisGL
 
-version     = 0.0
-
 modules     = IdrisGL
 
             , IdrisGL.Animate
@@ -26,5 +24,9 @@ modules     = IdrisGL
 
             , IdrisGL.Random
 
-postbuild   = "make -C c_src build"
-postinstall = "make -C c_src install"
+version     = 1.0
+readme      = "../README.md"
+license     = "GPL-3.0 License"
+authors     = "Tian Z (ecburxvip@gmail.com)"
+maintainers = "Tian Z (ecburxvip@gmail.com)"
+homepage    = "https://github.com/ECburx/Idris2GL"
