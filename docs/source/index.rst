@@ -21,3 +21,6 @@ Table of Content
    :maxdepth: 2
 
    tutorial/starting
+   tutorial/datatypes
+   tutorial/display
+   tutorial/animate
