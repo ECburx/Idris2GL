@@ -14,7 +14,7 @@ data Rect : Type where
     ||| @ y Y coordinate of the start point.
     ||| @ w The width of the rectangle area.
     ||| @ h The height of the rectangle area.
-    MkRect : (x : Int) -> (y : Int) -> (w : Int) -> (y : Int) -> Rect
+    MkRect : (x : Int) -> (y : Int) -> (w : Int) -> (h : Int) -> Rect
 
 ||| A coordinate used to determine the position.
 public export
@@ -87,86 +87,269 @@ data TextHinting = TH_NORMAL | TH_LIGHT | TH_MONO   | TH_NONE
 public export
 data FlipSetting = FLIP_NONE | FLIP_HORIZONTAL | FLIP_VERTICAL
 
-||| A 2D picture union.
+||| 2D Picture.
 public export
-data Picture
-    = ||| A blank picture, with nothing in it.
-    Blank
-    | ||| A picture consisting of several others.
-    Pictures      (List Picture)
-    | ||| A picture rotated clockwise by the given angle (in degrees) and given center.
-      ||| : angle -> center of rotation -> picture -> Picture
-    Rotate        Double Coordinate Picture
+data Picture : Type where
+    ||| A blank picture, with nothing in it.
+    Blank : Picture
+    ||| A picture consisting of several others.
+    ||| @ pics    Other pictures.
+    Pictures 
+      :  (pics : List Picture) 
+      -> Picture
+    ||| A picture rotated clockwise by the given angle (in degrees) and given center.
+    ||| @ angle   Rotation angle.
+    ||| @ center  Rotation center.
+    ||| @ pic     The picture to be rotated.
+    Rotate 
+      :  (angle  : Double) 
+      -> (center : Coordinate) 
+      -> (pic    : Picture) 
+      -> Picture
+
     {- 
         Images. 
     -}
-    | ||| A bitmap image.
-      ||| : path -> size and position -> Picture
-    Bitmap        String Rect
-    | ||| An image in other format (PNG/JPG/WEBP/TIF).
-      ||| : path -> size and position -> Picture
-    Image         String Rect
+
+    ||| A bitmap image.
+    ||| @ path The path of the bitmap.
+    ||| @ rect The size and position of placed bitmap.
+    Bitmap 
+      :  (path : String) 
+      -> (rect : Rect) 
+      -> Picture
+    ||| An image in other format (PNG/JPG/WEBP/TIF).
+    ||| @ path The path of the image.
+    ||| @ rect The size and position of placed image.
+    Image 
+      :  (path : String) 
+      -> (rect : Rect) 
+      -> Picture
+
     {- 
         Shapes.
     -}
-    | ||| A pixel at given coordinate.
-      ||| : position -> color -> Picture
-    Pixel         Coordinate Color
-    | ||| A thick line with given thickness.
-      ||| : start position -> end position -> color -> thickness -> Picture
-    ThickLine     Coordinate Coordinate Color Int
-    | ||| A line.
-      ||| : start position -> end position -> color -> Picture
-    Line          Coordinate Coordinate Color
+
+    ||| A pixel at given coordinate.
+    ||| @ position The position of the pixel.
+    ||| @ color    The color of the pixel.
+    Pixel 
+      :  (position : Coordinate) 
+      -> (color    : Color) 
+      -> Picture
+    ||| A thick line with given thickness.
+    ||| @ start     The start position.
+    ||| @ end       The end position.
+    ||| @ color     The color of line.
+    ||| @ thickness The thickness of line.
+    ThickLine 
+      :  (start     : Coordinate) 
+      -> (end       : Coordinate) 
+      -> (color     : Color) 
+      -> (thickness : Int) 
+      -> Picture
+    ||| A line.
+    ||| @ start     The start position.
+    ||| @ end       The end position.
+    ||| @ color     The color of line.
+    Line 
+      :  (start : Coordinate) 
+      -> (end   : Coordinate) 
+      -> (color : Color) 
+      -> Picture
+
     {- 
         Rectangle 
     -}
-    | ||| A rectangle.
-      ||| : size and position -> color -> fill? -> Picture
-    Rectangle     Rect Color Bool
-    | ||| A rounded-corner rectangle. 
-      ||| : size and position -> color -> fill? -> radius of the corner arc -> Picture
-    R_Rectangle   Rect Color Bool Int
+
+    ||| A rectangle.
+    ||| @ rect    The size of position of the rectangle.
+    ||| @ color   The color of the rectangle.
+    ||| @ filling True if fill the rectangle. 
+    Rectangle 
+      :  (rect    : Rect) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> Picture
+    ||| A rounded-corner rectangle. 
+    ||| @ rect    The size of position of the rectangle.
+    ||| @ color   The color of the rectangle.
+    ||| @ filling True if fill the rectangle. 
+    ||| @ radius  The radius of the corner arc.
+    R_Rectangle 
+      :  (rect    : Rect) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> (radius  : Int) 
+      -> Picture
+
     {- 
         Circle 
     -}
-    | ||| A circle.
-      ||| : center position -> color -> fill? -> radius -> Picture
-    Circle        Coordinate Color Bool Int
-    | ||| A circle with given thickness.
-      ||| : center position -> color -> fill? -> radius -> thickness -> Picture
-    ThickCircle   Coordinate Color Int Int
+
+    ||| A circle.
+    ||| @ center  The center of the circle.
+    ||| @ color   The color of the circle.
+    ||| @ filling True if fill the circle.
+    ||| @ radius  The radius of the circle.
+    Circle 
+      :  (center  : Coordinate) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> (radius  : Int) 
+      -> Picture
+    ||| A circle with given thickness.
+    ||| @ center    The center of the circle.
+    ||| @ color     The color of the circle.
+    ||| @ filling   True if fill the circle.
+    ||| @ radius    The radius of the circle.
+    ||| @ thickness The thickness of the drawing line.
+    ThickCircle 
+      :  (center    : Coordinate) 
+      -> (color     : Color)
+      -> (radius    : Int)
+      -> (thickness : Int)
+      -> Picture
+
     {- 
         Misc. 
     -}
-    | ||| A circular arc drawn counter-clockwise between two angles (in degrees).
-      ||| : center position -> color -> radius -> first angles -> second angles -> Picture
-    Arc           Coordinate Color Int Int Int
-    | ||| A pie (outline) drawn counter-clockwise between two angles (in degrees).
-      ||| : center position -> color -> radius -> first angles -> second angles -> Picture
-    Pie           Coordinate Color Int Int Int
-    | ||| An ellipse.
-      ||| : center position -> horizontal radius -> vertical radius -> color -> fill? -> Picture
-    Ellipse       Coordinate Int Int Color Bool
-    | ||| A trigon.
-      ||| : first point -> second point -> third point -> color -> fill? -> Picture
-    Trigon        Coordinate Coordinate Coordinate Color Bool
-    | ||| A polygon.
-      ||| : list of points -> color -> fill ?
-    Polygon       (List Coordinate) Color Bool
+
+    ||| A circular arc drawn counter-clockwise between two angles (in degrees).
+    ||| @ center The center of the arc.
+    ||| @ color  The color of drawing line.
+    ||| @ radius The radius of the arc.
+    ||| @ start  Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+    ||| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise. 
+    Arc 
+      :  (center : Coordinate) 
+      -> (color  : Color) 
+      -> (radius : Int) 
+      -> (start  : Int) 
+      -> (end    : Int) 
+      -> Picture
+    ||| A pie (outline) drawn counter-clockwise between two angles (in degrees).
+    ||| @ center The center of the pie.
+    ||| @ color  The color of drawing line.
+    ||| @ radius The radius of the pie.
+    ||| @ start  Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+    ||| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise. 
+    Pie 
+      :  (center : Coordinate) 
+      -> (color  : Color) 
+      -> (radius : Int) 
+      -> (start  : Int) 
+      -> (end    : Int) 
+      -> Picture
+    ||| An ellipse.
+    ||| @ center  The center of the ellipse.
+    ||| @ rx      Horizontal radius in pixels of the ellipse. 
+    ||| @ ry      Vertical radius in pixels of the ellipse. 
+    ||| @ color   The color of drawing line.
+    ||| @ filling True if fill the ellipse.
+    Ellipse 
+      :  (center  : Coordinate) 
+      -> (rx      : Int) 
+      -> (ry      : Int) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> Picture
+    ||| A trigon.
+    ||| @ point1  The first point.
+    ||| @ point2  The second point.
+    ||| @ point3  The third point.
+    ||| @ color   The color of drawing line.
+    ||| @ filling True if fill the trigon. 
+    Trigon 
+      :  (point1  : Coordinate) 
+      -> (point2  : Coordinate) 
+      -> (point3  : Coordinate) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> Picture
+    ||| A polygon.
+    ||| @ points  A list of points.
+    ||| @ color   The color of drawing line.
+    ||| @ filling True if fill the trigon. 
+    Polygon 
+      :  (points  : List Coordinate) 
+      -> (color   : Color) 
+      -> (filling : Bool) 
+      -> Picture
+
     {-
         Text
     -}
-    --              Text   Size Font                    Shade                       Kerning
-    | ||| Blended text with default settings.
-      ||| : text -> font size -> font file -> position -> color -> Picture
-    Text          String Int  String Coordinate Color 
-    | ||| Solid text.
-      ||| : text -> font size -> font file -> position -> color -> style -> hinting -> Picture
-    SolidText     String Int  String Coordinate Color       TextStyle TextHinting Int
-    | ||| Blended text.
-      ||| : text -> font size -> font file -> position -> color -> style -> hinting -> Picture
-    BlendedText   String Int  String Coordinate Color       TextStyle TextHinting Int
-    | ||| Shaded text. (Blended text with background color)
-      ||| : text -> font size -> font file -> position -> color -> style -> hinting -> Picture
-    ShadedText    String Int  String Coordinate Color Color TextStyle TextHinting Int
+
+    ||| Blended text with default settings.
+    ||| @ text  Text.
+    ||| @ size  Font size.
+    ||| @ font  Path of font file.
+    ||| @ pos   Position of text.
+    ||| @ color The color of text.
+    Text 
+      :  (text  : String) 
+      -> (size  : Int) 
+      -> (font  : String)
+      -> (pos   : Coordinate) 
+      -> (color : Color) 
+      -> Picture
+    ||| Solid text.
+    ||| @ text    Text.
+    ||| @ size    Font size.
+    ||| @ font    Path of font file.
+    ||| @ pos     Position of text.
+    ||| @ color   The color of text.
+    ||| @ style   Font style.
+    ||| @ hinting Hinting.
+    ||| @ kerning Kerning.
+    SolidText 
+      :  (text    : String) 
+      -> (size    : Int)
+      -> (font    : String) 
+      -> (pos     : Coordinate) 
+      -> (color   : Color) 
+      -> (style   : TextStyle) 
+      -> (hinting : TextHinting) 
+      -> (kerning : Int) 
+      -> Picture
+    ||| Blended text.
+    ||| @ text    Text.
+    ||| @ size    Font size.
+    ||| @ font    Path of font file.
+    ||| @ pos     Position of text.
+    ||| @ color   The color of text.
+    ||| @ style   Font style.
+    ||| @ hinting Hinting.
+    ||| @ kerning Kerning.
+    BlendedText 
+      : (text     : String) 
+      -> (size    : Int) 
+      -> (font    : String) 
+      -> (pos     : Coordinate) 
+      -> (color   : Color) 
+      -> (style   : TextStyle) 
+      -> (hinting : TextHinting) 
+      -> (kerning : Int) 
+      -> Picture
+    ||| Shaded text. (Blended text with background color)
+    ||| @ text    Text.
+    ||| @ size    Font size.
+    ||| @ font    Path of font file.
+    ||| @ pos     Position of text.
+    ||| @ color   The color of text.
+    ||| @ bgColor The background color.
+    ||| @ style   Font style.
+    ||| @ hinting Hinting.
+    ||| @ kerning Kerning.
+    ShadedText 
+      :  (text    : String) 
+      -> (size    : Int) 
+      -> (font    : String) 
+      -> (pos     : Coordinate) 
+      -> (color   : Color) 
+      -> (bgColor : Color)
+      -> (style   : TextStyle) 
+      -> (hinting : TextHinting) 
+      -> (kerning : Int) 
+      -> Picture
