@@ -4,12 +4,19 @@
 Display
 *******
 
+You’ve now seen basic types and data types in IdrisGL.
+By putting them together, you can create various complicated pictures.
+
+If you’re already familiar with gloss, much of follwing chapters will seem very familiar.
+In this chapter, we will look at how to display pictures in an opened window.
+
 Display a Picture
 =================
 
 ``display`` function opens a new window and display the given picture.
 
 .. code-block:: idris
+   :caption: ``display``
 
    ||| @ window  Display mode.
    ||| @ bgColor Background color.
@@ -37,10 +44,11 @@ at (30, 50) and radius is 30 pixels.
       -> (radius  : Int) 
       -> Picture
 
-Following ``main`` displays a circle in the middle of the window.
+Following ``main`` function displays a circle in the middle of the window.
 
 .. code-block:: idris
    :emphasize-lines: 13
+   :caption: Display a circle in the middle of the window
 
    module MyFirstWindow
 
@@ -77,6 +85,7 @@ especially when drawing shapes with translucent colors.
 
 .. code-block:: idris
    :emphasize-lines: 10
+   :caption: Multiple pictures
 
    -- A rounded rectangle generater.
    rect : (x : Int) -> Picture
@@ -110,7 +119,7 @@ especially when drawing shapes with translucent colors.
 Showing Text
 ============
 
-IdrisGL doesn't provide a built-in font family, meaning you have to provide a font
+IdrisGL doesn't provide a built-in font, meaning you have to provide a font
 file and pass the file path to IdrisGL. You can find a *free serif* font file
 in samples in repo (``/sample``).
 
@@ -121,8 +130,7 @@ in samples in repo (``/sample``).
 There are four constructors of showing text.
 The easiest way to show a string of text is using ``Text`` constructor.
 
--  | Blended text with default settings.
-   | In this case, you don't need to specify text settings such as style.
+-  Blended text with default font settings.
 
       .. code-block:: idris
 
@@ -139,14 +147,14 @@ The easiest way to show a string of text is using ``Text`` constructor.
             -> (color : Color) 
             -> Picture
 
-Sometimes, you may need to add some text styles, hinting and kerning.
-IdrisGL provides five font styles:
+Sometimes, you may want to specify the font style font styles, hinting and kerning.
+IdrisGL provides five font style options:
 
 .. code-block:: idris
 
    data TextStyle = TS_NORMAL | TS_BOLD | TS_ITALIC | TS_UNDERLINE | TS_STRIKETHROUGH
 
-and four hinting settings:
+and four hinting options:
 
 .. code-block:: idris
 
@@ -215,7 +223,7 @@ However, to improve the efficiency, we use constructor ``Bitmap`` to load only b
 specify the position and size of the image.
 
 .. code-block:: idris
-   :linenos:
+   :caption: Loading images
 
    bmp : Picture
    bmp = Bitmap "hello_world.bmp" <bmpRect>
@@ -230,6 +238,7 @@ IdrisGL allows you to rotate a picture,
 which rotated clockwise by the given angle (in degrees) and given center.
 
 .. code-block:: idris
+   :caption: Rotation
 
    ||| @ angle   Rotation angle.
    ||| @ center  Rotation center.
@@ -240,10 +249,11 @@ which rotated clockwise by the given angle (in degrees) and given center.
       -> (pic    : Picture) 
       -> Picture
 
-For example, let's rotate 10 rectangles with the same initial position:
+For example, let's rotate 10 rounded rectangles with the same initial position:
 
 .. code-block:: idris
    :emphasize-lines: 15,16,19
+   :caption: Rotate 10 rounded rectangles
 
    -- Generates an infinite stream of increasing sequence.
    plus20s : (n : Double) -> Stream Double
@@ -272,8 +282,7 @@ For example, let's rotate 10 rectangles with the same initial position:
 Other Shapes
 ============
 
-There are many other useful shapes you may take a look.
-The combination of them can give you any picture you want.
+There are many other useful shapes you may want to take a look.
 
 -  Pixel.
 
@@ -368,13 +377,15 @@ The combination of them can give you any picture you want.
 An Example of Showing Shapes
 ============================
 
-`Download Example Code <https://github.com/ECburx/Idris2GL/tree/main/samples/display_drawShapes/>`_
+`Example Code: Draw Shapes
+<https://github.com/ECburx/Idris2GL/tree/main/samples/display_drawShapes/>`_
 
 .. image:: img/Display5.png
    :scale: 70 %
    :align: center
 
 .. code-block:: idris
+   :caption: Showing shapes
 
    import IdrisGL
 
@@ -416,6 +427,7 @@ Here is an example of directly using SDL bindings (Not recommended).
 You can write like using SDL in C language.
 
 .. code-block:: idris
+   :caption: Using SDL bindings
 
    import IdrisGL
    import IdrisGL.SDL
@@ -443,4 +455,4 @@ You can write like using SDL in C language.
 
 .. warning::
 
-   SDL bindings may be not allowed to access in the future.
+   SDL bindings may be removed in the future.

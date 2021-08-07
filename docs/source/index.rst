@@ -24,3 +24,5 @@ Table of Content
    tutorial/datatypes
    tutorial/display
    tutorial/animate
+   tutorial/simulate
+   tutorial/play

@@ -32,7 +32,7 @@ clock_Hand time length thickness =
           y     : Int
           y     = cast $ 150.0 - cos angle * (cast length)
 
-clock_Text : Int -> Picture
+clock_Text : (time : Int) -> Picture
 clock_Text time = SolidText (show h ++ ":" ++ show m ++ ":" ++ show s)
                     20 font (MkCoor 10 10) Color.black TS_BOLD TH_MONO 0
     where s : Int
@@ -51,7 +51,7 @@ clock_Number
       where f : String -> Int -> Int -> Picture
             f str x y = SolidText str 30 font (MkCoor x y) Color.black TS_NORMAL TH_MONO 0
 
-clock : Double -> Picture
+clock : (s : Double) -> Picture
 clock s = let s' : Int = cast s in
             Pictures ([Circle     center Color.black False 120
                       ,clock_Hand s'                   90  1    -- second

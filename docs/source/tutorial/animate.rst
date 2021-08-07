@@ -4,6 +4,10 @@
 Animation
 *********
 
+You’ve now seen how to display pictures in a window.
+
+In this chapter, we will look at animation, bringing stories to our pictures.
+
 Display Pictures at A Specific Time
 ===================================
 
@@ -14,6 +18,7 @@ and you decide the picture in this specific time. Let's take a look at ``animate
 prototype at first:
 
 .. code-block:: idris
+   :caption: ``animate``
 
    animate : (window  : Display)
           -> (bgColor : Color)
@@ -39,9 +44,12 @@ or the calculation speed of each frame is too slow, which causes FPS to change.
 ``animate`` passes the seconds since IdrisGL set up to the first ``Double`` parameter,
 and then displays the output ``Picture`` on the screen.
 
-Below is an simple example using ``animate`` to display pictures at a specific time.
+We will start by an example we have already used in last chapter,
+rotating 10 rounded rectangles with the same initial position.
+This time let's make an animation of two sets of rounded rectangles rotating in different directions.
 
 .. code-block:: idris
+   :caption: A simple animation of rotation
    :emphasize-lines: 22,23,24,25,26,29
 
    window : Display
@@ -81,13 +89,14 @@ Below is an simple example using ``animate`` to display pictures at a specific t
 An Example of Clock Animation
 =============================
 
-`Download Example Code <https://github.com/ECburx/Idris2GL/tree/main/samples/animate_clock/>`_
+`Example Code: Clock
+<https://github.com/ECburx/Idris2GL/tree/main/samples/animate_clock/>`_
 
 .. image:: img/Animate2.gif
    :scale: 40 %
    :align: center
 
-Firstly, we write a function ``clock_Hand``
+Firstly, let's define function ``clock_Hand``
 which generates a clock hand pointing to a time, with specified length and thickness.
 
 .. code-block:: idris
@@ -103,11 +112,12 @@ which generates a clock hand pointing to a time, with specified length and thick
             y     = cast $ 150.0 - cos angle * (cast length)
 
 Secondly, we need a function to take the time in seconds IdrisGL passed.
-It generates three clock hands: second clock hand, minute clock hand and hour clock hand.
+It generates three clock hands: second hand, minute hand and hour hand.
 And it calculates the time (angle) these clock hands pointed to.
 Finally, we add the number on the clock to the list of pictures.
 
 .. code-block:: idris
+   :caption: Function to take the time in seconds IdrisGL passed
 
    clock : Double -> Picture
    clock s = let s' : Int = cast s in
@@ -117,9 +127,49 @@ Finally, we add the number on the clock to the list of pictures.
                         ,clock_Hand (cast $ div s' 1200) 50  6    -- hour
                         ,clock_Text s'] ++ clock_Number)
 
-Since the smallest time that this clock can display is seconds, we can set Times Per Frame to 1.
+Since the smallest unit of time that this clock can display is second, we can set Times Per Frame to 1.
 
 .. code-block:: idris
 
    main : IO ()
    main = animate (InWindow "Clock" (MkRect 50 50 300 300)) Color.white 1 clock
+
+An Example of Moving Optical Illusions
+======================================
+
+`Example Code: Illusions
+<https://github.com/ECburx/Idris2GL/tree/main/samples/animate_illusion/>`_
+
+Tricks derived from `Lenstore <https://www.lenstore.co.uk/vc/moving-perspectives/#>`_.
+
+
+*Some optical illusions are mind-bending enough, but those that move can truly baffle.
+Despite one pear looking darker than the other underneath the black and white lines,
+they're both actually the same colour. This mechanism is an example of a brightness illusion.* [1]_
+
+.. image:: img/Animate3.gif
+   :scale: 70 %
+   :align: center
+
+In previous section, you've already know how to rotate a picture.
+Let's practice again by wrting a function ``leftPear`` that rotates
+the pear on the left hand side 40 degrees each second.
+(size of "pear.png": 150*300)
+
+.. code-block:: idris
+
+   leftPear : (time : Double) -> Picture
+   leftPear time = Rotate (time * 40) (MkCoor 125 150) (Image "pear.png" (MkRect 50 0 150 300))
+
+With adding the pears on the right hand side and black and white tapes,
+we can create wonderful moving optical illusions.
+
+.. code-block:: idris
+
+   timeHandler : (t : Double) -> Picture
+   timeHandler t = Pictures $ leftPear t :: blackTapes t ++ [rightPear t] ++ whiteTapes t
+
+   main : IO ()
+   main = animate window Color.white 0.05 timeHandler
+
+.. [1] https://www.lenstore.co.uk/vc/moving-perspectives/#
