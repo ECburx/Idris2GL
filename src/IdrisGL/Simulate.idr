@@ -26,9 +26,9 @@ simulate
   :  (window  : Display)
   -> (bgColor : Color)
   -> (tpf     : Double)
-  -> model
-  -> (m2p     : (model  -> Picture))
-  -> (m2m     : (Double -> model -> model))
+  -> (model   : a)
+  -> (m2p     : (a -> Picture))
+  -> (m2m     : (Double -> a -> a))
   -> IO ()
 
 simulate window bgColor tps m m2p m2m = do
@@ -40,7 +40,7 @@ simulate window bgColor tps m m2p m2m = do
     freeEve                  e
     freeRender               ren
 where mutual
-      loop : Renderer -> Win -> Event -> model -> Double -> IO ()
+      loop : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop ren win e model lastTime = 
         if   !getSecondsTicks - lastTime < tps
         then loop'           ren win e model lastTime
@@ -53,7 +53,7 @@ where mutual
           let newM        =  m2m currT model
           loop' ren win e newM currT
 
-      loop' : Renderer -> Win -> Event -> model -> Double -> IO ()
+      loop' : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop'   ren win e m lastTime with (eveType e)
         loop' _   _   _ _ _        | E_QUIT = pure ()
         loop' ren win e m lastTime | _      = loop ren win e m lastTime
@@ -67,13 +67,13 @@ where mutual
 ||| @ m2p     Describes how to produce pictures to show.
 ||| @ m2m     A stateful function to step the model one iteration. It passes the amount of time (seconds) since the window creation.
 export
-simulateState
-  :  (window  : Display)
-  -> (bgColor : Color)
-  -> (tpf     : Double)
-  -> stateType
-  -> (m2p     : StateT stateType IO Picture)
-  -> (m2m     : Double -> StateT stateType IO ())
+simulateStateT
+  :  (window    : Display)
+  -> (bgColor   : Color)
+  -> (tpf       : Double)
+  -> (stateType : a)
+  -> (m2p       : StateT a IO Picture)
+  -> (m2m       : Double -> StateT a IO ())
   -> IO ()
 
 simulateState window bgColor tps state m2p m2m = do
@@ -85,7 +85,7 @@ simulateState window bgColor tps state m2p m2m = do
     freeEve                  e
     freeRender               ren
 where mutual
-      loop : stateType -> Renderer -> Win -> Event -> Double -> IO ()
+      loop : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop st ren win e lastTime = 
         if   !getSecondsTicks - lastTime < tps
         then loop'           st ren win e lastTime
@@ -99,7 +99,7 @@ where mutual
           st              <- execStateT st (m2m currT)
           loop'              st ren win e currT
 
-      loop' : stateType -> Renderer -> Win -> Event -> Double -> IO ()
+      loop' : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop'   st ren win e lastTime with (eveType e)
         loop' _  _   _   _ _        | E_QUIT = pure ()
         loop' st ren win e lastTime | _      = loop st ren win e lastTime

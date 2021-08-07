@@ -28,10 +28,10 @@ play
   :  (window  : Display)
   -> (bgColor : Color)
   -> (tpf     : Double)
-  -> world
-  -> (w2p     : world  -> Picture)
-  -> (ew2w    : Eve    -> world -> world)
-  -> (tw2w    : Double -> world -> world)
+  -> (world   : a)
+  -> (w2p     : a      -> Picture)
+  -> (ew2w    : Eve    -> a -> a)
+  -> (tw2w    : Double -> a -> a)
   -> IO ()
 play window bgColor tpf w w2p ew2w tw2w = do
     win                   <- createWin window
@@ -42,7 +42,7 @@ play window bgColor tpf w w2p ew2w tw2w = do
     freeEve                  e
     freeRender               ren
 where mutual
-      loop : Renderer -> Win -> Event -> world -> Double -> IO ()
+      loop : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop ren win e world lastTime =
         if   !getSecondsTicks - lastTime < tpf
         then loop'           ren win e world lastTime
@@ -55,7 +55,7 @@ where mutual
           let newW        =  tw2w currT world
           loop'              ren win e newW currT
 
-      loop' : Renderer -> Win -> Event -> world -> Double -> IO ()
+      loop' : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop'   ren win e w lastTime with (eveType e)
         loop' _   _   _ _ _        | E_QUIT = pure ()
         loop' ren win e w lastTime | other  = loop ren win e (ew2w other w) lastTime
@@ -72,14 +72,14 @@ where mutual
 ||| @ e2w       A stateful function that handles input events.
 ||| @ t2w       A stateful function that handles the amount of time (seconds) since the window creation.
 export
-playState 
-  :  (window  : Display)
-  -> (bgColor : Color)
-  -> (tpf     : Double)
-  -> stateType
-  -> (w2p     : StateT stateType IO Picture)
-  -> (e2w     : Eve    -> StateT stateType IO ())
-  -> (t2w     : Double -> StateT stateType IO ())
+playStateT
+  :  (window    : Display)
+  -> (bgColor   : Color)
+  -> (tpf       : Double)
+  -> (stateType : a)
+  -> (w2p       : StateT a IO Picture)
+  -> (e2w       : Eve    -> StateT a IO ())
+  -> (t2w       : Double -> StateT a IO ())
   -> IO ()
 playState window bgColor tpf state w2p e2w t2w = do
     win                   <- createWin window
@@ -90,7 +90,7 @@ playState window bgColor tpf state w2p e2w t2w = do
     freeEve                  e
     freeRender               ren
 where mutual
-      loop : stateType -> Renderer -> Win -> Event -> Double -> IO ()
+      loop : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop st ren win e lastTime =
         if   !getSecondsTicks - lastTime < tpf
         then loop'           st ren win e lastTime
@@ -104,7 +104,7 @@ where mutual
           st              <- execStateT st (t2w currT)
           loop'              st ren win e currT
 
-      loop' : stateType -> Renderer -> Win -> Event -> Double -> IO ()
+      loop' : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop'   st ren win e lastTime with (eveType e)
         loop' _  _   _   _ _        | E_QUIT = pure ()
         loop' st ren win e lastTime | other  = do
