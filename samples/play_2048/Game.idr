@@ -25,7 +25,7 @@ where width : Int
 
 main : IO ()
 main = 
-    playState window
+    playStateT window
          (MkRGB 187 173 160)
          0.1 -- Frames per seconds (FPS) = 1/0.1 = 10 (0: unlimited FPS)
          initWorld
