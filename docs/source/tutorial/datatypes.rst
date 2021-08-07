@@ -1,21 +1,21 @@
 .. _sect-datatypes:
 
-***************************
-A Start Guide of Data Types
-***************************
+*********************
+Begin with Data Types
+*********************
 
-This is a simple start guide of data types which be frequently used in IdrisGL, which helps
-beginers have a look of how IdrisGL works.
-You can find a more detailed description of them in documentation and the list of data types.
+Before we begin exploring, we'll look at some basic types and data types of IdrisGL,
+and you will see how they works in IdrisGL.
 
 Coordinates
 ===========
 
-A position on the screen can be described by a coordinate.
+IdrisGL specifies the position of a window on the screen in ``Coordinate``.
+For screen coordinates, the origin is the upper-left corner of the screen.
 And the position of a pixel can also be considered as a coordinate.
-``Coordinate`` is one of the data types which can be used to describe location information.
 
 .. code-block:: idris
+   :caption: ``Coordinate``
 
    data Coordinate : Type where
       ||| @ x X coordinate of the point.
@@ -23,16 +23,21 @@ And the position of a pixel can also be considered as a coordinate.
       MkCoor : (x : Int) -> (y : Int) -> Coordinate
 
 ``Coordinate`` takes two parameters, *x* coordinate and *y* coordinate.
-For example, ``MkCoor 10 50`` indicates (10, 50) on the screen,
-represending a position with a horizontal distance of *x* and a vertical distance of *y*
-from the top left corner of the screen.
+Imaging you have a 1080p screen (1920*1080),
+the ``MkCoor 0 0`` point is in the upper left of the screen,
+and the ``MkCoor 1920 1080`` point is at the lower right.
 
 Rectangle
 =========
 
 ``Rect`` is used to described a rectangle area.
 
+The full position of a window is often described by a rectangle structure containing the
+screen coordinates of two points that define the upper-left and lower-right corners of the window.
+In IdrisGL, we describes this rectangle area by the upper-left point, the width and the height of it.
+
 .. code-block:: idris
+   :caption: ``Rect``
 
    data Rect : Type where
       ||| @ x X coordinate of the start point.
@@ -40,10 +45,6 @@ Rectangle
       ||| @ w The width of the rectangle area.
       ||| @ h The height of the rectangle area.
       MkRect : (x : Int) -> (y : Int) -> (w : Int) -> (h : Int) -> Rect
-
-
-The first two ``Int`` values indicate the start point of the rectangle area.
-And the last two ``Int`` values indicate the width and height of the rectangle area.
 
 .. image:: img/Rect1.png
    :scale: 70 %
@@ -58,6 +59,7 @@ Colors
 IdrisGL supports RGB and RGBA colors.
 
 .. code-block:: idris
+   :caption: ``Color``
 
    data Color : Type where
         MkRGBA : (r : Int) -> (g : Int) -> (b : Int) -> (a : Int) -> Color
@@ -71,6 +73,7 @@ Window
 ``Display`` data type describes how IdrisGL should display a window.
 
 .. code-block:: idris
+   :caption: ``Display``
    
    data Display
      = InWindow String Rect
@@ -91,7 +94,7 @@ Picture
 =======
 
 Data type ``Picture`` declares all available window elements and their operations in Idris.
-Here are a few commonly used ``Picture`` elements:
+Here are some commonly used ``Picture`` elements:
 
 -  A blank picture with nothing in it.
 
@@ -125,7 +128,7 @@ Here are a few commonly used ``Picture`` elements:
          -> (filling : Bool) 
          -> Picture
 
-We will discuss more pictures, shapes and operations of these in following chapters.
+We will introduce and discuss more pictures, shapes and operations of these in following chapters.
 
 Events
 ======
@@ -139,6 +142,7 @@ The ``play`` functions passes these events to you,
 and you decides how to change medias corresponding with different events.
 
 .. code-block:: idris
+   :caption: ``Eve``
 
    data Eve 
       = ||| Unavailable event.
@@ -167,4 +171,4 @@ and you decides how to change medias corresponding with different events.
 ``Key`` in key events is a data type represending different keyboard events.
 For example, ``E_KEYUP EK_RETURN`` means releasing the *Return* button.
 
-You can find all supported events in **Supported Events**.
+You can find all supported events in **<TODO>**.

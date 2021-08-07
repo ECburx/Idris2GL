@@ -13,7 +13,7 @@ import Tile
 ||| A board contains 16 (4*4) tiles.
 public export
 data Board : Type where
-    MkBoard : (board : Vect 4 (Vect 4 Nat)) -> (lose : Bool) -> Board
+     MkBoard : (board : Vect 4 (Vect 4 Nat)) -> (lose : Bool) -> Board
 
 ||| All accpetable user operations.
 public export
