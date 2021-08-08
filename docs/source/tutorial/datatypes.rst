@@ -145,30 +145,22 @@ and you decides how to change medias corresponding with different events.
    :caption: ``Eve``
 
    data Eve 
-      = ||| Unavailable event.
-      E_UNAVAILABLE
-      | ||| Quit event.
-      E_QUIT
-
+      = E_UNAVAILABLE
+      | E_QUIT
       {- Key events -}
-
-      | ||| Key pressed event.
-      E_KEYDOWN Key
-      | ||| Key release event.
-      E_KEYUP   Key
-
+      | E_KEYDOWN Key
+      | E_KEYUP   Key
       {- Mouse events -}
-
-      | ||| Moving mouse and its position.
-      E_MOUSEMOTION     (Int, Int)
-      | ||| Mouse button pressed and its position.
-      E_MOUSEBUTTONDOWN (Int, Int)
-      | ||| Mouse button released and its position.
-      E_MOUSEBUTTONUP   (Int, Int)
-      | ||| Mouse wheel event and its position.
-      E_MOUSEWHEEL      (Int, Int)
+      | E_MOUSEMOTION       (Int, Int)
+      | E_L_MOUSEBUTTONDOWN (Int, Int)
+      | E_M_MOUSEBUTTONDOWN (Int, Int)
+      | E_R_MOUSEBUTTONDOWN (Int, Int)
+      | E_L_MOUSEBUTTONUP   (Int, Int)
+      | E_M_MOUSEBUTTONUP   (Int, Int)
+      | E_R_MOUSEBUTTONUP   (Int, Int)
+      | E_MOUSEWHEEL        (Int, Int)
 
 ``Key`` in key events is a data type represending different keyboard events.
 For example, ``E_KEYUP EK_RETURN`` means releasing the *Return* button.
 
-You can find all supported events in **<TODO>**.
+You can find all supported events in **List of Events Defined in ``Eve``**.

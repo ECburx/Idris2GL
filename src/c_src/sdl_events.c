@@ -10,21 +10,23 @@ typedef struct {
     SDL_Event *ePtr;
     int       mouseX;
     int       mouseY;
+    int       mouseButton;
 } Event;
 
 Event *newEve() {
     Event *e = malloc(sizeof(Event));
     if (e == NULL) return NULL;
-    e->ePtr   = malloc(sizeof(SDL_Event));
-    e->mouseX = 0;
-    e->mouseY = 0;
+    e->ePtr        = malloc(sizeof(SDL_Event));
+    e->mouseX      = 0;
+    e->mouseY      = 0;
+    e->mouseButton = 0;
     return e;
 }
 
 int eveType(Event *e) {
     if (e == NULL) return UNAVAILABLE_EVENT;
     SDL_Event *ePtr = e->ePtr;
-    if (ePtr == NULL)return UNAVAILABLE_EVENT;
+    if (ePtr == NULL) return UNAVAILABLE_EVENT;
 
     if (SDL_PollEvent(ePtr) == 0) return UNAVAILABLE_EVENT;
     return (int) ePtr->type;
@@ -33,7 +35,7 @@ int eveType(Event *e) {
 int keyEveCode(Event *e) {
     if (e == NULL) return UNAVAILABLE_EVENT;
     SDL_Event *ePtr = e->ePtr;
-    if (ePtr == NULL)return UNAVAILABLE_EVENT;
+    if (ePtr == NULL) return UNAVAILABLE_EVENT;
 
     SDL_EventType type = ePtr->type;
 
@@ -50,6 +52,7 @@ int keyEveCode(Event *e) {
 
 Event *mouseEveCode(Event *e) {
     SDL_GetMouseState(&(e->mouseX), &(e->mouseY));
+    e->mouseButton = e->ePtr->button.button;
     return e;
 }
 

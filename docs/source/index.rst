@@ -26,3 +26,7 @@ Table of Content
    tutorial/animate
    tutorial/simulate
    tutorial/play
+
+   datatype/pictures
+   datatype/events
+   datatype/keyboardCode

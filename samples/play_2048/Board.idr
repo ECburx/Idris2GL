@@ -59,9 +59,8 @@ export
 initBoard : Board
 initBoard = addTile $ addTile emptyBoard
 
-||| 
-leftMergeLine : Vect 4 Nat -> Vect 4 Nat
-leftMergeLine line = combine $ reformat line
+upMergeLine : Vect 4 Nat -> Vect 4 Nat
+upMergeLine line = combine $ reformat line
 where
     reformat : Vect m Nat -> Vect m Nat
     reformat (0::ts) = snoc (reformat ts) 0
@@ -74,18 +73,16 @@ where
         combine (x::y::xs) | False = x :: combine (y::xs)
     combine xs = xs
 
-|||
 move : Operation -> (board : Board) -> Board
 move op b@(MkBoard _ True) = b
 move op (MkBoard board False) = MkBoard (move' op board) False
 where
     move' : Operation -> Vect 4 (Vect 4 Nat) -> Vect 4 (Vect 4 Nat)
-    move' Up    b = leftMergeLine <$> b
-    move' Down  b = (reverse . leftMergeLine . reverse) <$> b
+    move' Up    b = upMergeLine <$> b
+    move' Down  b = (reverse . upMergeLine . reverse) <$> b
     move' Left  b = transpose $ move' Up   (transpose b)
     move' Right b = transpose $ move' Down (transpose b)
 
-|||
 export
 boardToPic : (board : Board) -> List Picture
 boardToPic (MkBoard b _) = boardToPic' 0 b
@@ -102,11 +99,8 @@ export
 checkAndMove : (op : Operation) -> (board : Board) -> Board
 checkAndMove op board with (isAbleToMove board)
     checkAndMove op board | Yes prf    = addTile $ move op board
-    checkAndMove op board | No  contra = check ops board
-    where ops : Vect 4 Operation
-          ops = [Up, Down, Left, Right]
-
-          check : (os : Vect n Operation) -> (board : Board) -> Board
+    checkAndMove op board | No  contra = check [Up, Down, Left, Right] board
+    where check : (os : Vect n Operation) -> (board : Board) -> Board
           check Nil (MkBoard b _) = MkBoard b True
           check (o::os) board = 
             case isAbleToMove $ move o board of
