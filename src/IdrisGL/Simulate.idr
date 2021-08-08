@@ -76,7 +76,7 @@ simulateStateT
   -> (m2m       : Double -> StateT a IO ())
   -> IO ()
 
-simulateState window bgColor tps state m2p m2m = do
+simulateStateT window bgColor tps state m2p m2m = do
     win                   <- createWin window
     ren                   <- createRenderer win
     e                     <- newEve

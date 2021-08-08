@@ -81,7 +81,7 @@ playStateT
   -> (e2w       : Eve    -> StateT a IO ())
   -> (t2w       : Double -> StateT a IO ())
   -> IO ()
-playState window bgColor tpf state w2p e2w t2w = do
+playStateT window bgColor tpf state w2p e2w t2w = do
     win                   <- createWin window
     ren                   <- createRenderer win
     e                     <- newEve

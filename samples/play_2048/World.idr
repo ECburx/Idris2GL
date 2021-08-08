@@ -52,16 +52,17 @@ showWorld = do
     MkWorldState board@(MkBoard _ lose) score maxTile <- get
 
     -- `case of` cannot build
-    -- case (lose, maxTile) of
+    -- case the (Bool, Nat) (lose, maxTile) of
     --      (True, _) => pure $ Pictures $ show score board ++ finishedPic False
     --      (_, 2048) => pure $ Pictures $ show score board ++ finishedPic True
     --      _         => pure $ Pictures $ show score board
 
     if lose 
-        then pure $ Pictures $ show score board ++ finishedPic False
-        else if maxTile == 2048 
-                then pure $ Pictures $ show score board ++ finishedPic True
-                else pure $ Pictures $ show score board
+      then pure $ Pictures $ show score board ++ finishedPic False
+      else 
+        if maxTile == 2048 
+          then pure $ Pictures $ show score board ++ finishedPic True
+          else pure $ Pictures $ show score board
 
 where show : (score : Nat) -> (board : Board) -> List Picture
       show s b = scoreBar s :: boardToPic b

@@ -35,14 +35,14 @@ showWD (WD (x,y) t state) =
           timeMsg = "Timer: " ++ show t ++ "s"
 
 eventsHandler : Eve -> World -> World
-eventsHandler (E_MOUSEMOTION     (x,y)) (WD _ t _) = WD (x,y) t "Mouse Motion."
-eventsHandler (E_MOUSEBUTTONDOWN (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Down."
-eventsHandler (E_MOUSEBUTTONUP   (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Up."
-eventsHandler (E_MOUSEWHEEL      (x,y)) (WD _ t _) = WD (x,y) t "Mouse Wheel."
+eventsHandler (E_MOUSEMOTION       (x,y)) (WD _ t _) = WD (x,y) t "Mouse Motion."
+eventsHandler (E_L_MOUSEBUTTONDOWN (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Down."
+eventsHandler (E_L_MOUSEBUTTONUP   (x,y)) (WD _ t _) = WD (x,y) t "Mouse Button Up."
+eventsHandler (E_MOUSEWHEEL        (x,y)) (WD _ t _) = WD (x,y) t "Mouse Wheel."
 eventsHandler _ w = w
 
 timeHandler : Double -> World -> World
-timeHandler t (WD xy _ s) = WD xy (cast t) s
+timeHandler t (WD xy _ s) = WD xy t s
 
 main : IO ()
 main =
@@ -76,11 +76,11 @@ eventsSTHandler : (event : Eve) -> StateT World IO ()
 eventsSTHandler event = do
   world@(WD _ t _) <- get
   case event of
-       E_MOUSEMOTION     pos => put $ WD pos t "Mouse Motion."
-       E_MOUSEBUTTONDOWN pos => put $ WD pos t "Mouse Button Down."
-       E_MOUSEBUTTONUP   pos => put $ WD pos t "Mouse Button Up."
-       E_MOUSEWHEEL      pos => put $ WD pos t "Mouse Wheel."
-       _                     => put world
+       E_MOUSEMOTION       pos => put $ WD pos t "Mouse Motion."
+       E_L_MOUSEBUTTONDOWN pos => put $ WD pos t "Mouse Button Down."
+       E_L_MOUSEBUTTONUP   pos => put $ WD pos t "Mouse Button Up."
+       E_MOUSEWHEEL        pos => put $ WD pos t "Mouse Wheel."
+       _                       => put world
 
 timeSTHandler : (t : Double) -> StateT World IO ()
 timeSTHandler t = do
@@ -88,7 +88,7 @@ timeSTHandler t = do
   put $ WD pos t mouse
 
 mainST : IO ()
-mainST = playState 
+mainST = playStateT
           (InWindow "Mouse" (MkRect 50 50 300 120))
           Color.white
           0.01 -- Frames per seconds (FPS) = 1/0.01 = 100 (0: unlimited FPS)
