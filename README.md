@@ -2,6 +2,10 @@
 
 A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL under the hood, but you won’t need to worry about any of that.
 
+![Index1](./img/Index1.gif)
+
+![Index2](./img/Index2.gif)
+
 - Provides functions to build 2D vector graphics, animations, simulations and games.
 - Provides `SDL2` , `SDL2_image` , `SDL2_gfx`,  `SDL2_ttf` bindings, by importing `IdrisGL.SDL`.
 - Supports most of keyboard events and mouse events.
