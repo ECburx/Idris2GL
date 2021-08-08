@@ -14,6 +14,14 @@ hood, but you won't need to worry about any of that.
 
    This project is under active development.
 
+.. image:: img/Index1.gif
+   :scale: 70 %
+   :align: center
+
+.. image:: img/Index2.gif
+   :scale: 70 %
+   :align: center
+
 Table of Content
 ----------------
 
