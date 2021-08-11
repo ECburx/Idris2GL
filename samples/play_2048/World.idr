@@ -69,16 +69,18 @@ where show : (score : Nat) -> (board : Board) -> List Picture
 
 export
 eventsHandler : (e : Eve) -> StateT WorldState IO ()
-eventsHandler e = do
+eventsHandler (E_KEYDOWN key) = do
     st@(MkWorldState board _ _) <- get
-    let newBoard                =  eh board e
+    let newBoard                =  eh board key
     put $ MkWorldState newBoard (boardScore newBoard) (maxTile newBoard)
-where eh : Board -> Eve -> Board
-      eh b (E_KEYDOWN EK_UP)    = checkAndMove Up    b
-      eh b (E_KEYDOWN EK_DOWN)  = checkAndMove Down  b
-      eh b (E_KEYDOWN EK_LEFT)  = checkAndMove Left  b
-      eh b (E_KEYDOWN EK_RIGHT) = checkAndMove Right b
-      eh b _                    = b
+    playChunk "medium.wav"  -- play sound effect
+where eh : Board -> Key -> Board
+      eh b EK_UP    = checkAndMove Up    b
+      eh b EK_DOWN  = checkAndMove Down  b
+      eh b EK_LEFT  = checkAndMove Left  b
+      eh b EK_RIGHT = checkAndMove Right b
+      eh b _ = b
+eventsHandler _ = pure ()
 
 export
 timeHandler : (t : Double) -> StateT WorldState IO ()

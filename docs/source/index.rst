@@ -10,6 +10,11 @@ A 2D graphic library for Idris 2, which is inspired by `Gloss
 <http://gloss.ouroborus.net/>`_. IdrisGL uses SDL under the
 hood, but you won't need to worry about any of that.
 
+-  Provides functions to build 2D vector graphics, animations, simulations and games.
+-  Supports most of keyboard events and mouse events.
+-  Frames per second control.
+-  Music and sound effects.
+
 .. note::
 
    This project is under active development.

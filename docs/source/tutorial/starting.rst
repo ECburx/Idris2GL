@@ -27,6 +27,7 @@ Install from Source Code
    - SDL_image
    - SDL_ttf
    - SDL_gfx
+   - SDL_mixer
 
    After you installed these dependencies, 
 
@@ -74,11 +75,3 @@ Import Things You Need
 -  ``import IdrisGL.Random``: unsafe, predictable and limited randomness,
    for users who need (inaccurate) random data to test graphics.
    (May be removed in the future.)
--  ``import IdrisGL.SDL``: SDL2, SDL2_image, SDL2_gfx, SDL2_ttf bindings.
-
-.. warning::
-
-   | You should use provided APIs instead of SDL bindings.
-   | Considering that IdrisGL currently provides the most comprehensive SDL bindings,
-     these bindings can be imported and used by users temporarily.
-     However, these bindings may be moved to other packages in the future and cannot be imported directly from IdrisGL.
