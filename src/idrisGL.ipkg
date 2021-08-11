@@ -21,6 +21,7 @@ modules     = IdrisGL
             , IdrisGL.SDL.SDL_generic
             , IdrisGL.SDL.SDL_gfx
             , IdrisGL.SDL.SDL_ttf
+            , IdrisGL.SDL.SDL_mixer
 
             , IdrisGL.Random
 

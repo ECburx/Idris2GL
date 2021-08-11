@@ -6,6 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #define MINIMUM_FONT_SIZE   1
 
@@ -20,12 +21,17 @@
 #define HINTING_MONO        2
 #define HINTING_NONE        3
 
-void ttf_init() {
+bool ttf_initialized = false;
+
+bool ttf_init() {
+    if (ttf_initialized) return true;
     if (TTF_Init() != 0) {
         printf("%s\n", TTF_GetError());
-        return;
+        return false;
     }
+    ttf_initialized = true;
     atexit(TTF_Quit);
+    return true;
 }
 
 TTF_Font *loadFont(char *str, int size) {
@@ -87,7 +93,7 @@ void drawText(SDL_Renderer *renderer,
               int r, int g, int b, int a) {
     if (str == NULL) return;
 
-    ttf_init();
+    if (!ttf_init()) return;
     TTF_Font *font       = loadFont(file, size);
     if (font == NULL) return;
 
@@ -102,6 +108,7 @@ void drawText(SDL_Renderer *renderer,
     SDL_RenderCopy(renderer, texture, NULL, &rect);
     SDL_FreeSurface(textSur);
     TTF_CloseFont(font);
+    font = NULL;
 }
 
 void drawSolidText(SDL_Renderer *renderer,
@@ -111,7 +118,7 @@ void drawSolidText(SDL_Renderer *renderer,
                    int r, int g, int b, int a) {
     if (str == NULL) return;
 
-    ttf_init();
+    if (!ttf_init()) return;
     TTF_Font *font       = loadFont(file, size);
     if (font == NULL) return;
 
@@ -130,6 +137,7 @@ void drawSolidText(SDL_Renderer *renderer,
     SDL_RenderCopy(renderer, texture, NULL, &rect);
     SDL_FreeSurface(textSur);
     TTF_CloseFont(font);
+    font = NULL;
 }
 
 void drawBlendedText(SDL_Renderer *renderer,
@@ -139,7 +147,7 @@ void drawBlendedText(SDL_Renderer *renderer,
                      int r, int g, int b, int a) {
     if (str == NULL) return;
 
-    ttf_init();
+    if (!ttf_init()) return;
     TTF_Font *font       = loadFont(file, size);
     if (font == NULL) return;
 
@@ -158,6 +166,7 @@ void drawBlendedText(SDL_Renderer *renderer,
     SDL_RenderCopy(renderer, texture, NULL, &rect);
     SDL_FreeSurface(textSur);
     TTF_CloseFont(font);
+    font = NULL;
 }
 
 void drawShadedText(SDL_Renderer *renderer,
@@ -168,7 +177,7 @@ void drawShadedText(SDL_Renderer *renderer,
                     int r2, int g2, int b2, int a2) {
     if (str == NULL) return;
 
-    ttf_init();
+    if (!ttf_init()) return;
     TTF_Font *font       = loadFont(file, size);
     if (font == NULL) return;
 
@@ -188,4 +197,5 @@ void drawShadedText(SDL_Renderer *renderer,
     SDL_RenderCopy(renderer, texture, NULL, &rect);
     SDL_FreeSurface(textSur);
     TTF_CloseFont(font);
+    font = NULL;
 }

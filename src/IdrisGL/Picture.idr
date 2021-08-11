@@ -10,6 +10,7 @@ import IdrisGL.SDL.SDL_surface
 import IdrisGL.SDL.SDL_image
 import IdrisGL.SDL.SDL_gfx
 import IdrisGL.SDL.SDL_ttf
+import IdrisGL.SDL.SDL_mixer
 
 ||| Loads pictures using SDL bindings.
 |||

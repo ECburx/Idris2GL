@@ -10,6 +10,7 @@ A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL u
 - Provides `SDL2` , `SDL2_image` , `SDL2_gfx`,  `SDL2_ttf` bindings, by importing `IdrisGL.SDL`.
 - Supports most of keyboard events and mouse events.
 - Frames per second control.
+- Music and sound effects.
 
 ## Documentation
 
@@ -31,6 +32,7 @@ make quickInstall
 > - SDL_image
 > - SDL_ttf
 > - SDL_gfx
+> - SDL_mixer
 > 
 > After you installed these dependencies,
 > 
@@ -54,3 +56,4 @@ make quickInstall
 - SDL2 Image
 - SDL2 GFX
 - SDL2 TTF
+- SDL2 Mixer

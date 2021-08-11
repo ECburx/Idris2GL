@@ -422,37 +422,3 @@ An Example of Showing Shapes
       (InWindow "Shapes" (MkRect 30 50 640 480))        -- window setting
       (MkRGB 43 43 43)                                  -- background color
       shapes                                            -- Picture
-
-Here is an example of directly using SDL bindings (Not recommended).
-You can write like using SDL in C language.
-
-.. code-block:: idris
-   :caption: Using SDL bindings
-
-   import IdrisGL
-   import IdrisGL.SDL
-
-   main : IO ()
-   main = do 
-      win             <- createWin $ InWindow "Shapes" (MkRect 30 50 640 480)
-      ren             <- createRenderer win
-      setRenderDrawColor ren Color.black
-
-      renderClear        ren
-      aaline             ren (MkCoor 10 10) (MkCoor 500 400) Color.green
-      thickLine          ren (MkCoor 20 20) (MkCoor 500 300) Color.red 10
-      renderPresent      ren
-
-      e               <- newEve
-      loop               ren e
-      freeRender         ren
-      closeWin           win
-      where 
-         loop : Renderer -> Event -> IO ()
-         loop   ren e with (eveType e)
-         loop _   _ | E_QUIT = pure ()
-         loop ren e | _      = loop ren e
-
-.. warning::
-
-   SDL bindings may be removed in the future.

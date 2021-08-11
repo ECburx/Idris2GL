@@ -12,3 +12,4 @@ import public IdrisGL.Simulate
 
 import public IdrisGL.SDL.SDL_event
 import public IdrisGL.SDL.SDL_keycode
+import public IdrisGL.SDL.SDL_mixer

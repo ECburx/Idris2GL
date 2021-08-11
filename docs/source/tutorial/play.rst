@@ -196,6 +196,40 @@ The effect of the code is the same as above (using ``play``).
 However, we don't like "impure functions": functions that yield different output for same input.
 So it is wise to take some time to consider using which function.
 
+Using IO Functions in ``playStateT``
+====================================
+
+Sound Effects and Music
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Up until now you've seen how Monad State could work in IdrisGL.
+Most games made require some sort of sound and here we'll be using **IO functions**
+in ``playStateT`` to play audio for us.
+
+-  | ``playMusic``: Play music, with looping.
+   | ``@ loops`` : number of times to play through the music. 0 plays the music zero times.
+     -1 plays the music forever (or as close as it can get to that).
+
+   .. code-block:: idris
+
+      playMusic : HasIO io => (path : String) -> (loops : Int) -> io ()
+
+-  | ``playChunk``: Play a sound effect in an available channel one times.
+
+   .. code-block:: idris
+
+      playChunk : HasIO io => (path : String) -> io ()
+
+Game 2048 in next section gives you an example of using IO functions in ``playStateT``.
+
+.. warning::
+
+   Only support music in ``.wav`` format for now.
+
+.. Note::
+
+   You can also use IO functions, such as playing sound effects and musics, in ``simulateStateT``.
+
 Design a Game: 2048
 ===================
 
@@ -318,21 +352,25 @@ Picture material from `https://play2048.co/ <https://play2048.co/>`_. [2]_
                   No  contra  => check os board
                   Yes prf     => addTile $ move op board
 
--  A monad function to handle input events.
+-  | A monad function to handle input events, using IO function.
+   | Play sound effects when keys are pressed.
 
    .. code-block:: idris
+      :emphasize-lines: 6
 
       eventsHandler : (e : Eve) -> StateT WorldState IO ()
-      eventsHandler e = do
+      eventsHandler (E_KEYDOWN key) = do
          st@(MkWorldState board _ _) <- get
-         let newBoard                =  eh board e
+         let newBoard                =  eh board key
          put $ MkWorldState newBoard (boardScore newBoard) (maxTile newBoard)
-      where eh : Board -> Eve -> Board
-            eh b (E_KEYDOWN EK_UP)    = checkAndMove Up    b
-            eh b (E_KEYDOWN EK_DOWN)  = checkAndMove Down  b
-            eh b (E_KEYDOWN EK_LEFT)  = checkAndMove Left  b
-            eh b (E_KEYDOWN EK_RIGHT) = checkAndMove Right b
-            eh b _                    = b
+         playChunk "medium.wav"  -- play sound effect
+      where eh : Board -> Key -> Board
+            eh b EK_UP    = checkAndMove Up    b
+            eh b EK_DOWN  = checkAndMove Down  b
+            eh b EK_LEFT  = checkAndMove Left  b
+            eh b EK_RIGHT = checkAndMove Right b
+            eh b _ = b
+      eventsHandler _ = pure ()
 
 -  And ignoring time.
 
