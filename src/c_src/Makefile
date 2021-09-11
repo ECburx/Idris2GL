@@ -77,7 +77,7 @@ $(SDL_MIXER_SOURCES):%:%.c
 	$(CC) $(SHARE) $< $(WFLAG) $(SDL_MIXER_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
 
 clean:
-	-rm -rf $(TARGETS) *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX)
+	rm -rf $(TARGETS) *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX)
 
 install:
 	@if ! [ -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
