@@ -52,3 +52,7 @@ make quickInstall
 - SDL2 GFX
 - SDL2 TTF
 - SDL2 Mixer
+
+## Special Thanks
+
+- Dr [Edwin Brady](https://github.com/edwinb)
