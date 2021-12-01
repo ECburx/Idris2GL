@@ -25,7 +25,7 @@ cd Idris2GL
 make quickInstall
 ```
 
-> You may want to compiled shared libraries with your own SDLs. Following SDL dependencies is required:
+> To compile shared libraries with your own SDLs, following SDL dependencies are required:
 > 
 > - SDL
 > - SDL_image
