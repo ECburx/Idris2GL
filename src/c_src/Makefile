@@ -12,6 +12,7 @@ WFLAG             := -w
 SHARE             := -shared
 MKDIR             := mkdir -p
 FPIC              := -fPIC
+FOLDER            := ../../lib/
 
 SDL_FLAG          := -lSDL2
 SDL_IMG_FLAG      := $(SDL_FLAG) -lSDL2_image
@@ -41,7 +42,7 @@ endif
 
 SOURCES_CODE      =  $(wildcard *.c)
 #SOURCES          =  $(patsubst %.h, %, $(HEADERS))
-TARGETS           =  $(patsubst %.c, %.$(SHLIB_SUFFIX), $(SOURCES_CODE))
+TARGETS           =  $(patsubst %.c, $(FOLDER)%.$(SHLIB_SUFFIX), $(SOURCES_CODE))
 #OBJECTS          =  $(patsubst %.h, %.o, $(HEADERS))
 
 GENERAL_SOURCES   =  generic random
@@ -56,25 +57,28 @@ INSTALL_DIR       =  $(SYS_LIB_DIR)/$(RELEASE_NAME)/lib/
 
 .PHONY: build install clean
 
-build: $(GENERAL_SOURCES) $(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES) $(SDL_MIXER_SOURCES)
+mkFolder: 
+	mkdir -p $(FOLDER)
 
+build: mkFolder $(GENERAL_SOURCES) $(SDL_SOURCES) $(SDL_GFX_SOURCES) $(SDL_IMG_SOURCES) $(SDL_TTF_SOURCES) $(SDL_MIXER_SOURCES)
+		
 $(GENERAL_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_FLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_GFX_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(SDL_GFX_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_GFX_FLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_IMG_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(SDL_IMG_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_IMG_FLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_TTF_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(SDL_TTF_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_TTF_FLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 $(SDL_MIXER_SOURCES):%:%.c
-	$(CC) $(SHARE) $< $(WFLAG) $(SDL_MIXER_FLAG) $(OFLAG) $@.$(SHLIB_SUFFIX) $(FPIC)
+	$(CC) $(SHARE) $< $(WFLAG) $(SDL_MIXER_FLAG) $(OFLAG) $(FOLDER)$@.$(SHLIB_SUFFIX) $(FPIC)
 
 clean:
 	rm -rf $(TARGETS) *.$(SHLIB_SUFFIX) $(INSTALL_DIR)*.$(SHLIB_SUFFIX)

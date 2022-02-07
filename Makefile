@@ -6,16 +6,16 @@ quickInstall:
 
 	make build -C src/c_src
 	make install -C src/c_src
-	idris2 --install src/idrisGL.ipkg
+	idris2 --install idrisGL.ipkg
 
 install:
 	make build -C src/c_src
 	make install -C src/c_src
-	idris2 --install src/idrisGL.ipkg
+	idris2 --install idrisGL.ipkg
 
 prebuild:
 	make build -C src/c_src
 
 clean:
 	make clean -C src/c_src
-	idris2 --clean src/idrisGL.ipkg
+	idris2 --clean idrisGL.ipkg
