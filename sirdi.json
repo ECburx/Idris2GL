@@ -26,7 +26,7 @@
       "IdrisGL.Random"
     ],
     "passthru": {
-      "version": "1.0",
+      "version": "1.0.0",
       "readme": "../README.md",
       "license": "GPL-3.0 License",
       "authors": "Tian Z (ecburxvip@gmail.com)",

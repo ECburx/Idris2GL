@@ -1,6 +1,6 @@
 # IMPORTANT: RELEASE_NAME must match that defined in .ipkg.
 PACKAGE_NAME      := idrisGL
-VERSION           := 1.0
+VERSION           := 1.0.0
 RELEASE_NAME      := $(PACKAGE_NAME)-$(VERSION)
 
 IDRIS             := idris2
