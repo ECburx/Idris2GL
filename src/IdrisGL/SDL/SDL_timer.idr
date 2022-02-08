@@ -34,9 +34,9 @@ getTicks = pure prim_getTicks
 -- Relatively safe.
 
 %foreign frgn "getSecondsTicks"
-prim_getSecondsTicks : Double
+prim_getSecondsTicks : PrimIO Double
 
 ||| Get the number of seconds since SDL library initialization.
 export
 getSecondsTicks : HasIO io => io Double
-getSecondsTicks = pure prim_getSecondsTicks
+getSecondsTicks = primIO prim_getSecondsTicks

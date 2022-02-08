@@ -1,7 +1,7 @@
 package idrisGL
 sourcedir = "src"
 modules = IdrisGL, IdrisGL.Animate, IdrisGL.Color, IdrisGL.DataType, IdrisGL.Display, IdrisGL.Picture, IdrisGL.Play, IdrisGL.Simulate, IdrisGL.SDL, IdrisGL.SDL.SDL_event, IdrisGL.SDL.SDL_image, IdrisGL.SDL.SDL_keycode, IdrisGL.SDL.SDL_render, IdrisGL.SDL.SDL_surface, IdrisGL.SDL.SDL_timer, IdrisGL.SDL.SDL_video, IdrisGL.SDL.SDL_generic, IdrisGL.SDL.SDL_gfx, IdrisGL.SDL.SDL_ttf, IdrisGL.SDL.SDL_mixer, IdrisGL.Random
-version = "1.0"
+version = 1.0.0
 readme = "../README.md"
 license = "GPL-3.0 License"
 authors = "Tian Z (ecburxvip@gmail.com)"
