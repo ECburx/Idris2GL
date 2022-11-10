@@ -1,5 +1,7 @@
 # Idris2GL
 
+![IdrisVersion](https://img.shields.io/badge/idris2-0.6.0-blue)
+
 A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL under the hood, but you won’t need to worry about any of that.
 
 ![Logo](./Logo.png)
@@ -7,7 +9,7 @@ A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL u
 ![Contributor Wanted](./IntroPic.png)
 
 - Provides functions to build 2D vector graphics, animations, simulations and games.
-- Supports most of keyboard events and mouse events.
+- Supports most keyboard events and mouse events.
 - Frames per second control.
 - Music and sound effects.
 
