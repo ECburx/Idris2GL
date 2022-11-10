@@ -32,7 +32,8 @@ animate window bgColor tps picF = do
     closeWin                    win
     freeEve                     e
     freeRender                  ren
-    where mutual
+    where 
+      mutual
         loop : Renderer -> Win -> Event -> Double -> IO ()
         loop ren win e lastTime =
             if   !getSecondsTicks - lastTime < tps

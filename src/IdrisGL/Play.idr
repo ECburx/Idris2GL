@@ -41,7 +41,8 @@ play window bgColor tpf w w2p ew2w tw2w = do
     closeWin                 win
     freeEve                  e
     freeRender               ren
-where mutual
+where 
+  mutual
       loop : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop ren win e world lastTime =
         if   !getSecondsTicks - lastTime < tpf
@@ -89,7 +90,8 @@ playStateT window bgColor tpf state w2p e2w t2w = do
     closeWin                 win
     freeEve                  e
     freeRender               ren
-where mutual
+where 
+  mutual
       loop : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop st ren win e lastTime =
         if   !getSecondsTicks - lastTime < tpf

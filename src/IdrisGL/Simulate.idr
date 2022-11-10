@@ -39,7 +39,8 @@ simulate window bgColor tps m m2p m2m = do
     closeWin                 win
     freeEve                  e
     freeRender               ren
-where mutual
+where 
+  mutual
       loop : Renderer -> Win -> Event -> a -> Double -> IO ()
       loop ren win e model lastTime = 
         if   !getSecondsTicks - lastTime < tps
@@ -84,7 +85,8 @@ simulateStateT window bgColor tps state m2p m2m = do
     closeWin                 win
     freeEve                  e
     freeRender               ren
-where mutual
+where
+  mutual
       loop : a -> Renderer -> Win -> Event -> Double -> IO ()
       loop st ren win e lastTime = 
         if   !getSecondsTicks - lastTime < tps
