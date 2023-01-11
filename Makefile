@@ -2,7 +2,7 @@
 
 quickInstall:
 	sudo apt update
-	sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-mixer-dev
+	sudo apt-get install --yes libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-mixer-dev
 
 	make build -C src/c_src
 	make install -C src/c_src
@@ -15,6 +15,7 @@ install:
 
 prebuild:
 	make build -C src/c_src
+	make install -C src/c_src
 
 clean:
 	make clean -C src/c_src
