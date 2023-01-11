@@ -17,8 +17,6 @@ A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL u
 
 [Documentation for the IdrisGL](https://idrisgl.readthedocs.io/)
 
-
-
 ## Dependencies
 
 - SDL2
@@ -34,7 +32,7 @@ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsd
 
 ## Install
 
-### Installation with [Pack](https://github.com/stefan-hoeck/idris2-pack)
+### Installation with [Pack](https://github.com/stefan-hoeck/idris2-pack) (Unverified)
 
 - Install all the dependencies using the commands above.
 - `pack install idrisGL`
