@@ -11,13 +11,21 @@ A 2D graphic library for Idris 2, which is inspired by Gloss. IdrisGL uses SDL u
 - Provides functions to build 2D vector graphics, animations, simulations and games.
 - Supports most keyboard events and mouse events.
 - Frames per second control.
-- Music and sound effects.
+- Audio and sound effects.
 
 ## Documentation
 
 [Documentation for the IdrisGL](https://idrisgl.readthedocs.io/)
 
-## Uses
+## Install
+
+### Installation with [Pack](https://github.com/stefan-hoeck/idris2-pack)
+
+```
+sudo apt update && sudo apt upgrade
+sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-mixer-dev
+pack install idrisGL
+```
 
 ### Install from Source Code
 
@@ -42,7 +50,7 @@ make quickInstall
 > make install
 > ```
 
-### Import
+## Import
 
 `$ idris2 -p idrisGL` to load dependencies.
 
@@ -59,12 +67,13 @@ make quickInstall
 - SDL2 TTF
 - SDL2 Mixer
 
-## Special Thanks
+## Thanks
 
 - Dr [Edwin Brady](https://github.com/edwinb)
 
 ## Maintenance
 
-**Contributor and volunteers will be gratefully welcomed!**
+**Contributions will be gratefully welcomed!**
 
 - Maintainer: [Tian Z](https://github.com/ECburx)
+
