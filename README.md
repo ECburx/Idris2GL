@@ -32,15 +32,32 @@ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsd
 
 ## Install
 
-### Installation with [Pack](https://github.com/stefan-hoeck/idris2-pack) (Unverified)
+### Installation with [Pack](https://github.com/stefan-hoeck/idris2-pack)
 
-- Install all the dependencies using the commands above.
-- `pack install idrisgl`
+- Assuming you have installed [Pack](https://github.com/stefan-hoeck/idris2-pack).
+- Install all the dependencies using the [commands](#dependencies) above.
+- Make sure you added `idris2` to `$PATH`.
+- `pack install idrisGL`
+
+<details>
+<summary><b>Unable to install with Pack?</b></summary>
+
+- `make[1]: idris2: No such file or directory`
+  <br> Make sure you added `idris2` to `$PATH`.
+  
+- Errors caused by `include <SDL....>` or `SDL not found`.
+  <br> Install all the dependencies using the [commands](#dependencies) above.
+  
+- Not on the list?
+  <br> Check [Pack Nightly Build](https://github.com/stefan-hoeck/idris2-pack-db) and report an issue if it is related to IdrisGL.
+
+</details>
 
 ### Install from Source Code
 
 - `git clone https://github.com/ECburx/Idris2GL`
 - Navigate to the directory: `cd Idris2GL`
+- Make sure you added `idris2` to `$PATH`.
 - If you have installed all the dependencies, `make install`
 - Otherwise, `make quickInstall`. This will install the dependencies for you.
 
