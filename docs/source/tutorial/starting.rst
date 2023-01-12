@@ -18,7 +18,7 @@ Dependencies
    sudo apt update && sudo apt upgrade
    sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-mixer-dev
 
-Install with [Pack](https://github.com/stefan-hoeck/idris2-pack)
+Install with `Pack <https://github.com/stefan-hoeck/idris2-pack>`_
 ================================================================
 
 - Assuming you have installed `Pack <https://github.com/stefan-hoeck/idris2-pack>`_.
@@ -30,20 +30,20 @@ Install with [Pack](https://github.com/stefan-hoeck/idris2-pack)
 
    **Unable to install with Pack?**
 
-   - **`make[1]: idris2: No such file or directory`**: Make sure you added `idris2` to `$PATH`.
+   - ``make[1]: idris2: No such file or directory``: Make sure you added ``idris2`` to ``$PATH``.
   
-   - **Errors caused by `include <SDL....>` or `SDL not found`**: Install all the dependencies using the [commands](#dependencies) above.
+   - **Errors caused by** ``include <SDL....>`` **or** ``SDL not found``: Install all the dependencies.
 
-   - **Not on the list?** Check [Pack Nightly Build](https://github.com/stefan-hoeck/idris2-pack-db) and report an issue if it is related to IdrisGL.
+   - **Not on the list?** Check `Pack Nightly Build <https://github.com/stefan-hoeck/idris2-pack-db>`_ and report an issue if it is related to IdrisGL.
 
 Install from Source Code
 ========================
 
-- `git clone https://github.com/ECburx/Idris2GL`
-- Navigate to the directory: `cd Idris2GL`
-- Make sure you added `idris2` to `$PATH`.
-- If you have installed all the dependencies, `make install`
-- Otherwise, `make quickInstall`. This will install the dependencies for you.
+- ``git clone https://github.com/ECburx/Idris2GL``
+- Navigate to the directory: ``cd Idris2GL``
+- Make sure you added ``idris2`` to ``$PATH``.
+- If you have installed all the dependencies, ``make install``
+- Otherwise, ``make quickInstall``. This will install the dependencies for you.
 
 Additional installation options
 -------------------------------
