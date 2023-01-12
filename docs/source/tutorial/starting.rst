@@ -4,38 +4,46 @@
 Getting Started
 ***************
 
-Installing from the Source Repo
-===============================
+Dependencies
+============
 
-Assuming you have `Idris 2 <https://idris2.readthedocs.io/>`_ already.
-
-Install from Source Code
-------------------------
+- SDL2
+- SDL2 Image
+- SDL2 GFX
+- SDL2 TTF
+- SDL2 Mixer
 
 ::
 
-   git clone https://github.com/ECburx/Idris2GL
-   cd Idris2GL
-   make quickInstall
+   sudo apt update && sudo apt upgrade
+   sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-gfx-dev libsdl2-mixer-dev
 
-.. note::
+Install with [Pack](https://github.com/stefan-hoeck/idris2-pack)
+================================================================
 
-   You may want to compiled shared libraries with your own SDLs.
-   Following SDL dependencies is required:
+- Assuming you have installed `Pack <https://github.com/stefan-hoeck/idris2-pack>`_.
+- Install all the dependencies using the commands above.
+- Make sure you added ``idris2`` to ``$PATH``.
+- ``pack install idrisGL``
 
-   - SDL
-   - SDL_image
-   - SDL_ttf
-   - SDL_gfx
-   - SDL_mixer
+.. note:: 
 
-   After you installed these dependencies, 
+   **Unable to install with Pack?**
 
-   ::
+   - **`make[1]: idris2: No such file or directory`**: Make sure you added `idris2` to `$PATH`.
+  
+   - **Errors caused by `include <SDL....>` or `SDL not found`**: Install all the dependencies using the [commands](#dependencies) above.
 
-      cd Idris2GL
-      make install
+   - **Not on the list?** Check [Pack Nightly Build](https://github.com/stefan-hoeck/idris2-pack-db) and report an issue if it is related to IdrisGL.
 
+Install from Source Code
+========================
+
+- `git clone https://github.com/ECburx/Idris2GL`
+- Navigate to the directory: `cd Idris2GL`
+- Make sure you added `idris2` to `$PATH`.
+- If you have installed all the dependencies, `make install`
+- Otherwise, `make quickInstall`. This will install the dependencies for you.
 
 Additional installation options
 -------------------------------
