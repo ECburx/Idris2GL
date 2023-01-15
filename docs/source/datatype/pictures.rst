@@ -24,8 +24,8 @@ A blank picture, with nothing in it.
 
 .. code-block:: idris
 
-    Pictures 
-        :  (pics : List Picture) 
+    Pictures
+        :  (pics : List Picture)
         -> Picture
 
 ``Rotate``
@@ -38,10 +38,10 @@ A blank picture, with nothing in it.
 
 .. code-block:: idris
 
-    Rotate 
-        :  (angle  : Double) 
-        -> (center : Coordinate) 
-        -> (pic    : Picture) 
+    Rotate
+        :  (angle  : Double)
+        -> (center : Coordinate)
+        -> (pic    : Picture)
         -> Picture
 
 Images
@@ -56,9 +56,9 @@ Images
 
 .. code-block:: idris
 
-    Bitmap 
-        :  (path : String) 
-        -> (rect : Rect) 
+    Bitmap
+        :  (path : String)
+        -> (rect : Rect)
         -> Picture
 
 ``Image``
@@ -70,9 +70,9 @@ Images
 
 .. code-block:: idris
 
-    Image 
-        :  (path : String) 
-        -> (rect : Rect) 
+    Image
+        :  (path : String)
+        -> (rect : Rect)
         -> Picture
 
 shapes
@@ -87,9 +87,9 @@ shapes
 
 .. code-block:: idris
 
-    Pixel 
-        :  (position : Coordinate) 
-        -> (color    : Color) 
+    Pixel
+        :  (position : Coordinate)
+        -> (color    : Color)
         -> Picture
 
 ``ThickLine``
@@ -103,11 +103,11 @@ shapes
 
 .. code-block:: idris
 
-    ThickLine 
-        :  (start     : Coordinate) 
-        -> (end       : Coordinate) 
-        -> (color     : Color) 
-        -> (thickness : Int) 
+    ThickLine
+        :  (start     : Coordinate)
+        -> (end       : Coordinate)
+        -> (color     : Color)
+        -> (thickness : Int)
         -> Picture
 
 ``Line``
@@ -119,10 +119,10 @@ shapes
 
 .. code-block:: idris
 
-    Line 
-        :  (start : Coordinate) 
-        -> (end   : Coordinate) 
-        -> (color : Color) 
+    Line
+        :  (start : Coordinate)
+        -> (end   : Coordinate)
+        -> (color : Color)
         -> Picture
 
 ``Rectangle``
@@ -130,32 +130,32 @@ shapes
 
 | @ rect    The size of position of the rectangle.
 | @ color   The color of the rectangle.
-| @ filling True if fill the rectangle. 
+| @ filling True if fill the rectangle.
 
 .. code-block:: idris
 
-    Rectangle 
-        :  (rect    : Rect) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
+    Rectangle
+        :  (rect    : Rect)
+        -> (color   : Color)
+        -> (filling : Bool)
         -> Picture
 
 ``R_Rectangle``
 ===============
 
-| A rounded-corner rectangle. 
+| A rounded-corner rectangle.
 | @ rect    The size of position of the rectangle.
 | @ color   The color of the rectangle.
-| @ filling True if fill the rectangle. 
+| @ filling True if fill the rectangle.
 | @ radius  The radius of the corner arc.
 
 .. code-block:: idris
 
-    R_Rectangle 
-        :  (rect    : Rect) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
-        -> (radius  : Int) 
+    R_Rectangle
+        :  (rect    : Rect)
+        -> (color   : Color)
+        -> (filling : Bool)
+        -> (radius  : Int)
         -> Picture
 
 ``Circle``
@@ -168,11 +168,11 @@ shapes
 
 .. code-block:: idris
 
-    Circle 
-        :  (center  : Coordinate) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
-        -> (radius  : Int) 
+    Circle
+        :  (center  : Coordinate)
+        -> (color   : Color)
+        -> (filling : Bool)
+        -> (radius  : Int)
         -> Picture
 
 ``ThickCircle``
@@ -187,8 +187,8 @@ shapes
 
 .. code-block:: idris
 
-    ThickCircle 
-        :  (center    : Coordinate) 
+    ThickCircle
+        :  (center    : Coordinate)
         -> (color     : Color)
         -> (radius    : Int)
         -> (thickness : Int)
@@ -202,16 +202,16 @@ shapes
 | @ color  The color of drawing line.
 | @ radius The radius of the arc.
 | @ start  Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
-| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise. 
+| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
 
 .. code-block:: idris
 
-    Arc 
-        :  (center : Coordinate) 
-        -> (color  : Color) 
-        -> (radius : Int) 
-        -> (start  : Int) 
-        -> (end    : Int) 
+    Arc
+        :  (center : Coordinate)
+        -> (color  : Color)
+        -> (radius : Int)
+        -> (start  : Int)
+        -> (end    : Int)
         -> Picture
 
 ``Pie``
@@ -223,34 +223,35 @@ shapes
 | @ radius The radius of the pie.
 | @ start  Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
 | @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+| @ filled True if fill the pie.
 
 .. code-block:: idris
 
-    Pie 
-        :  (center : Coordinate) 
-        -> (color  : Color) 
-        -> (radius : Int) 
-        -> (start  : Int) 
-        -> (end    : Int) 
+    Pie
+        :  (center : Coordinate)
+        -> (color  : Color)
+        -> (radius : Int)
+        -> (start  : Int)
+        -> (end    : Int)
         -> Picture
 
 ``Ellipse``
 ===========
 
 | @ center  The center of the ellipse.
-| @ rx      Horizontal radius in pixels of the ellipse. 
-| @ ry      Vertical radius in pixels of the ellipse. 
+| @ rx      Horizontal radius in pixels of the ellipse.
+| @ ry      Vertical radius in pixels of the ellipse.
 | @ color   The color of drawing line.
 | @ filling True if fill the ellipse.
 
 .. code-block:: idris
 
-    Ellipse 
-        :  (center  : Coordinate) 
-        -> (rx      : Int) 
-        -> (ry      : Int) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
+    Ellipse
+        :  (center  : Coordinate)
+        -> (rx      : Int)
+        -> (ry      : Int)
+        -> (color   : Color)
+        -> (filling : Bool)
         -> Picture
 
 ``Trigon``
@@ -264,12 +265,12 @@ shapes
 
 .. code-block:: idris
 
-    Trigon 
-        :  (point1  : Coordinate) 
-        -> (point2  : Coordinate) 
-        -> (point3  : Coordinate) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
+    Trigon
+        :  (point1  : Coordinate)
+        -> (point2  : Coordinate)
+        -> (point3  : Coordinate)
+        -> (color   : Color)
+        -> (filling : Bool)
         -> Picture
 
 ``Polygon``
@@ -280,11 +281,11 @@ shapes
 | @ filling True if fill the trigon.
 
 .. code-block:: idris
-    
-    Polygon 
-        :  (points  : List Coordinate) 
-        -> (color   : Color) 
-        -> (filling : Bool) 
+
+    Polygon
+        :  (points  : List Coordinate)
+        -> (color   : Color)
+        -> (filling : Bool)
         -> Picture
 
 Text
@@ -302,12 +303,12 @@ Text
 
 .. code-block:: idris
 
-    Text 
-        :  (text  : String) 
-        -> (size  : Int) 
+    Text
+        :  (text  : String)
+        -> (size  : Int)
         -> (font  : String)
-        -> (pos   : Coordinate) 
-        -> (color : Color) 
+        -> (pos   : Coordinate)
+        -> (color : Color)
         -> Picture
 
 ``SolidText``
@@ -325,15 +326,15 @@ Text
 
 .. code-block:: idris
 
-    SolidText 
-        :  (text    : String) 
+    SolidText
+        :  (text    : String)
         -> (size    : Int)
-        -> (font    : String) 
-        -> (pos     : Coordinate) 
-        -> (color   : Color) 
-        -> (style   : TextStyle) 
-        -> (hinting : TextHinting) 
-        -> (kerning : Int) 
+        -> (font    : String)
+        -> (pos     : Coordinate)
+        -> (color   : Color)
+        -> (style   : TextStyle)
+        -> (hinting : TextHinting)
+        -> (kerning : Int)
         -> Picture
 
 ``BlendedText``
@@ -351,15 +352,15 @@ Text
 
 .. code-block:: idris
 
-    BlendedText 
-        : (text     : String) 
-        -> (size    : Int) 
-        -> (font    : String) 
-        -> (pos     : Coordinate) 
-        -> (color   : Color) 
-        -> (style   : TextStyle) 
-        -> (hinting : TextHinting) 
-        -> (kerning : Int) 
+    BlendedText
+        : (text     : String)
+        -> (size    : Int)
+        -> (font    : String)
+        -> (pos     : Coordinate)
+        -> (color   : Color)
+        -> (style   : TextStyle)
+        -> (hinting : TextHinting)
+        -> (kerning : Int)
         -> Picture
 
 ``ShadedText``
@@ -378,14 +379,14 @@ Text
 
 .. code-block:: idris
 
-    ShadedText 
-        :  (text    : String) 
-        -> (size    : Int) 
-        -> (font    : String) 
-        -> (pos     : Coordinate) 
-        -> (color   : Color) 
+    ShadedText
+        :  (text    : String)
+        -> (size    : Int)
+        -> (font    : String)
+        -> (pos     : Coordinate)
+        -> (color   : Color)
         -> (bgColor : Color)
-        -> (style   : TextStyle) 
-        -> (hinting : TextHinting) 
-        -> (kerning : Int) 
+        -> (style   : TextStyle)
+        -> (hinting : TextHinting)
+        -> (kerning : Int)
         -> Picture

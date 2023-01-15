@@ -23,7 +23,7 @@ Display a Picture
    ||| @ pic     Picture.
    display : (window  : Display)
           -> (bgColor : Color)
-          -> (pic     : Picture) 
+          -> (pic     : Picture)
           -> IO ()
 
 ``Picture`` data type provides a constructor which draws a cicle with the
@@ -37,11 +37,11 @@ at (30, 50) and radius is 30 pixels.
    ||| @ color   The color of the circle.
    ||| @ filling True if fill the circle.
    ||| @ radius  The radius of the circle.
-   Circle 
-      :  (center  : Coordinate) 
-      -> (color   : Color) 
-      -> (filling : Bool) 
-      -> (radius  : Int) 
+   Circle
+      :  (center  : Coordinate)
+      -> (color   : Color)
+      -> (filling : Bool)
+      -> (radius  : Int)
       -> Picture
 
 Following ``main`` function displays a circle in the middle of the window.
@@ -109,11 +109,11 @@ especially when drawing shapes with translucent colors.
 
    .. code-block:: idris
 
-      ThickLine 
-         :  (start     : Coordinate) 
-         -> (end       : Coordinate) 
-         -> (color     : Color) 
-         -> (thickness : Int) 
+      ThickLine
+         :  (start     : Coordinate)
+         -> (end       : Coordinate)
+         -> (color     : Color)
+         -> (thickness : Int)
          -> Picture
 
 Showing Text
@@ -139,12 +139,12 @@ The easiest way to show a string of text is using ``Text`` constructor.
          ||| @ font  Path of font file.
          ||| @ pos   Position of text.
          ||| @ color The color of text.
-         Text 
-            :  (text  : String) 
-            -> (size  : Int) 
+         Text
+            :  (text  : String)
+            -> (size  : Int)
             -> (font  : String)
-            -> (pos   : Coordinate) 
-            -> (color : Color) 
+            -> (pos   : Coordinate)
+            -> (color : Color)
             -> Picture
 
 Sometimes, you may want to specify the font style font styles, hinting and kerning.
@@ -169,30 +169,30 @@ Following three constructors helps you to draw a string of text with custom deta
          ||| @ style   Font style.
          ||| @ hinting Hinting.
          ||| @ kerning Kerning.
-         SolidText 
-            :  (text    : String) 
+         SolidText
+            :  (text    : String)
             -> (size    : Int)
-            -> (font    : String) 
-            -> (pos     : Coordinate) 
-            -> (color   : Color) 
-            -> (style   : TextStyle) 
-            -> (hinting : TextHinting) 
-            -> (kerning : Int) 
+            -> (font    : String)
+            -> (pos     : Coordinate)
+            -> (color   : Color)
+            -> (style   : TextStyle)
+            -> (hinting : TextHinting)
+            -> (kerning : Int)
             -> Picture
 
 -  Blended text.
 
       .. code-block:: idris
 
-         BlendedText 
-            : (text     : String) 
-            -> (size    : Int) 
-            -> (font    : String) 
-            -> (pos     : Coordinate) 
-            -> (color   : Color) 
-            -> (style   : TextStyle) 
-            -> (hinting : TextHinting) 
-            -> (kerning : Int) 
+         BlendedText
+            : (text     : String)
+            -> (size    : Int)
+            -> (font    : String)
+            -> (pos     : Coordinate)
+            -> (color   : Color)
+            -> (style   : TextStyle)
+            -> (hinting : TextHinting)
+            -> (kerning : Int)
             -> Picture
 
 -  Shaded text. (Blended text with background color)
@@ -200,16 +200,16 @@ Following three constructors helps you to draw a string of text with custom deta
       .. code-block:: idris
 
          ||| @ bgColor The background color.
-         ShadedText 
-            :  (text    : String) 
-            -> (size    : Int) 
-            -> (font    : String) 
-            -> (pos     : Coordinate) 
-            -> (color   : Color) 
+         ShadedText
+            :  (text    : String)
+            -> (size    : Int)
+            -> (font    : String)
+            -> (pos     : Coordinate)
+            -> (color   : Color)
             -> (bgColor : Color)
-            -> (style   : TextStyle) 
-            -> (hinting : TextHinting) 
-            -> (kerning : Int) 
+            -> (style   : TextStyle)
+            -> (hinting : TextHinting)
+            -> (kerning : Int)
             -> Picture
 
 
@@ -243,10 +243,10 @@ which rotated clockwise by the given angle (in degrees) and given center.
    ||| @ angle   Rotation angle.
    ||| @ center  Rotation center.
    ||| @ pic     The picture to be rotated.
-   Rotate 
-      :  (angle  : Double) 
-      -> (center : Coordinate) 
-      -> (pic    : Picture) 
+   Rotate
+      :  (angle  : Double)
+      -> (center : Coordinate)
+      -> (pic    : Picture)
       -> Picture
 
 For example, let's rotate 10 rounded rectangles with the same initial position:
@@ -261,7 +261,7 @@ For example, let's rotate 10 rounded rectangles with the same initial position:
 
    -- Rotate a rounded rectangle generater.
    rotateRect : (angle : Double) -> Picture
-   rotateRect angle = 
+   rotateRect angle =
       let center = MkCoor 150 150           -- rotation center
           pos    = MkRect 100  20 100 100   -- each rectangle is in the same position before being rotated
           color  = MkRGBA 120 120 120 120
@@ -288,21 +288,21 @@ There are many other useful shapes you may want to take a look.
 
    .. code-block:: idris
 
-      Pixel 
-      :  (position : Coordinate) 
-      -> (color    : Color) 
+      Pixel
+      :  (position : Coordinate)
+      -> (color    : Color)
       -> Picture
 
--  Rounded-corner rectangle. 
+-  Rounded-corner rectangle.
 
    .. code-block:: idris
 
       ||| @ radius  The radius of the corner arc.
-      R_Rectangle 
-         :  (rect    : Rect) 
-         -> (color   : Color) 
-         -> (filling : Bool) 
-         -> (radius  : Int) 
+      R_Rectangle
+         :  (rect    : Rect)
+         -> (color   : Color)
+         -> (filling : Bool)
+         -> (radius  : Int)
          -> Picture
 
 -  Circular arc drawn counter-clockwise between two angles (in degrees).
@@ -312,25 +312,26 @@ There are many other useful shapes you may want to take a look.
       ||| @ center The center of the arc.
       ||| @ radius The radius of the arc.
       ||| @ start  Starting radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
-      ||| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise. 
-      Arc 
-         :  (center : Coordinate) 
-         -> (color  : Color) 
-         -> (radius : Int) 
-         -> (start  : Int) 
-         -> (end    : Int) 
+      ||| @ end    Ending radius in degrees of the arc. 0 degrees is down, increasing counterclockwise.
+      Arc
+         :  (center : Coordinate)
+         -> (color  : Color)
+         -> (radius : Int)
+         -> (start  : Int)
+         -> (end    : Int)
          -> Picture
 
 -  Pie (outline) drawn counter-clockwise between two angles (in degrees).
 
    .. code-block:: idris
 
-      Pie 
-         :  (center : Coordinate) 
-         -> (color  : Color) 
-         -> (radius : Int) 
-         -> (start  : Int) 
-         -> (end    : Int) 
+      Pie
+         :  (center : Coordinate)
+         -> (color  : Color)
+         -> (radius : Int)
+         -> (start  : Int)
+         -> (end    : Int)
+         -> (filled : Bool)
          -> Picture
 
 -  Ellipse.
@@ -338,29 +339,29 @@ There are many other useful shapes you may want to take a look.
    .. code-block:: idris
 
       ||| @ center  The center of the ellipse.
-      ||| @ rx      Horizontal radius in pixels of the ellipse. 
+      ||| @ rx      Horizontal radius in pixels of the ellipse.
       ||| @ ry      Vertical radius in pixels of the ellipse.
-      Ellipse 
-         :  (center  : Coordinate) 
-         -> (rx      : Int) 
-         -> (ry      : Int) 
-         -> (color   : Color) 
-         -> (filling : Bool) 
+      Ellipse
+         :  (center  : Coordinate)
+         -> (rx      : Int)
+         -> (ry      : Int)
+         -> (color   : Color)
+         -> (filling : Bool)
          -> Picture
 
 -  Trigon
 
    .. code-block:: idris
-      
+
       ||| @ point1  The first point.
       ||| @ point2  The second point.
       ||| @ point3  The third point.
-      Trigon 
-         :  (point1  : Coordinate) 
-         -> (point2  : Coordinate) 
-         -> (point3  : Coordinate) 
-         -> (color   : Color) 
-         -> (filling : Bool) 
+      Trigon
+         :  (point1  : Coordinate)
+         -> (point2  : Coordinate)
+         -> (point3  : Coordinate)
+         -> (color   : Color)
+         -> (filling : Bool)
          -> Picture
 
 -  Polygon
@@ -368,10 +369,10 @@ There are many other useful shapes you may want to take a look.
    .. code-block:: idris
 
       ||| @ points  A list of points.
-      Polygon 
-         :  (points  : List Coordinate) 
-         -> (color   : Color) 
-         -> (filling : Bool) 
+      Polygon
+         :  (points  : List Coordinate)
+         -> (color   : Color)
+         -> (filling : Bool)
          -> Picture
 
 An Example of Showing Shapes
@@ -404,21 +405,21 @@ An Example of Showing Shapes
                      ,Arc         (MkCoor 320 240) Color.green 50 20 200
                      ,Pixel       (MkCoor 320 240) Color.red
                      ,Trigon      (MkCoor 300 253) (MkCoor 340 253) (MkCoor 320 218) Color.red False
-                     ,Pie         (MkCoor 320 240) Color.yellow 40 35 185
-                     ,Rotate 15   (MkCoor 50  50)  
-                                 (Polygon [MkCoor 120  30 
+                     ,Pie         (MkCoor 320 240) Color.yellow 40 35 185 False
+                     ,Rotate 15   (MkCoor 50  50)
+                                 (Polygon [MkCoor 120  30
                                           ,MkCoor  40  70
                                           ,MkCoor  40 160
                                           ,MkCoor 120 200
                                           ,MkCoor 200 160
-                                          ,MkCoor 200 70] 
+                                          ,MkCoor 200 70]
                                           (MkRGB 30 255 30) False)
                      ,Text        "Hello World" 30 font (MkCoor 330 250) Color.red
                      ]
 
    -- The painless way to show shapes:
    main : IO ()
-   main = display 
+   main = display
       (InWindow "Shapes" (MkRect 30 50 640 480))        -- window setting
       (MkRGB 43 43 43)                                  -- background color
       shapes                                            -- Picture

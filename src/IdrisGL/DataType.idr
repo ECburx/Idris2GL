@@ -251,6 +251,7 @@ data Picture : Type where
       -> (radius : Int)
       -> (start  : Int)
       -> (end    : Int)
+      -> (filled : Bool)
       -> Picture
     ||| An ellipse.
     ||| @ center  The center of the ellipse.

@@ -6,7 +6,7 @@ import IdrisGL
 import IdrisGL.SDL
 
 {- Draw shapes.
-  
+
    $ idris2 -p idrisGL
    Main> :l "DrawShapes.idr"
    DrawShapes> :exec main
@@ -27,28 +27,28 @@ shapes = Pictures [Rectangle   (MkRect 40 40 560 400) (MkRGB 60 60 60) True
                   ,Arc         (MkCoor 320 240) Color.green 50 20 200
                   ,Pixel       (MkCoor 320 240) Color.red
                   ,Trigon      (MkCoor 300 253) (MkCoor 340 253) (MkCoor 320 218) Color.red False
-                  ,Pie         (MkCoor 320 240) Color.yellow 40 35 185
-                  ,Rotate 15   (MkCoor 50  50)  
-                                (Polygon [MkCoor 120  30 
+                  ,Pie         (MkCoor 320 240) Color.yellow 40 35 185 False
+                  ,Rotate 15   (MkCoor 50  50)
+                                (Polygon [MkCoor 120  30
                                          ,MkCoor  40  70
                                          ,MkCoor  40 160
                                          ,MkCoor 120 200
                                          ,MkCoor 200 160
-                                         ,MkCoor 200 70] 
+                                         ,MkCoor 200 70]
                                          (MkRGB 30 255 30) False)
                   ,Text        "Hello World" 30 font (MkCoor 330 250) Color.red
                   ]
 
 -- The painless way to show shapes:
 main : IO ()
-main = display 
+main = display
     (InWindow "Shapes" (MkRect 30 50 640 480))        -- window setting
     (MkRGB 43 43 43)                                  -- background color
     shapes                                            -- Picture
 
 -- Or you can customize details:
 main' : IO ()
-main' = do 
+main' = do
     win             <- createWin $ InWindow "Shapes" (MkRect 30 50 640 480)
     ren             <- createRenderer win
     setRenderDrawColor ren Color.black
@@ -62,7 +62,7 @@ main' = do
     loop               ren e
     freeRender         ren
     closeWin           win
-    where 
+    where
       loop : Renderer -> Event -> IO ()
       loop   ren e with (eveType e)
         loop _   _ | E_QUIT = pure ()

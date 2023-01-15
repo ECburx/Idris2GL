@@ -5,8 +5,8 @@ module IdrisGL.SDL.SDL_gfx
 import IdrisGL.DataType
 import IdrisGL.Color
 
-{- 
-    FFI 
+{-
+    FFI
 -}
 
 frgn : String -> String
@@ -15,9 +15,9 @@ frgn func = "C:" ++ func ++ ",sdl_gfx"
 -- Pixel
 
 %foreign frgn "pixel"
-prim_pixel : AnyPtr 
-           -> Int -> Int 
-           -> Int -> Int -> Int -> Int 
+prim_pixel : AnyPtr
+           -> Int -> Int
+           -> Int -> Int -> Int -> Int
            -> PrimIO ()
 
 ||| Draw a pixel.
@@ -39,9 +39,9 @@ prim_thickLine : AnyPtr
 ||| Draw a line with given thickness.
 ||| @ width Thickness.
 export
-thickLine : HasIO io => Renderer 
-                     -> Coordinate -> Coordinate -> Color 
-                     -> (width : Int) 
+thickLine : HasIO io => Renderer
+                     -> Coordinate -> Coordinate -> Color
+                     -> (width : Int)
                      -> io ()
 thickLine (MkRenderer ren) (MkCoor x1 y1) (MkCoor x2 y2) color width
     = let (r,g,b,a) = rgbaOfColor color in
@@ -77,17 +77,17 @@ rectangle (MkRenderer ren) (MkRect x y w h) color
     = let (r,g,b,a) = rgbaOfColor color in
       primIO $ prim_rect ren x y w h r g b a
 
--- 
+--
 
 %foreign frgn "roundedRect"
-prim_roundedRect : AnyPtr 
+prim_roundedRect : AnyPtr
                  -> Int -> Int -> Int -> Int
                  -> Int -> Int -> Int -> Int
                  -> Int
                  -> PrimIO ()
 
 ||| Draw a rounded-corner rectangle.
-||| @ rad The radius of the corner arc. 
+||| @ rad The radius of the corner arc.
 export
 roundedRect : HasIO io => Renderer -> Rect -> Color -> (rad : Int) -> io ()
 roundedRect (MkRenderer ren) (MkRect x y w h) color rad
@@ -97,19 +97,19 @@ roundedRect (MkRenderer ren) (MkRect x y w h) color rad
 --
 
 %foreign frgn "filledRect"
-prim_filledRect : AnyPtr 
+prim_filledRect : AnyPtr
                 -> Int -> Int -> Int -> Int
                 -> Int -> Int -> Int -> Int
                 -> PrimIO ()
 
-||| Draw a rectangle filled with the given color. 
+||| Draw a rectangle filled with the given color.
 export
 filledRect : HasIO io => Renderer -> Rect -> Color -> io ()
 filledRect (MkRenderer ren) (MkRect x y w h) color
     = let (r,g,b,a) = rgbaOfColor color in
       primIO $ prim_filledRect ren x y w h r g b a
 
--- 
+--
 
 %foreign frgn "roundedFilledRect"
 prim_roundedFilledRect : AnyPtr
@@ -119,7 +119,7 @@ prim_roundedFilledRect : AnyPtr
                        -> PrimIO ()
 
 ||| Draw a rounded-corner rectangle filled with the given color.
-||| @ rad The radius of the corner arc. 
+||| @ rad The radius of the corner arc.
 export
 roundedFilledRect : HasIO io => Renderer -> Rect -> Color -> (rad : Int) -> io ()
 roundedFilledRect (MkRenderer ren) (MkRect x y w h) color rad
@@ -136,7 +136,7 @@ prim_circle : AnyPtr
             -> PrimIO ()
 
 ||| Draw a circle.
-||| @ rad	Radius in pixels of the circle. 
+||| @ rad	Radius in pixels of the circle.
 export
 circle : HasIO io => Renderer -> Coordinate -> Color -> (rad : Int) -> io ()
 circle (MkRenderer ren) (MkCoor x y) color rad
@@ -153,7 +153,7 @@ prim_aaCircle : AnyPtr
             -> PrimIO ()
 
 ||| Draw an anti-aliased circle.
-||| @ rad	Radius in pixels of the circle. 
+||| @ rad	Radius in pixels of the circle.
 export
 aaCircle : HasIO io => Renderer -> Coordinate -> Color -> Int -> io ()
 aaCircle (MkRenderer ren) (MkCoor x y) color rad
@@ -209,9 +209,9 @@ prim_arc : AnyPtr
 ||| @ start The angle of start point.
 ||| @ end   The angle of end point.
 export
-arc : HasIO io => Renderer 
-               -> Coordinate -> Color 
-               -> (rad : Int) -> (start : Int) -> (end : Int) 
+arc : HasIO io => Renderer
+               -> Coordinate -> Color
+               -> (rad : Int) -> (start : Int) -> (end : Int)
                -> io ()
 arc (MkRenderer ren) (MkCoor x y) color rad start end
     = let (r,g,b,a) = rgbaOfColor color in
@@ -225,12 +225,12 @@ prim_ellipse : AnyPtr
              -> Int -> Int -> Int -> Int
              -> PrimIO ()
 
-||| Draw an ellipse. 
+||| Draw an ellipse.
 ||| @ rx Horizontal radius in pixels of the ellipse.
-||| @ ry Vertical radius in pixels of the ellipse. 
+||| @ ry Vertical radius in pixels of the ellipse.
 export
-ellipse : HasIO io => Renderer -> Coordinate 
-                   -> (rx : Int) -> (ry : Int) -> Color 
+ellipse : HasIO io => Renderer -> Coordinate
+                   -> (rx : Int) -> (ry : Int) -> Color
                    -> io ()
 ellipse (MkRenderer ren) (MkCoor x y) rx ry color
     = let (r,g,b,a) = rgbaOfColor color in
@@ -244,12 +244,12 @@ prim_filledEllipse : AnyPtr
              -> Int -> Int -> Int -> Int
              -> PrimIO ()
 
-||| Draw an ellipse filled with given color. 
+||| Draw an ellipse filled with given color.
 ||| @ rx Horizontal radius in pixels of the ellipse.
-||| @ ry Vertical radius in pixels of the ellipse. 
+||| @ ry Vertical radius in pixels of the ellipse.
 export
-filledEllipse : HasIO io => Renderer -> Coordinate 
-                   -> (rx : Int) -> (ry : Int) -> Color 
+filledEllipse : HasIO io => Renderer -> Coordinate
+                   -> (rx : Int) -> (ry : Int) -> Color
                    -> io ()
 filledEllipse (MkRenderer ren) (MkCoor x y) rx ry color
     = let (r,g,b,a) = rgbaOfColor color in
@@ -265,10 +265,10 @@ prim_aaellipse : AnyPtr
 
 ||| Draw an anti-aliased ellipse.
 ||| @ rx Horizontal radius in pixels of the ellipse.
-||| @ ry Vertical radius in pixels of the ellipse. 
+||| @ ry Vertical radius in pixels of the ellipse.
 export
 aaellipse : HasIO io => Renderer -> Coordinate
-                     -> (rx : Int) -> (ry : Int) -> Color 
+                     -> (rx : Int) -> (ry : Int) -> Color
                      -> io ()
 aaellipse (MkRenderer ren) (MkCoor x y) rx ry color
     = let (r,g,b,a) = rgbaOfColor color in
@@ -283,17 +283,37 @@ prim_pie : AnyPtr
          -> Int -> Int -> Int
          -> PrimIO ()
 
+%foreign frgn "filledPie"
+prim_filledPie : AnyPtr
+         -> Int -> Int
+         -> Int -> Int -> Int -> Int
+         -> Int -> Int -> Int
+         -> PrimIO ()
+
 ||| Draw a pie.
 ||| @ rad	  Radius in pixels of the circle.
 ||| @ start The angle of start point.
 ||| @ end   The angle of end point.
 export
-pie : HasIO io => Renderer -> Coordinate -> Color 
-               -> (rad : Int) -> (start : Int) -> (end : Int) 
+pie : HasIO io => Renderer -> Coordinate -> Color
+               -> (rad : Int) -> (start : Int) -> (end : Int)
                -> io ()
 pie (MkRenderer ren) (MkCoor x y) color rad start end
     = let (r,g,b,a) = rgbaOfColor color in
       primIO $ prim_pie ren x y r g b a rad start end
+
+||| Draw a filled pie.
+||| @ rad	  Radius in pixels of the circle.
+||| @ start The angle of start point.
+||| @ end   The angle of end point.
+export
+filledPie : HasIO io => Renderer -> Coordinate -> Color
+               -> (rad : Int) -> (start : Int) -> (end : Int)
+               -> io ()
+filledPie (MkRenderer ren) (MkCoor x y) color rad start end
+    = let (r,g,b,a) = rgbaOfColor color in
+      primIO $ prim_filledPie ren x y r g b a rad start end
+
 
 -- Trigon
 
