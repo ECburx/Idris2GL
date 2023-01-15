@@ -9,60 +9,71 @@ import IdrisGL.Color
 
 ||| A rectangle used to determine an area.
 public export
-data Rect : Type where
+record Rect where
+    constructor MkRect
     ||| @ x X coordinate of the start point.
+    x : Int
     ||| @ y Y coordinate of the start point.
+    y : Int
     ||| @ w The width of the rectangle area.
+    w : Int
     ||| @ h The height of the rectangle area.
-    MkRect : (x : Int) -> (y : Int) -> (w : Int) -> (h : Int) -> Rect
+    h : Int
 
 ||| A coordinate used to determine the position.
 public export
-data Coordinate : Type where
+record Coordinate where
+    constructor MkCoor
     ||| @ x X coordinate of the point.
+    x : Int
     ||| @ y Y coordinate of the point.
-    MkCoor : (x : Int) -> (y : Int) -> Coordinate
+    y : Int
 
 {- Pinter Types -}
 
 ||| Surface.
 ||| A structure that contains a collection of pixels used in software blitting.
 public export
-data Sur : Type where
+record Sur where
+    constructor MkSur
     ||| A wrapper of SDL_Surface pointer.
     ||| @ ptr The C pointer of a SDL_Surface. You should not directly operate this pointer.
-    MkSur : (ptr : AnyPtr) -> Sur
+    ptr : AnyPtr
 
 ||| Window.
 public export
-data Win : Type where
+record Win where
+    constructor MkWin
     ||| A wrapper of SDL_Window pointer.
     ||| @ ptr The C pointer of a SDL_Window. You should not directly operate this pointer.
-    MkWin : (ptr : AnyPtr) -> Win
+    ptr : AnyPtr
 
 ||| Renderer.
 ||| A 2D rendering context for a window.
 public export
-data Renderer : Type where
+record Renderer where
+    constructor MkRenderer
     ||| A wrapper of SDL_Renderer pointer.
     ||| @ ptr The C pointer of a SDL_Renderer. You should not directly operate this pointer.
-    MkRenderer : (ptr : AnyPtr) -> Renderer
+    ptr : AnyPtr
 
 ||| Texture.
 ||| A structure that contains an efficient, driver-specific representation of pixel data.
 public export
-data Texture : Type where
+record Texture where
+    constructor MkTexture
     ||| A wrapper of SDL_Texture pointer.
     ||| @ ptr The C pointer of a SDL_Texture. You should not directly operate this pointer.
-    MkTexture : (ptr : AnyPtr) -> Texture
+    ptr : AnyPtr
 
 ||| Event.
 ||| A union that contains structures for the different event types.
 public export
-data Event : Type where
+record Event where
+    constructor MkEvent
     ||| A wrapper of SDL_Event pointer.
     ||| @ ptr The C pointer of a SDL_Event. You should not directly operate this pointer.
-    MkEvent : (ptr : AnyPtr) -> Event
+    ptr : AnyPtr
 
 {- Datas -}
 

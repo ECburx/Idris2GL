@@ -35,18 +35,22 @@ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsd
 ### Install with [Pack](https://github.com/stefan-hoeck/idris2-pack)
 
 - Assuming you have installed [Pack](https://github.com/stefan-hoeck/idris2-pack).
+- Make sure to add `$HOME/.pack/bin` to your `$PATH` variable.
 - Install all the dependencies using the [commands](#dependencies) above.
-- Make sure you added `idris2` to `$PATH`.
 - `pack install idrisGL`
 
 <details>
 <summary><b>Unable to install with Pack?</b></summary>
 
 - `make[1]: idris2: No such file or directory`
-  <br> Make sure you added `idris2` to `$PATH`.
+  <br> Make sure to add `$HOME/.pack/bin` to your `$PATH` variable.
   
 - Errors caused by `include <SDL....>` or `SDL not found`.
   <br> Install all the dependencies using the [commands](#dependencies) above.
+  
+- `idris2 -l idrisGL`: Can't load the idrisGL library? or idrisGL not found?
+  <br> You may have multiple idris2 installed.
+  <br> By default, idrisGL is installed to `$HOME/.pack`. Use `$HOME/.pack/bin/idris2 -l idrisGL` to load this library.
   
 - Not on the list?
   <br> Check [Pack Nightly Build](https://github.com/stefan-hoeck/idris2-pack-db) and report an issue if it is related to IdrisGL.
@@ -57,7 +61,7 @@ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsd
 
 - `git clone https://github.com/ECburx/Idris2GL`
 - Navigate to the directory: `cd Idris2GL`
-- Make sure you added `idris2` to `$PATH`.
+- Make sure to add `idris2` to `$PATH`.
 - If you have installed all the dependencies, `make install`
 - Otherwise, `make quickInstall`. This will install the dependencies for you.
 
