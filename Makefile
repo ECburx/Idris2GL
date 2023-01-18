@@ -1,4 +1,4 @@
-.PHONY: install prebuild clean
+.PHONY: install prebuild clean quickInstall
 
 quickInstall:
 	sudo apt update
@@ -15,7 +15,6 @@ install:
 
 prebuild:
 	make build -C src/c_src
-	make install -C src/c_src
 
 clean:
 	make clean -C src/c_src
