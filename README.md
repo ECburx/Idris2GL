@@ -74,13 +74,3 @@ sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsd
 - `import IdrisGL.Random`: unsafe, predictable and limited randomness, for users who need random data to test graphics. (May be removed in the future.)
 - `import IdrisGL.SDL`: SDL2, SDL2_image, SDL2_gfx, SDL2_ttf bindings.
 
-## Thanks
-
-- Dr [Edwin Brady](https://github.com/edwinb)
-
-## Maintenance
-
-**Contributions will be gratefully welcomed!**
-
-- Maintainer: [Tian Z](https://github.com/ECburx)
-
